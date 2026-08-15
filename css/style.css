@@ -1,0 +1,642 @@
+/* =========================================
+   HERO
+========================================= */
+
+.hero {
+  width: 100%;
+  height: 500px;
+
+  position: relative;
+  overflow: hidden;
+
+  background: #0d0e0f;
+}
+
+.hero-image {
+  position: absolute;
+
+  inset: 0;
+
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+
+  object-position: center center;
+
+  z-index: 1;
+}
+
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+
+
+  z-index: 2;
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(0, 0, 0, 0.48) 0%,
+      rgba(0, 0, 0, 0.32) 30%,
+      rgba(0, 0, 0, 0.12) 55%,
+      rgba(0, 0, 0, 0) 78%
+    );
+}
+
+.hero-container {
+  position: relative;
+
+  z-index: 3;
+
+  height: 100%;
+
+  display: flex;
+  align-items: center;
+}
+
+.hero-content {
+  max-width: 560px;
+
+  color: #ffffff;
+}
+
+.hero-eyebrow {
+  margin: 0 0 20px;
+
+  font-size: 13px;
+
+  font-weight: 500;
+
+  letter-spacing: 0.1px;
+}
+
+.hero-title {
+  margin: 0;
+
+  font-size: clamp(45px, 4.3vw, 64px);
+
+  line-height: 0.98;
+
+  letter-spacing: 1px;
+
+  font-weight: 800;
+}
+
+.hero-description {
+  margin: 20px 0 25px;
+
+  color: #e3e3e3;
+
+  font-size: 14px;
+
+  line-height: 1.55;
+}
+
+.hero-actions {
+  display: flex;
+
+  gap: 22px;
+}
+
+
+/* =========================================
+   CATEGORIES
+========================================= */
+
+.category-section {
+  background: #ffffff;
+
+  border-bottom: 1px solid #e6e6e6;
+}
+
+.category-grid {
+  min-height: 81px;
+
+  display: grid;
+
+  grid-template-columns: repeat(6, 1fr);
+}
+
+.category-item {
+  min-width: 0;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  gap: 16px;
+
+  position: relative;
+
+  font-size: 10px;
+
+  font-weight: 700;
+
+  transition:
+    background 0.2s ease,
+    color 0.2s ease;
+}
+
+.category-item:not(:last-child)::after {
+  content: "";
+
+  position: absolute;
+
+  right: 0;
+
+  width: 1px;
+  height: 33px;
+
+  background: #dedede;
+}
+
+.category-icon {
+  font-size: 24px;
+
+  width: 31px;
+
+  text-align: center;
+
+  font-weight: 400;
+}
+
+.category-item:hover {
+  background: #f7f7f7;
+}
+
+
+/* =========================================
+   BRANDS
+========================================= */
+
+.brands-section {
+  padding: 29px 0 32px;
+
+  background: #ffffff;
+}
+
+.section-mini-title {
+  margin: 0 0 22px;
+
+  text-align: center;
+
+  font-size: 13px;
+
+  font-weight: 700;
+}
+
+.brands-slider {
+  display: grid;
+
+  grid-template-columns: 30px 1fr 30px;
+
+  gap: 20px;
+
+  align-items: center;
+}
+
+.brand-arrow {
+  width: 30px;
+  height: 44px;
+
+  padding: 0;
+
+  border: 0;
+
+  background: transparent;
+
+  font-size: 18px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.brands-row {
+  display: grid;
+
+  grid-template-columns: repeat(5, 1fr);
+
+  align-items: center;
+
+  gap: 30px;
+}
+
+.brand-item {
+  min-width: 0;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  gap: 13px;
+}
+
+.brand-item img {
+  width: 44px;
+  height: 44px;
+
+  object-fit: contain;
+}
+
+.brand-item span {
+  white-space: nowrap;
+
+  font-size: 16px;
+
+  font-weight: 600;
+}
+
+
+/* =========================================
+   SHOWCASE
+========================================= */
+
+.showcase-section {
+  width: 100%;
+}
+
+.showcase-grid {
+  display: grid;
+
+  grid-template-columns: repeat(6, 1fr);
+}
+
+.showcase-card {
+  height: clamp(180px, 15.5vw, 240px);
+
+  overflow: hidden;
+
+  position: relative;
+
+  background: #111;
+}
+
+.showcase-card img {
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+
+  filter:
+    grayscale(20%)
+    contrast(1.08);
+
+  transition:
+    transform 0.45s ease,
+    filter 0.45s ease;
+}
+
+.showcase-card:hover img {
+  transform: scale(1.05);
+
+  filter:
+    grayscale(0)
+    contrast(1.05);
+}
+
+
+/* =========================================
+   FEATURED PRODUCTS
+========================================= */
+
+.featured-section {
+  padding: 34px 0 38px;
+
+  background: #ffffff;
+}
+
+.section-header {
+  margin-bottom: 20px;
+
+  display: flex;
+
+  justify-content: space-between;
+  align-items: center;
+}
+
+.section-header h2 {
+  margin: 0;
+
+  font-size: 14px;
+
+  font-weight: 700;
+}
+
+.view-all {
+  display: flex;
+  align-items: center;
+
+  gap: 13px;
+
+  font-size: 10px;
+
+  font-weight: 700;
+}
+
+.products-grid {
+  display: grid;
+
+  grid-template-columns: repeat(6, 1fr);
+
+  gap: 23px;
+}
+
+.product-card {
+  min-width: 0;
+
+  border: 1px solid #dfdfdf;
+
+  background: #ffffff;
+
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+.product-card:hover {
+  transform: translateY(-4px);
+
+  box-shadow:
+    0 9px 24px rgba(0, 0, 0, 0.08);
+}
+
+.product-image {
+  width: 100%;
+
+  aspect-ratio: 1 / 1;
+
+  display: block;
+
+  overflow: hidden;
+
+  background: #f2f2f2;
+}
+
+.product-image img {
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+
+  transition: transform 0.35s ease;
+}
+
+.product-card:hover .product-image img {
+  transform: scale(1.035);
+}
+
+.product-info {
+  padding: 12px 12px 15px;
+}
+
+.product-info h3 {
+  margin: 0 0 5px;
+
+  min-height: 30px;
+
+  font-size: 10px;
+
+  line-height: 1.45;
+
+  font-weight: 600;
+}
+
+.product-variant {
+  margin: 0 0 11px;
+
+  color: #696969;
+
+  font-size: 9px;
+}
+
+.product-price {
+  margin: 0 0 14px;
+
+  font-size: 13px;
+
+  font-weight: 700;
+}
+
+.product-link {
+  display: flex;
+
+  align-items: center;
+
+  gap: 9px;
+
+  font-size: 9px;
+
+  font-weight: 700;
+}
+
+
+/* =========================================
+   CONTACT CTA
+========================================= */
+
+.contact-cta {
+  min-height: 205px;
+
+  position: relative;
+
+  overflow: hidden;
+
+  background: #111;
+
+  color: #fff;
+}
+
+.contact-cta-bg {
+  position: absolute;
+
+  inset: 0;
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(0, 0, 0, 0.4),
+      rgba(0, 0, 0, 0.95) 36%,
+      rgba(0, 0, 0, 1) 100%
+    ),
+    url("https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1600&q=80");
+
+  background-size: cover;
+
+  background-position: left center;
+
+  opacity: 0.95;
+}
+
+.contact-cta-container {
+  min-height: 205px;
+
+  position: relative;
+
+  z-index: 2;
+
+  display: grid;
+
+  grid-template-columns: 1fr 1.2fr;
+
+  gap: 80px;
+
+  align-items: center;
+}
+
+.contact-text {
+  padding-left: 31%;
+}
+
+.contact-small {
+  display: block;
+
+  margin-bottom: 9px;
+
+  font-size: 10px;
+
+  font-weight: 600;
+}
+
+.contact-text h2 {
+  margin: 0 0 8px;
+
+  font-size: 20px;
+
+  font-weight: 500;
+}
+
+.contact-text p {
+  margin: 0 0 15px;
+
+  max-width: 430px;
+
+  color: #cccccc;
+
+  font-size: 11px;
+
+  line-height: 1.5;
+}
+
+.contact-text .btn {
+  min-height: 38px;
+
+  padding: 0 19px;
+
+  font-size: 9px;
+}
+
+.contact-cards {
+  display: grid;
+
+  grid-template-columns: repeat(2, 1fr);
+
+  gap: 16px;
+}
+
+.contact-card {
+  min-height: 116px;
+
+  padding: 18px;
+
+  border: 1px solid #777;
+
+  display: grid;
+
+  grid-template-columns: auto 1fr auto;
+
+  align-items: start;
+
+  gap: 15px;
+
+  transition:
+    border-color 0.2s ease,
+    background 0.2s ease;
+}
+
+.contact-card:hover {
+  border-color: #ffffff;
+
+  background:
+    rgba(255, 255, 255, 0.04);
+}
+
+.contact-logo {
+  width: 38px;
+  height: 38px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  flex-shrink: 0;
+
+  background: #ffffff;
+
+  color: #111111;
+
+  border-radius: 50%;
+}
+
+.line-logo {
+  font-size: 8px;
+
+  font-weight: 800;
+}
+
+.messenger-logo {
+  font-size: 20px;
+}
+
+.contact-card-info {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 3px;
+}
+
+.contact-card-info strong {
+  font-size: 10px;
+}
+
+.contact-card-info span {
+  color: #cacaca;
+
+  font-size: 9px;
+}
+
+.contact-card-info p {
+  margin: 6px 0 0;
+
+  color: #b6b6b6;
+
+  font-size: 9px;
+
+  line-height: 1.45;
+}
+
+.contact-card > i {
+  margin-top: 49px;
+
+  font-size: 10px;
+}
+
+/* =========================================
+   HERO MOBILE - NO DARK OVERLAY
+========================================= */
+
+@media (max-width: 820px) {
+
+  .hero-overlay {
+    background: transparent !important;
+  }
+
+  .hero-image {
+    filter: none !important;
+    opacity: 1 !important;
+  }
+
+}
