@@ -869,3 +869,147 @@
   }
 
 }
+
+/* =====================================================
+   STICKY BACK NAV
+===================================================== */
+
+.product-sticky-nav {
+  display: none;
+}
+
+
+/* TABLET + MOBILE */
+@media (max-width: 1024px) {
+
+  /* ซ่อน breadcrumb ตัวเดิมใน Hero */
+  .product-page-breadcrumb {
+    display: none;
+  }
+
+
+  /* แถบค้างด้านบน */
+  .product-sticky-nav {
+    position: sticky;
+
+    top: 0;
+
+    z-index: 1500;
+
+    width: 100%;
+
+    min-height: 58px;
+
+    padding:
+      10px
+      clamp(15px, 4vw, 35px);
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    background:
+      rgba(255, 255, 255, 0.96);
+
+    border-bottom:
+      1px solid #dddddd;
+
+    backdrop-filter: blur(10px);
+
+    -webkit-backdrop-filter: blur(10px);
+  }
+
+
+  .sticky-back-link {
+    height: 36px;
+
+    padding: 0 15px;
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 7px;
+
+    flex-shrink: 0;
+
+    background: #111111;
+
+    color: #ffffff;
+
+    border: 1px solid #111111;
+
+    font-size: 10px;
+
+    font-weight: 800;
+  }
+
+
+  .sticky-back-link i {
+    font-size: 9px;
+  }
+
+
+  .sticky-home-link {
+    flex-shrink: 0;
+
+    color: #111111;
+
+    font-size: 9px;
+
+    font-weight: 700;
+  }
+
+
+  .sticky-divider,
+  .product-sticky-nav > span {
+    color: #999999;
+
+    font-size: 9px;
+
+    font-weight: 500;
+  }
+
+
+  .sticky-current {
+    white-space: nowrap;
+
+    overflow: hidden;
+
+    text-overflow: ellipsis;
+  }
+
+}
+
+
+/* SMALL MOBILE */
+@media (max-width: 480px) {
+
+  .product-sticky-nav {
+    min-height: 54px;
+
+    padding: 9px 13px;
+
+    gap: 8px;
+  }
+
+
+  .sticky-back-link {
+    height: 34px;
+
+    padding: 0 12px;
+
+    font-size: 9px;
+  }
+
+
+  .sticky-home-link,
+  .product-sticky-nav > span {
+    font-size: 8px;
+  }
+
+}

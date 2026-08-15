@@ -1,310 +1,526 @@
-document.addEventListener("DOMContentLoaded", () => {
+const products = [
 
-  const products =
-    Array.isArray(window.wheelProducts)
-      ? window.wheelProducts
-      : [];
+  /* =========================================
+     WHEELS & SUSPENSION
+  ========================================== */
+
+  {
+    id: 1,
+
+    category:
+      "wheels-suspension",
+
+    subcategory:
+      "wheels",
+
+    subcategoryLabel:
+      "WHEELS",
+
+    brand:
+      "CARLISM",
+
+    name:
+      "CL-10 Forged Wheel",
+
+    subtitle:
+      "Matte Black",
+
+    price:
+      "฿45,000",
+
+    image:
+      "assets/products/wheels/products/cl10.jpg"
+  },
 
 
-  const productsGrid =
-    document.querySelector("#productsGrid");
+  {
+    id: 2,
 
+    category:
+      "wheels-suspension",
 
-  const productCount =
-    document.querySelector("#productCount");
+    subcategory:
+      "suspension",
 
+    subcategoryLabel:
+      "SUSPENSION",
 
-  const filterButtons =
-    document.querySelectorAll(".product-filter-btn");
+    brand:
+      "KW",
 
+    name:
+      "Adjustable Coilover Kit",
 
-  if (!productsGrid) {
-    return;
-  }
+    subtitle:
+      "Street / Track",
+
+    price:
+      "฿59,000",
+
+    image:
+      "assets/products/wheels/products/coilover.jpg"
+  },
 
 
   /* =========================================
-     CREATE PRODUCT CARD
+     PERFORMANCE
   ========================================== */
 
-  function createProductCard(product) {
+  {
+    id: 3,
 
-    return `
-      <article class="category-product-card">
+    category:
+      "performance",
 
-        <a
-          href="product-detail.html?id=${product.id}"
-          class="category-product-image"
-        >
+    subcategory:
+      "intake",
 
-          <img
-            src="${product.image}"
-            alt="${product.name}"
-            loading="lazy"
-          >
+    subcategoryLabel:
+      "INTAKE",
 
-          <div class="category-product-view">
-            VIEW PRODUCT
-          </div>
+    brand:
+      "EVENTURI",
 
-        </a>
+    name:
+      "Carbon Intake System",
 
+    subtitle:
+      "High Flow Intake",
 
-        <div class="category-product-info">
+    price:
+      "฿32,000",
 
-          <div class="category-product-top">
-
-            <span class="category-product-category">
-              ${product.category}
-            </span>
-
-            <span class="category-product-brand">
-              ${product.brand}
-            </span>
-
-          </div>
+    image:
+      "assets/products/performance/products/intake.jpg"
+  },
 
 
-          <h3>
-            ${product.name}
-          </h3>
+  {
+    id: 4,
+
+    category:
+      "performance",
+
+    subcategory:
+      "exhaust",
+
+    subcategoryLabel:
+      "EXHAUST",
+
+    brand:
+      "CARLISM",
+
+    name:
+      "Performance Exhaust System",
+
+    subtitle:
+      "Stainless Steel",
+
+    price:
+      "฿45,000",
+
+    image:
+      "assets/products/performance/products/exhaust.jpg"
+  },
 
 
-          <span class="category-product-subtitle">
-            ${product.subtitle || ""}
-          </span>
+  {
+    id: 5,
 
+    category:
+      "performance",
 
-          <div class="category-product-bottom">
+    subcategory:
+      "engine",
 
-            <span class="category-product-price">
-              ${product.price}
-            </span>
+    subcategoryLabel:
+      "ENGINE",
 
+    brand:
+      "CARLISM",
 
-            <a
-              href="product-detail.html?id=${product.id}"
-              class="category-product-arrow"
-              aria-label="View ${product.name}"
-            >
+    name:
+      "Performance Engine Upgrade",
 
-              <i class="fa-solid fa-arrow-right"></i>
+    subtitle:
+      "Street Performance",
 
-            </a>
+    price:
+      "CONTACT",
 
-          </div>
-
-        </div>
-
-      </article>
-    `;
-
-  }
+    image:
+      "assets/products/performance/products/engine.jpg"
+  },
 
 
   /* =========================================
-     IMAGE FALLBACK
+     EXTERIOR
   ========================================== */
 
-  function setupImageFallback() {
+  {
+    id: 6,
 
-    const images =
-      productsGrid.querySelectorAll(
-        ".category-product-image img"
-      );
+    category:
+      "exterior",
+
+    subcategory:
+      "aero",
+
+    subcategoryLabel:
+      "AERO",
+
+    brand:
+      "CARLISM",
+
+    name:
+      "Front Lip Splitter",
+
+    subtitle:
+      "Gloss Black",
+
+    price:
+      "฿12,900",
+
+    image:
+      "assets/products/exterior/products/front-lip.jpg"
+  },
 
 
-    images.forEach((image) => {
+  {
+    id: 7,
 
-      image.addEventListener("error", () => {
+    category:
+      "exterior",
 
-        const wrapper =
-          image.closest(".category-product-image");
+    subcategory:
+      "carbon",
+
+    subcategoryLabel:
+      "CARBON",
+
+    brand:
+      "CARLISM",
+
+    name:
+      "Carbon Fiber Hood",
+
+    subtitle:
+      "Pre-Preg Carbon",
+
+    price:
+      "฿69,000",
+
+    image:
+      "assets/products/exterior/products/carbon-hood.jpg"
+  },
 
 
-        if (wrapper) {
+  {
+    id: 8,
 
-          image.remove();
+    category:
+      "exterior",
 
-          wrapper.classList.add(
-            "image-missing"
-          );
+    subcategory:
+      "body",
 
-        }
+    subcategoryLabel:
+      "BODY",
 
-      });
+    brand:
+      "CARLISM",
 
-    });
+    name:
+      "Rear Diffuser",
 
-  }
+    subtitle:
+      "Gloss Black",
+
+    price:
+      "฿18,900",
+
+    image:
+      "assets/products/exterior/products/rear-diffuser.jpg"
+  },
 
 
   /* =========================================
-     RENDER PRODUCTS
+     INTERIOR
   ========================================== */
 
-  function renderProducts(category = "all") {
+  {
+    id: 9,
 
-    const filteredProducts =
-      category === "all"
-        ? products
-        : products.filter(
-            product =>
-              product.category === category
-          );
+    category:
+      "interior",
 
+    subcategory:
+      "steering",
 
-    if (productCount) {
+    subcategoryLabel:
+      "STEERING",
 
-      productCount.textContent =
-        filteredProducts.length;
+    brand:
+      "CARLISM",
 
-    }
+    name:
+      "Performance Steering Wheel",
 
+    subtitle:
+      "Leather / Carbon",
 
-    if (filteredProducts.length === 0) {
+    price:
+      "฿19,900",
 
-      productsGrid.innerHTML = `
-        <div class="products-empty">
-
-          <i class="fa-solid fa-box-open"></i>
-
-          <p>
-            No products available.
-          </p>
-
-        </div>
-      `;
-
-      return;
-
-    }
+    image:
+      "assets/products/interior/products/steering-wheel.jpg"
+  },
 
 
-    productsGrid.innerHTML =
-      filteredProducts
-        .map(createProductCard)
-        .join("");
+  {
+    id: 10,
+
+    category:
+      "interior",
+
+    subcategory:
+      "seats",
+
+    subcategoryLabel:
+      "SEATS",
+
+    brand:
+      "RECARO",
+
+    name:
+      "Sport Seat",
+
+    subtitle:
+      "Performance Seat",
+
+    price:
+      "CONTACT",
+
+    image:
+      "assets/products/interior/products/sport-seat.jpg"
+  },
 
 
-    setupImageFallback();
+  {
+    id: 11,
 
-  }
+    category:
+      "interior",
+
+    subcategory:
+      "accessories",
+
+    subcategoryLabel:
+      "ACCESSORIES",
+
+    brand:
+      "CARLISM",
+
+    name:
+      "Interior Trim Set",
+
+    subtitle:
+      "Premium Finish",
+
+    price:
+      "฿9,900",
+
+    image:
+      "assets/products/interior/products/trim-set.jpg"
+  },
 
 
   /* =========================================
-     ACTIVE FILTER
+     TUNING
   ========================================== */
 
-  function setActiveFilter(category) {
+  {
+    id: 12,
 
-    filterButtons.forEach((button) => {
+    category:
+      "tuning",
 
-      button.classList.toggle(
-        "active",
-        button.dataset.filter === category
-      );
+    subcategory:
+      "ecu",
 
-    });
+    subcategoryLabel:
+      "ECU",
 
-  }
+    brand:
+      "CARLISM",
+
+    name:
+      "ECU Stage 1 Tune",
+
+    subtitle:
+      "Stage 1",
+
+    price:
+      "CONTACT",
+
+    image:
+      "assets/products/tuning/products/ecu-stage1.jpg"
+  },
+
+
+  {
+    id: 13,
+
+    category:
+      "tuning",
+
+    subcategory:
+      "software",
+
+    subcategoryLabel:
+      "SOFTWARE",
+
+    brand:
+      "CARLISM",
+
+    name:
+      "Performance Software",
+
+    subtitle:
+      "Engine Calibration",
+
+    price:
+      "CONTACT",
+
+    image:
+      "assets/products/tuning/products/software.jpg"
+  },
+
+
+  {
+    id: 14,
+
+    category:
+      "tuning",
+
+    subcategory:
+      "electronics",
+
+    subcategoryLabel:
+      "ELECTRONICS",
+
+    brand:
+      "CARLISM",
+
+    name:
+      "Performance Controller",
+
+    subtitle:
+      "Electronic Upgrade",
+
+    price:
+      "CONTACT",
+
+    image:
+      "assets/products/tuning/products/controller.jpg"
+  },
 
 
   /* =========================================
-     CLICK FILTER
+     ACCESSORIES
   ========================================== */
 
-  filterButtons.forEach((button) => {
+  {
+    id: 15,
 
-    button.addEventListener("click", () => {
+    category:
+      "accessories",
 
-      const category =
-        button.dataset.filter || "all";
+    subcategory:
+      "exterior-accessories",
 
+    subcategoryLabel:
+      "EXTERIOR",
 
-      setActiveFilter(category);
+    brand:
+      "CARLISM",
 
-      renderProducts(category);
+    name:
+      "CARLISM Badge",
 
+    subtitle:
+      "Exterior Badge",
 
-      const url =
-        new URL(window.location.href);
+    price:
+      "฿1,290",
 
-
-      if (category === "all") {
-
-        url.searchParams.delete("filter");
-
-      } else {
-
-        url.searchParams.set(
-          "filter",
-          category
-        );
-
-      }
+    image:
+      "assets/products/accessories/products/badge.jpg"
+  },
 
 
-      window.history.replaceState(
-        {},
-        "",
-        url
-      );
+  {
+    id: 16,
 
-    });
+    category:
+      "accessories",
 
-  });
+    subcategory:
+      "interior-accessories",
 
+    subcategoryLabel:
+      "INTERIOR",
 
-  /* =========================================
-     FILTER FROM URL
-  ========================================== */
+    brand:
+      "CARLISM",
 
-  const params =
-    new URLSearchParams(
-      window.location.search
-    );
+    name:
+      "Premium Floor Mat",
 
+    subtitle:
+      "Interior Accessory",
 
-  const requestedFilter =
-    params.get("filter");
+    price:
+      "฿4,900",
 
-
-  const oldCategory =
-    params.get("category");
-
-
-  let startingFilter = "all";
+    image:
+      "assets/products/accessories/products/floor-mat.jpg"
+  },
 
 
-  if (
-    requestedFilter === "wheels" ||
-    requestedFilter === "suspension"
-  ) {
+  {
+    id: 17,
 
-    startingFilter =
-      requestedFilter;
+    category:
+      "accessories",
 
+    subcategory:
+      "lifestyle",
+
+    subcategoryLabel:
+      "LIFESTYLE",
+
+    brand:
+      "CARLISM",
+
+    name:
+      "CARLISM Keychain",
+
+    subtitle:
+      "Lifestyle",
+
+    price:
+      "฿790",
+
+    image:
+      "assets/products/accessories/products/keychain.jpg"
   }
 
-
-  /*
-    รองรับลิงก์เก่าจากหน้า Home เช่น:
-    products.html?category=wheels
-  */
-
-  if (
-    oldCategory === "wheels" ||
-    oldCategory === "wheels-suspension"
-  ) {
-
-    startingFilter = "all";
-
-  }
+];
 
 
-  setActiveFilter(startingFilter);
+/* =========================================
+   GLOBAL
+========================================== */
 
-  renderProducts(startingFilter);
-
-});
+window.products = products;

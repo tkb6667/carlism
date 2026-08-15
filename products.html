@@ -9,11 +9,11 @@
     content="width=device-width, initial-scale=1.0, viewport-fit=cover"
   >
 
-  <title>Wheels & Suspension | CARLISM TH</title>
+  <title>Products | CARLISM TH</title>
 
   <meta
     name="description"
-    content="Wheels and suspension products from CARLISM TH."
+    content="CARLISM TH automotive products."
   >
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -36,16 +36,98 @@
 
 <body>
 
-  <!-- HEADER -->
+  <!-- =====================================
+       HEADER
+  ====================================== -->
+
   <header id="site-header"></header>
 
 
+  <!-- =====================================
+       PRODUCT STICKY NAV
+  ====================================== -->
+
+  <div
+    class="product-sticky-nav"
+    id="productStickyNav"
+  >
+
+    <!-- BACK -->
+    <a
+      href="javascript:history.back()"
+      class="sticky-back-link"
+    >
+      <i class="fa-solid fa-arrow-left"></i>
+      BACK
+    </a>
+
+
+    <!-- DIVIDER -->
+    <span class="sticky-divider">
+      |
+    </span>
+
+
+    <!-- HOME -->
+    <a
+      href="index.html"
+      class="sticky-home-link"
+    >
+      HOME
+    </a>
+
+
+    <!-- SLASH -->
+    <span class="sticky-slash">
+      /
+    </span>
+
+
+    <!-- CURRENT CATEGORY -->
+    <span
+      class="sticky-current"
+      id="stickyCategoryName"
+    >
+      PRODUCTS
+    </span>
+
+
+    <!-- MOBILE COMPACT HAMBURGER -->
+    <button
+      class="sticky-mobile-menu-toggle"
+      id="stickyMobileMenuToggle"
+      type="button"
+      aria-label="Open menu"
+      aria-expanded="false"
+    >
+      <i class="fa-solid fa-bars"></i>
+    </button>
+
+
+    <!-- MOBILE COMPACT DROPDOWN -->
+    <div
+      class="sticky-mobile-menu-panel"
+      id="stickyMobileMenu"
+    ></div>
+
+  </div>
+
+
+  <!-- =====================================
+       MAIN
+  ====================================== -->
+
   <main>
 
-    <!-- HERO -->
+
+    <!-- =====================================
+         HERO
+    ====================================== -->
+
     <section class="product-page-hero">
 
       <div class="container">
+
 
         <!-- BACK + BREADCRUMB -->
         <div class="product-page-breadcrumb">
@@ -58,16 +140,24 @@
             BACK
           </a>
 
-          <span class="breadcrumb-divider">|</span>
+
+          <span class="breadcrumb-divider">
+            |
+          </span>
+
 
           <a href="index.html">
             HOME
           </a>
 
-          <span>/</span>
 
           <span>
-            WHEELS & SUSPENSION
+            /
+          </span>
+
+
+          <span id="breadcrumbCategory">
+            PRODUCTS
           </span>
 
         </div>
@@ -76,6 +166,7 @@
         <!-- HERO CONTENT -->
         <div class="product-hero-grid">
 
+
           <!-- TEXT -->
           <div class="product-hero-content">
 
@@ -83,14 +174,17 @@
               CARLISM TH
             </p>
 
-            <h1>
-              WHEELS &<br>
-              SUSPENSION
+
+            <h1 id="categoryTitle">
+              PRODUCTS
             </h1>
 
-            <p class="product-page-description">
-              Upgrade your style, stance and driving experience
-              with our selection of wheels and suspension parts.
+
+            <p
+              class="product-page-description"
+              id="categoryDescription"
+            >
+              Discover our automotive products.
             </p>
 
           </div>
@@ -100,8 +194,9 @@
           <div class="product-hero-image">
 
             <img
-              src="assets/products/wheels/hero/wheels-hero.jpg"
-              alt="Wheels and suspension"
+              id="categoryHeroImage"
+              src=""
+              alt="CARLISM TH products"
             >
 
           </div>
@@ -113,45 +208,33 @@
     </section>
 
 
-    <!-- FILTER -->
+    <!-- =====================================
+         FILTER
+    ====================================== -->
+
     <section class="product-filter-section">
 
       <div class="container">
 
         <div class="product-filter-bar">
 
-          <div class="product-filter-buttons">
 
-            <button
-              class="product-filter-btn active"
-              data-filter="all"
-              type="button"
-            >
-              ALL
-            </button>
-
-            <button
-              class="product-filter-btn"
-              data-filter="wheels"
-              type="button"
-            >
-              WHEELS
-            </button>
-
-            <button
-              class="product-filter-btn"
-              data-filter="suspension"
-              type="button"
-            >
-              SUSPENSION
-            </button>
-
-          </div>
+          <!-- JS CREATE BUTTONS -->
+          <div
+            class="product-filter-buttons"
+            id="productFilterButtons"
+          ></div>
 
 
+          <!-- PRODUCT COUNT -->
           <div class="product-count">
-            <span id="productCount">0</span>
+
+            <span id="productCount">
+              0
+            </span>
+
             PRODUCTS
+
           </div>
 
         </div>
@@ -161,7 +244,10 @@
     </section>
 
 
-    <!-- PRODUCTS -->
+    <!-- =====================================
+         PRODUCTS
+    ====================================== -->
+
     <section class="product-list-section">
 
       <div class="container">
@@ -178,13 +264,20 @@
   </main>
 
 
-  <!-- FOOTER -->
+  <!-- =====================================
+       FOOTER
+  ====================================== -->
+
   <footer id="site-footer"></footer>
 
 
-  <!-- FLOATING CHAT -->
+  <!-- =====================================
+       FLOATING CHAT
+  ====================================== -->
+
   <div class="floating-chat">
 
+    <!-- LINE -->
     <a
       href="https://line.me/R/ti/p/@carlismth"
       class="floating-button"
@@ -195,6 +288,8 @@
       <span>LINE</span>
     </a>
 
+
+    <!-- FACEBOOK -->
     <a
       href="https://www.facebook.com/p/Carlism-TH-100092271006003/"
       class="floating-button"
@@ -208,9 +303,16 @@
   </div>
 
 
-  <script src="data/wheels.js"></script>
+  <!-- =====================================
+       SCRIPTS
+  ====================================== -->
+
+  <script src="data/products.js"></script>
+
   <script src="js/components.js"></script>
+
   <script src="js/main.js"></script>
+
   <script src="js/products.js"></script>
 
 </body>
