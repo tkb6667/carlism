@@ -12,19 +12,32 @@
     content="Premium automotive parts, performance tuning, wheels, suspension, exterior and interior upgrades."
   >
 
+  <!-- HERO โหลดก่อน -->
+  <link
+    rel="preload"
+    as="image"
+    href="assets/images/hero/hero-mercedes.jpg.jpg"
+    fetchpriority="high"
+  >
+
+  <!-- CONNECTION -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://images.unsplash.com">
 
+  <!-- FONT -->
   <link
     href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap"
     rel="stylesheet"
   >
 
+  <!-- ICON -->
   <link
     rel="stylesheet"
     href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
   >
 
+  <!-- CSS -->
   <link rel="stylesheet" href="css/components.css">
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/responsive.css">
@@ -45,6 +58,9 @@
         class="hero-image"
         src="assets/images/hero/hero-mercedes.jpg.jpg"
         alt="CARLISM Performance Car"
+        loading="eager"
+        decoding="async"
+        fetchpriority="high"
       >
 
       <div class="hero-overlay"></div>
@@ -111,7 +127,6 @@
           SUPPORTED VEHICLE BRANDS
         </h2>
 
-
         <div class="brands-slider">
 
           <button
@@ -122,12 +137,10 @@
             <i class="fa-solid fa-chevron-left"></i>
           </button>
 
-
           <div
             class="brands-row"
             id="brandsRow"
           ></div>
-
 
           <button
             class="brand-arrow brand-arrow-right"
@@ -162,13 +175,10 @@
 
         <div class="section-header">
 
-          <!-- แค่ข้อความ ไม่สามารถกดได้ -->
           <h2>
             FEATURED PRODUCTS
           </h2>
 
-
-          <!-- กดได้เฉพาะตรงนี้ -->
           <a
             href="products.html?category=wheels-suspension"
             class="view-all"
@@ -188,7 +198,6 @@
     <section class="contact-cta">
 
       <div class="contact-cta-bg"></div>
-
 
       <div class="container contact-cta-container">
 
@@ -220,7 +229,6 @@
 
         <div class="contact-cards">
 
-          <!-- LINE -->
           <a
             href="https://line.me/R/ti/p/@carlismth"
             class="contact-card"
@@ -253,7 +261,6 @@
           </a>
 
 
-          <!-- FACEBOOK -->
           <a
             href="https://www.facebook.com/p/Carlism-TH-100092271006003/"
             class="contact-card"
@@ -262,11 +269,8 @@
           >
 
             <div class="contact-logo messenger-logo">
-
               <i class="fa-brands fa-facebook-messenger"></i>
-
             </div>
-
 
             <div class="contact-card-info">
 
@@ -313,7 +317,6 @@
     >
       <span>LINE</span>
     </a>
-
 
     <a
       href="https://www.facebook.com/p/Carlism-TH-100092271006003/"

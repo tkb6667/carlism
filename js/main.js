@@ -15,57 +15,36 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
   const brands = [
-    [
-      "Mercedes-Benz",
-      "assets/images/hero/brands/mercedes.png"
-    ],
-    [
-      "BMW",
-      "assets/images/hero/brands/bmw.svg"
-    ],
-    [
-      "Audi",
-      "assets/images/hero/brands/audi.svg"
-    ],
-    [
-      "Porsche",
-      "assets/images/hero/brands/porsche.svg"
-    ],
-    [
-      "Volkswagen",
-      "assets/images/hero/brands/volkswagen.svg"
-    ]
+    ["Mercedes-Benz", "assets/images/hero/brands/mercedes.png"],
+    ["BMW", "assets/images/hero/brands/bmw.svg"],
+    ["Audi", "assets/images/hero/brands/audi.svg"],
+    ["Porsche", "assets/images/hero/brands/porsche.svg"],
+    ["Volkswagen", "assets/images/hero/brands/volkswagen.svg"]
   ];
 
 
   const showcases = [
     [
-      "wheels-suspension",
       "Mercedes-Benz Wheels",
       "assets/images/hero/showcase/Untitled-1.jpg"
     ],
     [
-      "wheels-suspension",
       "BMW Wheels",
       "assets/images/hero/showcase/14.jpg"
     ],
     [
-      "accessories",
       "Performance Accessories",
       "https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?auto=format&fit=crop&w=900&q=85"
     ],
     [
-      "performance",
       "Engine Performance",
       "https://images.unsplash.com/photo-1504215680853-026ed2a45def?auto=format&fit=crop&w=900&q=85"
     ],
     [
-      "exterior",
       "Exterior Parts",
       "https://images.unsplash.com/photo-1555215695-3004980ad54e?auto=format&fit=crop&w=900&q=85"
     ],
     [
-      "tuning",
       "Tuning",
       "https://images.unsplash.com/photo-1549399542-7e3f8b79c341?auto=format&fit=crop&w=900&q=85"
     ]
@@ -73,7 +52,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
   /* =====================================
-     RENDER CATEGORIES
+     CATEGORIES
   ===================================== */
 
   const categoryGrid =
@@ -100,7 +79,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
   /* =====================================
-     RENDER BRANDS
+     BRANDS
   ===================================== */
 
   const brandsRow =
@@ -116,6 +95,7 @@ document.addEventListener("DOMContentLoaded", () => {
             src="${image}"
             alt="${name}"
             loading="lazy"
+            decoding="async"
           >
 
           <span>${name}</span>
@@ -127,30 +107,32 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
 
-/* =====================================
-   RENDER SHOWCASE
-   IMAGE ONLY - NOT CLICKABLE
-===================================== */
+  /* =====================================
+     SHOWCASE
+  ===================================== */
 
-const showcaseGrid =
-  document.querySelector("#showcaseGrid");
+  const showcaseGrid =
+    document.querySelector("#showcaseGrid");
 
-if (showcaseGrid) {
+  if (showcaseGrid) {
 
-  showcaseGrid.innerHTML = showcases
-    .map(([, alt, image]) => `
-      <div class="showcase-card">
-        <img
-          src="${image}"
-          alt="${alt}"
-          loading="lazy"
-          draggable="false"
-        >
-      </div>
-    `)
-    .join("");
+    showcaseGrid.innerHTML = showcases
+      .map(([alt, image]) => `
+        <div class="showcase-card">
 
-}
+          <img
+            src="${image}"
+            alt="${alt}"
+            loading="lazy"
+            decoding="async"
+            draggable="false"
+          >
+
+        </div>
+      `)
+      .join("");
+
+  }
 
 
   /* =====================================
@@ -166,40 +148,45 @@ if (showcaseGrid) {
 
   if (menuToggle && navMenu) {
 
-    menuToggle.addEventListener("click", () => {
+    menuToggle.addEventListener(
+      "click",
+      () => {
 
-      const isOpen =
-        navMenu.classList.toggle("active");
+        const open =
+          navMenu.classList.toggle("active");
 
-      menuToggle.classList.toggle(
-        "active",
-        isOpen
-      );
+        menuToggle.classList.toggle(
+          "active",
+          open
+        );
 
-      menuToggle.setAttribute(
-        "aria-expanded",
-        String(isOpen)
-      );
+        menuToggle.setAttribute(
+          "aria-expanded",
+          String(open)
+        );
 
-    });
+      }
+    );
 
 
     navMenu
       .querySelectorAll("a")
       .forEach((link) => {
 
-        link.addEventListener("click", () => {
+        link.addEventListener(
+          "click",
+          () => {
 
-          navMenu.classList.remove("active");
+            navMenu.classList.remove("active");
+            menuToggle.classList.remove("active");
 
-          menuToggle.classList.remove("active");
+            menuToggle.setAttribute(
+              "aria-expanded",
+              "false"
+            );
 
-          menuToggle.setAttribute(
-            "aria-expanded",
-            "false"
-          );
-
-        });
+          }
+        );
 
       });
 
@@ -208,10 +195,6 @@ if (showcaseGrid) {
 
   /* =====================================
      BRAND SLIDER
-     - เห็น Brand ต่อไปบางส่วน
-     - เลื่อนได้ด้วยนิ้ว
-     - กดลูกศรได้
-     - ไม่เลื่อนเกินซ้าย/ขวา
   ===================================== */
 
   const brandLeft =
@@ -227,136 +210,92 @@ if (showcaseGrid) {
     brandRight
   ) {
 
-    let scrollTimer = null;
+    let scrollTimer;
 
 
-    /* จำนวนสูงสุดที่เลื่อนได้ */
-
-    const getMaxScroll = () => {
-
-      return Math.max(
+    const getMaxScroll = () =>
+      Math.max(
         0,
         brandsRow.scrollWidth -
         brandsRow.clientWidth
       );
 
-    };
-
-
-    /* ระยะเลื่อนต่อ 1 ครั้ง
-       คำนวณจาก Brand จริง + gap
-       ไม่ Fix 250px แบบเดิม
-    */
 
     const getScrollStep = () => {
 
-      const firstItem =
+      const item =
         brandsRow.querySelector(".brand-item");
 
-      if (!firstItem) {
-        return 170;
-      }
-
+      if (!item) return 170;
 
       const styles =
-        window.getComputedStyle(brandsRow);
+        getComputedStyle(brandsRow);
 
       const gap =
         parseFloat(
           styles.columnGap ||
           styles.gap ||
-          "0"
+          0
         );
 
-
       return (
-        firstItem.getBoundingClientRect().width +
+        item.getBoundingClientRect().width +
         gap
       );
-
     };
 
 
-    /* อัปเดตสถานะลูกศร */
+    const updateArrows = () => {
 
-    const updateBrandArrows = () => {
-
-      const maxScroll =
+      const max =
         getMaxScroll();
 
       const current =
         brandsRow.scrollLeft;
 
-
-      const atStart =
+      const start =
         current <= 2;
 
-      const atEnd =
-        current >= maxScroll - 2;
+      const end =
+        current >= max - 2;
 
-      const noScroll =
-        maxScroll <= 2;
+      const disabled =
+        max <= 2;
 
 
       brandLeft.disabled =
-        noScroll || atStart;
+        disabled || start;
 
       brandRight.disabled =
-        noScroll || atEnd;
+        disabled || end;
 
 
       brandLeft.classList.toggle(
         "is-disabled",
-        noScroll || atStart
+        disabled || start
       );
 
       brandRight.classList.toggle(
         "is-disabled",
-        noScroll || atEnd
-      );
-
-
-      brandLeft.setAttribute(
-        "aria-disabled",
-        String(noScroll || atStart)
-      );
-
-      brandRight.setAttribute(
-        "aria-disabled",
-        String(noScroll || atEnd)
+        disabled || end
       );
 
     };
 
 
-    /* เลื่อน Brand */
+    const move = (direction) => {
 
-    const moveBrands = (direction) => {
-
-      const maxScroll =
+      const max =
         getMaxScroll();
 
-      const step =
-        getScrollStep();
-
-
-      let target =
-        brandsRow.scrollLeft +
-        (step * direction);
-
-
-      /* ไม่เกินซ้าย */
-
-      target =
-        Math.max(0, target);
-
-
-      /* ไม่เกินขวา */
-
-      target =
+      const target =
         Math.min(
-          maxScroll,
-          target
+          max,
+          Math.max(
+            0,
+            brandsRow.scrollLeft +
+            getScrollStep() * direction
+          )
         );
 
 
@@ -368,39 +307,29 @@ if (showcaseGrid) {
     };
 
 
-    /* LEFT */
-
     brandLeft.addEventListener(
       "click",
       () => {
 
-        if (brandLeft.disabled) {
-          return;
+        if (!brandLeft.disabled) {
+          move(-1);
         }
-
-        moveBrands(-1);
 
       }
     );
 
-
-    /* RIGHT */
 
     brandRight.addEventListener(
       "click",
       () => {
 
-        if (brandRight.disabled) {
-          return;
+        if (!brandRight.disabled) {
+          move(1);
         }
-
-        moveBrands(1);
 
       }
     );
 
-
-    /* เวลา Swipe / Scroll */
 
     brandsRow.addEventListener(
       "scroll",
@@ -409,9 +338,10 @@ if (showcaseGrid) {
         clearTimeout(scrollTimer);
 
         scrollTimer =
-          setTimeout(() => {
-            updateBrandArrows();
-          }, 30);
+          setTimeout(
+            updateArrows,
+            30
+          );
 
       },
       {
@@ -420,68 +350,35 @@ if (showcaseGrid) {
     );
 
 
-    /* เวลาเปลี่ยนขนาดจอ */
-
     window.addEventListener(
       "resize",
       () => {
 
-        const maxScroll =
+        const max =
           getMaxScroll();
-
 
         if (
           brandsRow.scrollLeft >
-          maxScroll
+          max
         ) {
-
           brandsRow.scrollLeft =
-            maxScroll;
-
+            max;
         }
 
-
-        updateBrandArrows();
+        updateArrows();
 
       }
     );
 
 
-    /* เริ่มต้น */
+    requestAnimationFrame(
+      updateArrows
+    );
 
-    requestAnimationFrame(() => {
-
-      brandsRow.scrollLeft = 0;
-
-      updateBrandArrows();
-
-    });
-
-
-    /* เช็กอีกครั้งหลังรูปโหลด */
 
     window.addEventListener(
       "load",
-      () => {
-
-        const maxScroll =
-          getMaxScroll();
-
-
-        if (
-          brandsRow.scrollLeft >
-          maxScroll
-        ) {
-
-          brandsRow.scrollLeft =
-            maxScroll;
-
-        }
-
-
-        updateBrandArrows();
-
-      },
+      updateArrows,
       {
         once: true
       }

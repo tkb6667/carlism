@@ -1,0 +1,11 @@
+{
+  "name": "carlism-th",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "thumbnails": "node scripts/generate-thumbnails.js"
+  },
+  "devDependencies": {
+    "sharp": "^0.34.0"
+  }
+}

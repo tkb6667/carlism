@@ -195,31 +195,128 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
   /* =========================================
+     THUMBNAIL PATH
+  ========================================== */
+
+  function getThumbnailPath(imagePath) {
+
+    if (!imagePath) {
+      return "";
+    }
+
+    const normalized =
+      imagePath.replace(/\\/g, "/");
+
+    const lastSlash =
+      normalized.lastIndexOf("/");
+
+
+    if (lastSlash === -1) {
+      return imagePath;
+    }
+
+
+    const directory =
+      normalized.substring(
+        0,
+        lastSlash
+      );
+
+
+    const filename =
+      normalized.substring(
+        lastSlash + 1
+      );
+
+
+    const lastDot =
+      filename.lastIndexOf(".");
+
+
+    const name =
+      lastDot !== -1
+        ? filename.substring(
+            0,
+            lastDot
+          )
+        : filename;
+
+
+    return (
+      `${directory}/thumbs/` +
+      `${name}.webp`
+    );
+  }
+
+
+  /* =========================================
      THUMBNAILS
   ========================================== */
 
   thumbs.innerHTML =
     gallery.map(
-      (image, i) => `
+      (image, i) => {
 
-        <button
-          type="button"
-          class="detail-thumb ${
-            i === 0 ? "active" : ""
-          }"
-          data-index="${i}"
-        >
+        const thumbnail =
+          getThumbnailPath(image);
 
-          <img
-            src="${image}"
-            alt="${product.name} ${i + 1}"
-            loading="${i === 0 ? "eager" : "lazy"}"
+        return `
+
+          <button
+            type="button"
+            class="detail-thumb ${
+              i === 0 ? "active" : ""
+            }"
+            data-index="${i}"
           >
 
-        </button>
+            <img
+              src="${thumbnail}"
+              data-original="${image}"
+              alt="${product.name} ${i + 1}"
+              loading="lazy"
+              decoding="async"
+            >
 
-      `
+          </button>
+
+        `;
+      }
     ).join("");
+
+
+  /* =========================================
+     THUMBNAIL FALLBACK
+  ========================================== */
+
+  thumbs
+    .querySelectorAll("img")
+    .forEach((image) => {
+
+      image.addEventListener(
+        "error",
+        () => {
+
+          const original =
+            image.dataset.original;
+
+
+          if (
+            original &&
+            image.dataset.fallbackUsed !== "true"
+          ) {
+
+            image.dataset.fallbackUsed =
+              "true";
+
+            image.src =
+              original;
+          }
+
+        }
+      );
+
+    });
 
 
   /* =========================================
@@ -237,18 +334,40 @@ document.addEventListener("DOMContentLoaded", () => {
       gallery[index];
 
 
+    /*
+      รูปหลักใช้ Original
+      เพื่อคงความชัดเต็ม
+    */
     mainImage.src =
       image;
 
     mainImage.alt =
       `${product.name} ${index + 1}`;
 
+    mainImage.loading =
+      "eager";
 
-    lightboxImage.src =
-      image;
+    mainImage.decoding =
+      "async";
 
-    lightboxImage.alt =
-      `${product.name} ${index + 1}`;
+
+    /*
+      สำคัญ:
+      ยังไม่โหลด Lightbox image
+      จนกว่าผู้ใช้จะเปิด Lightbox
+    */
+    if (
+      lightbox.classList.contains(
+        "active"
+      )
+    ) {
+
+      lightboxImage.src =
+        image;
+
+      lightboxImage.alt =
+        `${product.name} ${index + 1}`;
+    }
 
 
     counter.textContent =
@@ -256,7 +375,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     thumbs
-      .querySelectorAll(".detail-thumb")
+      .querySelectorAll(
+        ".detail-thumb"
+      )
       .forEach(
         (button, i) => {
 
@@ -288,7 +409,9 @@ document.addEventListener("DOMContentLoaded", () => {
       }
 
       showImage(
-        Number(button.dataset.index)
+        Number(
+          button.dataset.index
+        )
       );
     }
   );
@@ -300,7 +423,20 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function openLightbox() {
 
-    lightbox.classList.add("active");
+    /*
+      ค่อยโหลด Original สำหรับ Lightbox
+      ตอนผู้ใช้กดเปิดจริง ๆ
+    */
+    lightboxImage.src =
+      gallery[index];
+
+    lightboxImage.alt =
+      `${product.name} ${index + 1}`;
+
+
+    lightbox.classList.add(
+      "active"
+    );
 
     lightbox.setAttribute(
       "aria-hidden",
@@ -315,7 +451,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function closeLightbox() {
 
-    lightbox.classList.remove("active");
+    lightbox.classList.remove(
+      "active"
+    );
 
     lightbox.setAttribute(
       "aria-hidden",
@@ -324,6 +462,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
     document.body.classList.remove(
       "lightbox-open"
+    );
+
+
+    /*
+      เคลียร์ src ออก
+      ไม่ให้ Lightbox ค้างรูปไว้
+    */
+    lightboxImage.removeAttribute(
+      "src"
     );
   }
 
@@ -335,7 +482,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
   document
-    .querySelector("#detailLightboxClose")
+    .querySelector(
+      "#detailLightboxClose"
+    )
     .addEventListener(
       "click",
       closeLightbox
@@ -343,18 +492,24 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
   document
-    .querySelector("#detailLightboxPrev")
+    .querySelector(
+      "#detailLightboxPrev"
+    )
     .addEventListener(
       "click",
-      () => showImage(index - 1)
+      () =>
+        showImage(index - 1)
     );
 
 
   document
-    .querySelector("#detailLightboxNext")
+    .querySelector(
+      "#detailLightboxNext"
+    )
     .addEventListener(
       "click",
-      () => showImage(index + 1)
+      () =>
+        showImage(index + 1)
     );
 
 
@@ -362,7 +517,9 @@ document.addEventListener("DOMContentLoaded", () => {
     "click",
     (event) => {
 
-      if (event.target === lightbox) {
+      if (
+        event.target === lightbox
+      ) {
         closeLightbox();
       }
     }
@@ -386,17 +543,30 @@ document.addEventListener("DOMContentLoaded", () => {
       }
 
 
-      if (event.key === "Escape") {
+      if (
+        event.key === "Escape"
+      ) {
         closeLightbox();
       }
 
-      if (event.key === "ArrowLeft") {
-        showImage(index - 1);
+
+      if (
+        event.key === "ArrowLeft"
+      ) {
+        showImage(
+          index - 1
+        );
       }
 
-      if (event.key === "ArrowRight") {
-        showImage(index + 1);
+
+      if (
+        event.key === "ArrowRight"
+      ) {
+        showImage(
+          index + 1
+        );
       }
+
     }
   );
 
@@ -417,7 +587,9 @@ document.addEventListener("DOMContentLoaded", () => {
           .clientX;
 
     },
-    { passive: true }
+    {
+      passive: true
+    }
   );
 
 
@@ -431,7 +603,9 @@ document.addEventListener("DOMContentLoaded", () => {
         startX;
 
 
-      if (Math.abs(distance) < 50) {
+      if (
+        Math.abs(distance) < 50
+      ) {
         return;
       }
 
@@ -443,7 +617,9 @@ document.addEventListener("DOMContentLoaded", () => {
       );
 
     },
-    { passive: true }
+    {
+      passive: true
+    }
   );
 
 

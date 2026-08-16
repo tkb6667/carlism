@@ -222,6 +222,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
       hero.src = config.hero;
       hero.alt = config.title;
+
+      /*
+        Hero เป็นรูปด้านบน
+        ให้ browser โหลดก่อน
+      */
+      hero.loading = "eager";
+      hero.fetchPriority = "high";
+      hero.decoding = "async";
+
       hero.style.display = "";
 
     } else {
@@ -246,6 +255,77 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
   /* =========================================
+     CREATE THUMBNAIL PATH
+  ========================================== */
+
+  function getThumbnailPath(imagePath) {
+
+    if (!imagePath) {
+      return "";
+    }
+
+    /*
+      รองรับทั้ง / และ \
+    */
+    const normalized =
+      imagePath.replace(/\\/g, "/");
+
+
+    const lastSlash =
+      normalized.lastIndexOf("/");
+
+
+    /*
+      ถ้าไม่มี folder
+      ใช้ Original ไปก่อน
+    */
+    if (lastSlash === -1) {
+      return imagePath;
+    }
+
+
+    const directory =
+      normalized.substring(
+        0,
+        lastSlash
+      );
+
+
+    const filename =
+      normalized.substring(
+        lastSlash + 1
+      );
+
+
+    const lastDot =
+      filename.lastIndexOf(".");
+
+
+    const filenameWithoutExtension =
+      lastDot !== -1
+        ? filename.substring(0, lastDot)
+        : filename;
+
+
+    /*
+      ตัวอย่าง:
+
+      Original
+      assets/images/wheels/478/DSC00478.jpg
+
+      จะกลายเป็น
+
+      assets/images/wheels/478/thumbs/DSC00478.webp
+    */
+    return (
+      `${directory}/thumbs/` +
+      `${filenameWithoutExtension}.webp`
+    );
+
+  }
+
+
+  /* =========================================
      PRODUCT CARD
   ========================================== */
 
@@ -254,15 +334,27 @@ document.addEventListener("DOMContentLoaded", () => {
     const productUrl =
       `product-detail.html?id=${product.id}`;
 
+
     const subcategory =
       product.subcategoryLabel ||
       product.subcategory ||
       "";
 
+
     const subtitle =
       product.subtitle ||
       product.variant ||
       "";
+
+
+    /*
+      สร้าง path Thumbnail จาก Original
+      อัตโนมัติ
+    */
+    const thumbnail =
+      getThumbnailPath(
+        product.image
+      );
 
 
     return `
@@ -275,9 +367,11 @@ document.addEventListener("DOMContentLoaded", () => {
         <div class="category-product-image">
 
           <img
-            src="${product.image}"
+            src="${thumbnail}"
+            data-original="${product.image}"
             alt="${product.name}"
             loading="lazy"
+            decoding="async"
           >
 
           <div class="category-product-view">
@@ -353,22 +447,53 @@ document.addEventListener("DOMContentLoaded", () => {
         "error",
         () => {
 
+          const original =
+            image.dataset.original;
+
+
+          /*
+            STEP 1
+
+            ถ้า Thumbnail โหลดไม่ได้
+            ให้กลับไปใช้ Original
+          */
+          if (
+            original &&
+            image.dataset.fallbackUsed !== "true"
+          ) {
+
+            image.dataset.fallbackUsed = "true";
+
+            image.src = original;
+
+            return;
+          }
+
+
+          /*
+            STEP 2
+
+            ถ้า Original ก็โหลดไม่ได้
+            ค่อยซ่อนรูป
+          */
           const wrapper =
             image.closest(
               ".category-product-image"
             );
 
-          if (!wrapper) return;
+
+          if (!wrapper) {
+            return;
+          }
+
 
           image.remove();
+
 
           wrapper.classList.add(
             "image-missing"
           );
 
-        },
-        {
-          once: true
         }
       );
 
@@ -393,7 +518,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     if (count) {
-      count.textContent = filtered.length;
+      count.textContent =
+        filtered.length;
     }
 
 
@@ -422,6 +548,10 @@ document.addEventListener("DOMContentLoaded", () => {
         .join("");
 
 
+    /*
+      หลังจากสร้าง <img> แล้ว
+      ค่อยติด fallback
+    */
     setupImageFallback();
 
   }
@@ -455,7 +585,9 @@ document.addEventListener("DOMContentLoaded", () => {
       );
 
 
-    /* ACTIVE FILTER */
+    /* =======================================
+       ACTIVE FILTER
+    ======================================== */
 
     function activate(filter) {
 
@@ -471,7 +603,9 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
 
-    /* FILTER CLICK */
+    /* =======================================
+       FILTER CLICK
+    ======================================== */
 
     buttons.forEach((button) => {
 
@@ -485,6 +619,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
           activate(filter);
+
           render(filter);
 
 
@@ -522,7 +657,9 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
 
-    /* FILTER FROM URL */
+    /* =======================================
+       FILTER FROM URL
+    ======================================== */
 
     const requestedFilter =
       params.get("filter");
@@ -542,7 +679,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     activate(startingFilter);
+
     render(startingFilter);
+
 
   } else {
 
