@@ -250,7 +250,6 @@ const products = [
       "assets/images/products/exterior/rear-diffuser.jpg"
   },
 
-
   /* =========================================
      INTERIOR
   ========================================== */
@@ -264,52 +263,71 @@ const products = [
 
     brand: "CARLISM",
 
-    name: "Performance Steering Wheel",
-    subtitle: "Leather / Carbon",
+    name: "BMW Custom Steering Wheel",
+    subtitle: "Carbon / Alcantara",
 
     price: "CONTACT",
 
     image:
-      "assets/images/products/interior/steering-wheel.jpg"
+      "assets/images/interior/DSC09195.jpg",
+
+    gallery: [
+      "assets/images/interior/DSC09195.jpg",
+      "assets/images/interior/DSC08514.jpg"
+    ]
   },
 
 
-  {
-    id: 13,
-
-    category: "interior",
-    subcategory: "seats",
-    subcategoryLabel: "SEATS",
-
-    brand: "CARLISM",
-
-    name: "Sport Seat",
-    subtitle: "Performance Seat",
-
-    price: "CONTACT",
-
-    image:
-      "assets/images/products/interior/sport-seat.jpg"
-  },
 
 
   {
     id: 14,
 
     category: "interior",
-    subcategory: "accessories",
-    subcategoryLabel: "ACCESSORIES",
+    subcategory: "steering",
+    subcategoryLabel: "STEERING",
 
     brand: "CARLISM",
 
-    name: "Interior Trim Set",
-    subtitle: "Premium Finish",
+    name: "MOMO Racing Steering Wheel",
+    subtitle: "Motorsport Interior",
 
     price: "CONTACT",
 
     image:
-      "assets/images/products/interior/trim-set.jpg"
+      "assets/images/interior/DSC09909.jpg",
+
+    gallery: [
+      "assets/images/interior/DSC09909.jpg"
+    ]
   },
+
+
+{
+  id: 21,
+
+  category: "interior",
+  subcategory: "accessories",
+  subcategoryLabel: "ACCESSORIES",
+
+  brand: "CARLISM",
+
+  name: "Interior Carbon Trim",
+  subtitle: "Carbon Interior Upgrade",
+
+  price: "CONTACT",
+
+  image:
+    "assets/images/interior/DSC00441.jpg",
+
+  gallery: [
+    "assets/images/interior/DSC00441.jpg",
+    "assets/images/interior/441/DSC00433.jpg",
+    "assets/images/interior/441/DSC00437.jpg",
+    "assets/images/interior/441/DSC00444.jpg",
+    "assets/images/interior/441/DSC08688.jpg"
+  ]
+},
 
 
   /* =========================================

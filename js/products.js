@@ -1,26 +1,18 @@
 document.addEventListener("DOMContentLoaded", () => {
 
-  const grid =
-    document.querySelector("#productsGrid");
+  /* =========================================
+     ELEMENTS
+  ========================================== */
 
-  const count =
-    document.querySelector("#productCount");
+  const grid = document.querySelector("#productsGrid");
+  const count = document.querySelector("#productCount");
+  const filterContainer = document.querySelector("#productFilterButtons");
 
-  const filterContainer =
-    document.querySelector(
-      "#productFilterButtons"
-    );
+  if (!grid) return;
 
-
-  if (!grid) {
-    return;
-  }
-
-
-  const products =
-    Array.isArray(window.products)
-      ? window.products
-      : [];
+  const products = Array.isArray(window.products)
+    ? window.products
+    : [];
 
 
   /* =========================================
@@ -29,19 +21,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const categories = {
 
+    /* WHEELS & SUSPENSION */
     "wheels-suspension": {
-
-      title:
-        "WHEELS & SUSPENSION",
-
-      titleHTML:
-        "WHEELS &<br>SUSPENSION",
+      title: "WHEELS & SUSPENSION",
+      titleHTML: "WHEELS &<br>SUSPENSION",
 
       description:
         "Upgrade your style, stance and driving experience with our selection of wheels and suspension parts.",
 
       hero:
-        "assets/images/wheels/DSC01003.jpg",
+        "assets/products/wheels/hero/wheels-hero.jpg",
 
       filters: [
         ["all", "ALL"],
@@ -51,19 +40,16 @@ document.addEventListener("DOMContentLoaded", () => {
     },
 
 
+    /* PERFORMANCE */
     performance: {
-
-      title:
-        "PERFORMANCE",
-
-      titleHTML:
-        "PERFORMANCE",
+      title: "PERFORMANCE",
+      titleHTML: "PERFORMANCE",
 
       description:
         "Enhance power, response and driving performance with our selection of performance upgrades.",
 
       hero:
-        "",
+        "assets/products/wheels/hero/DSC00139.jpg",
 
       filters: [
         ["all", "ALL"],
@@ -74,19 +60,16 @@ document.addEventListener("DOMContentLoaded", () => {
     },
 
 
+    /* EXTERIOR */
     exterior: {
-
-      title:
-        "EXTERIOR",
-
-      titleHTML:
-        "EXTERIOR",
+      title: "EXTERIOR",
+      titleHTML: "EXTERIOR",
 
       description:
         "Transform your vehicle with premium exterior styling and aerodynamic parts.",
 
       hero:
-        "",
+        "assets/products/wheels/hero/DSC09760.jpg",
 
       filters: [
         ["all", "ALL"],
@@ -97,19 +80,16 @@ document.addEventListener("DOMContentLoaded", () => {
     },
 
 
+    /* INTERIOR */
     interior: {
-
-      title:
-        "INTERIOR",
-
-      titleHTML:
-        "INTERIOR",
+      title: "INTERIOR",
+      titleHTML: "INTERIOR",
 
       description:
         "Refine your driving environment with premium interior upgrades.",
 
       hero:
-        "",
+        "assets/products/wheels/hero/DSC08517.jpg",
 
       filters: [
         ["all", "ALL"],
@@ -120,19 +100,16 @@ document.addEventListener("DOMContentLoaded", () => {
     },
 
 
+    /* TUNING */
     tuning: {
-
-      title:
-        "TUNING",
-
-      titleHTML:
-        "TUNING",
+      title: "TUNING",
+      titleHTML: "TUNING",
 
       description:
         "Unlock greater performance with professional tuning solutions.",
 
       hero:
-        "",
+        "assets/products/wheels/hero/154.jpg",
 
       filters: [
         ["all", "ALL"],
@@ -143,30 +120,20 @@ document.addEventListener("DOMContentLoaded", () => {
     },
 
 
+    /* ACCESSORIES */
     accessories: {
-
-      title:
-        "ACCESSORIES",
-
-      titleHTML:
-        "ACCESSORIES",
+      title: "ACCESSORIES",
+      titleHTML: "ACCESSORIES",
 
       description:
         "Complete your vehicle with carefully selected automotive accessories.",
 
-      hero:
-        "",
+      hero: "",
 
       filters: [
         ["all", "ALL"],
-        [
-          "exterior-accessories",
-          "EXTERIOR"
-        ],
-        [
-          "interior-accessories",
-          "INTERIOR"
-        ],
+        ["exterior-accessories", "EXTERIOR"],
+        ["interior-accessories", "INTERIOR"],
         ["lifestyle", "LIFESTYLE"]
       ]
     }
@@ -178,11 +145,9 @@ document.addEventListener("DOMContentLoaded", () => {
      URL
   ========================================== */
 
-  const params =
-    new URLSearchParams(
-      window.location.search
-    );
-
+  const params = new URLSearchParams(
+    window.location.search
+  );
 
   let category =
     params.get("category") ||
@@ -190,7 +155,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
   /* รองรับ URL เก่า */
-
   if (category === "wheels") {
     category = "wheels-suspension";
   }
@@ -201,8 +165,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
 
-  const config =
-    categories[category];
+  const config = categories[category];
 
 
   /* =========================================
@@ -214,74 +177,58 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
   const title =
-    document.querySelector(
-      "#categoryTitle"
-    );
+    document.querySelector("#categoryTitle");
 
   const description =
-    document.querySelector(
-      "#categoryDescription"
-    );
+    document.querySelector("#categoryDescription");
 
   const breadcrumb =
-    document.querySelector(
-      "#breadcrumbCategory"
-    );
+    document.querySelector("#breadcrumbCategory");
 
   const stickyName =
-    document.querySelector(
-      "#stickyCategoryName"
-    );
+    document.querySelector("#stickyCategoryName");
 
   const hero =
-    document.querySelector(
-      "#categoryHeroImage"
-    );
+    document.querySelector("#categoryHeroImage");
 
 
   if (title) {
-    title.innerHTML =
-      config.titleHTML;
+    title.innerHTML = config.titleHTML;
   }
 
 
   if (description) {
-    description.textContent =
-      config.description;
+    description.textContent = config.description;
   }
 
 
   if (breadcrumb) {
-    breadcrumb.textContent =
-      config.title;
+    breadcrumb.textContent = config.title;
   }
 
 
   if (stickyName) {
-    stickyName.textContent =
-      config.title;
+    stickyName.textContent = config.title;
   }
 
+
+  /* =========================================
+     HERO IMAGE
+  ========================================== */
 
   if (hero) {
 
     if (config.hero) {
 
-      hero.src =
-        config.hero;
-
-      hero.alt =
-        config.title;
-
-      hero.style.display =
-        "";
+      hero.src = config.hero;
+      hero.alt = config.title;
+      hero.style.display = "";
 
     } else {
 
       hero.removeAttribute("src");
+      hero.style.display = "none";
 
-      hero.style.display =
-        "none";
     }
 
   }
@@ -293,15 +240,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const categoryProducts =
     products.filter(
-      product =>
+      (product) =>
         product.category === category
     );
 
 
   /* =========================================
      PRODUCT CARD
-
-     ทั้งการ์ดกดได้
   ========================================== */
 
   function card(product) {
@@ -309,12 +254,10 @@ document.addEventListener("DOMContentLoaded", () => {
     const productUrl =
       `product-detail.html?id=${product.id}`;
 
-
     const subcategory =
       product.subcategoryLabel ||
       product.subcategory ||
       "";
-
 
     const subtitle =
       product.subtitle ||
@@ -323,15 +266,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     return `
-
       <a
         href="${productUrl}"
         class="category-product-card"
         aria-label="View ${product.name}"
       >
-
-
-        <!-- IMAGE -->
 
         <div class="category-product-image">
 
@@ -341,7 +280,6 @@ document.addEventListener("DOMContentLoaded", () => {
             loading="lazy"
           >
 
-
           <div class="category-product-view">
             VIEW PRODUCT
           </div>
@@ -349,18 +287,13 @@ document.addEventListener("DOMContentLoaded", () => {
         </div>
 
 
-
-        <!-- INFO -->
-
         <div class="category-product-info">
-
 
           <div class="category-product-top">
 
             <span class="category-product-category">
               ${subcategory}
             </span>
-
 
             <span class="category-product-brand">
               ${product.brand || ""}
@@ -369,11 +302,9 @@ document.addEventListener("DOMContentLoaded", () => {
           </div>
 
 
-
           <h3>
             ${product.name}
           </h3>
-
 
 
           <span class="category-product-subtitle">
@@ -381,33 +312,24 @@ document.addEventListener("DOMContentLoaded", () => {
           </span>
 
 
-
           <div class="category-product-bottom">
-
 
             <span class="category-product-price">
               ${product.price || ""}
             </span>
 
-
             <span
               class="category-product-arrow"
               aria-hidden="true"
             >
-
               <i class="fa-solid fa-arrow-right"></i>
-
             </span>
-
 
           </div>
 
-
         </div>
 
-
       </a>
-
     `;
 
   }
@@ -436,11 +358,7 @@ document.addEventListener("DOMContentLoaded", () => {
               ".category-product-image"
             );
 
-
-          if (!wrapper) {
-            return;
-          }
-
+          if (!wrapper) return;
 
           image.remove();
 
@@ -469,21 +387,19 @@ document.addEventListener("DOMContentLoaded", () => {
       filter === "all"
         ? categoryProducts
         : categoryProducts.filter(
-            product =>
+            (product) =>
               product.subcategory === filter
           );
 
 
     if (count) {
-      count.textContent =
-        filtered.length;
+      count.textContent = filtered.length;
     }
 
 
     if (!filtered.length) {
 
       grid.innerHTML = `
-
         <div class="products-empty">
 
           <i class="fa-solid fa-box-open"></i>
@@ -493,10 +409,10 @@ document.addEventListener("DOMContentLoaded", () => {
           </p>
 
         </div>
-
       `;
 
       return;
+
     }
 
 
@@ -521,7 +437,6 @@ document.addEventListener("DOMContentLoaded", () => {
       config.filters
         .map(
           ([value, label]) => `
-
             <button
               type="button"
               class="product-filter-btn"
@@ -529,7 +444,6 @@ document.addEventListener("DOMContentLoaded", () => {
             >
               ${label}
             </button>
-
           `
         )
         .join("");
@@ -541,9 +455,7 @@ document.addEventListener("DOMContentLoaded", () => {
       );
 
 
-    /* =======================================
-       ACTIVE FILTER
-    ======================================== */
+    /* ACTIVE FILTER */
 
     function activate(filter) {
 
@@ -559,9 +471,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
 
-    /* =======================================
-       FILTER CLICK
-    ======================================== */
+    /* FILTER CLICK */
 
     buttons.forEach((button) => {
 
@@ -575,11 +485,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
           activate(filter);
-
           render(filter);
 
-
-          /* URL */
 
           const url =
             new URL(
@@ -615,9 +522,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
 
-    /* =======================================
-       FILTER FROM URL
-    ======================================== */
+    /* FILTER FROM URL */
 
     const requestedFilter =
       params.get("filter");
@@ -637,7 +542,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     activate(startingFilter);
-
     render(startingFilter);
 
   } else {
