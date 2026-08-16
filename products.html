@@ -2,6 +2,7 @@
 <html lang="en">
 
 <head>
+
   <meta charset="UTF-8">
 
   <meta
@@ -16,8 +17,16 @@
     content="CARLISM TH automotive products."
   >
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    rel="preconnect"
+    href="https://fonts.googleapis.com"
+  >
+
+  <link
+    rel="preconnect"
+    href="https://fonts.gstatic.com"
+    crossorigin
+  >
 
   <link
     href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap"
@@ -29,46 +38,61 @@
     href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
   >
 
-  <link rel="stylesheet" href="css/components.css">
-  <link rel="stylesheet" href="css/products.css">
-  <link rel="stylesheet" href="css/responsive.css">
+  <link
+    rel="stylesheet"
+    href="css/components.css"
+  >
+
+  <link
+    rel="stylesheet"
+    href="css/products.css"
+  >
+
+  <link
+    rel="stylesheet"
+    href="css/responsive.css"
+  >
+
 </head>
+
 
 <body>
 
-  <!-- =====================================
+
+  <!-- =========================================
        HEADER
-  ====================================== -->
+  ========================================== -->
 
   <header id="site-header"></header>
 
 
-  <!-- =====================================
-       PRODUCT STICKY NAV
-  ====================================== -->
+
+  <!-- =========================================
+       SHARED PRODUCT NAV
+  ========================================== -->
 
   <div
     class="product-sticky-nav"
     id="productStickyNav"
   >
 
-    <!-- BACK -->
     <a
       href="javascript:history.back()"
       class="sticky-back-link"
     >
+
       <i class="fa-solid fa-arrow-left"></i>
+
       BACK
+
     </a>
 
 
-    <!-- DIVIDER -->
     <span class="sticky-divider">
       |
     </span>
 
 
-    <!-- HOME -->
     <a
       href="index.html"
       class="sticky-home-link"
@@ -77,13 +101,11 @@
     </a>
 
 
-    <!-- SLASH -->
     <span class="sticky-slash">
       /
     </span>
 
 
-    <!-- CURRENT CATEGORY -->
     <span
       class="sticky-current"
       id="stickyCategoryName"
@@ -92,7 +114,6 @@
     </span>
 
 
-    <!-- MOBILE COMPACT HAMBURGER -->
     <button
       class="sticky-mobile-menu-toggle"
       id="stickyMobileMenuToggle"
@@ -100,11 +121,12 @@
       aria-label="Open menu"
       aria-expanded="false"
     >
+
       <i class="fa-solid fa-bars"></i>
+
     </button>
 
 
-    <!-- MOBILE COMPACT DROPDOWN -->
     <div
       class="sticky-mobile-menu-panel"
       id="stickyMobileMenu"
@@ -113,31 +135,38 @@
   </div>
 
 
-  <!-- =====================================
+
+  <!-- =========================================
        MAIN
-  ====================================== -->
+  ========================================== -->
 
   <main>
 
 
-    <!-- =====================================
+    <!-- =======================================
          HERO
-    ====================================== -->
+    ======================================== -->
 
     <section class="product-page-hero">
+
 
       <div class="container">
 
 
-        <!-- BACK + BREADCRUMB -->
+        <!-- PC BREADCRUMB -->
+
         <div class="product-page-breadcrumb">
+
 
           <a
             href="javascript:history.back()"
             class="back-link"
           >
+
             <i class="fa-solid fa-arrow-left"></i>
+
             BACK
+
           </a>
 
 
@@ -160,15 +189,18 @@
             PRODUCTS
           </span>
 
+
         </div>
 
 
-        <!-- HERO CONTENT -->
+
+        <!-- HERO -->
+
         <div class="product-hero-grid">
 
 
-          <!-- TEXT -->
           <div class="product-hero-content">
+
 
             <p class="product-page-label">
               CARLISM TH
@@ -184,49 +216,58 @@
               class="product-page-description"
               id="categoryDescription"
             >
+
               Discover our automotive products.
+
             </p>
+
 
           </div>
 
 
-          <!-- IMAGE -->
+
           <div class="product-hero-image">
+
 
             <img
               id="categoryHeroImage"
               src=""
-              alt="CARLISM TH products"
+              alt="CARLISM products"
             >
+
 
           </div>
 
+
         </div>
 
+
       </div>
+
 
     </section>
 
 
-    <!-- =====================================
+
+    <!-- =======================================
          FILTER
-    ====================================== -->
+    ======================================== -->
 
     <section class="product-filter-section">
 
+
       <div class="container">
+
 
         <div class="product-filter-bar">
 
 
-          <!-- JS CREATE BUTTONS -->
           <div
             class="product-filter-buttons"
             id="productFilterButtons"
           ></div>
 
 
-          <!-- PRODUCT COUNT -->
           <div class="product-count">
 
             <span id="productCount">
@@ -237,47 +278,58 @@
 
           </div>
 
+
         </div>
 
+
       </div>
+
 
     </section>
 
 
-    <!-- =====================================
+
+    <!-- =======================================
          PRODUCTS
-    ====================================== -->
+    ======================================== -->
 
     <section class="product-list-section">
 
+
       <div class="container">
+
 
         <div
           class="category-products-grid"
           id="productsGrid"
         ></div>
 
+
       </div>
 
+
     </section>
+
 
   </main>
 
 
-  <!-- =====================================
+
+  <!-- =========================================
        FOOTER
-  ====================================== -->
+  ========================================== -->
 
   <footer id="site-footer"></footer>
 
 
-  <!-- =====================================
+
+  <!-- =========================================
        FLOATING CHAT
-  ====================================== -->
+  ========================================== -->
 
   <div class="floating-chat">
 
-    <!-- LINE -->
+
     <a
       href="https://line.me/R/ti/p/@carlismth"
       class="floating-button"
@@ -289,7 +341,6 @@
     </a>
 
 
-    <!-- FACEBOOK -->
     <a
       href="https://www.facebook.com/p/Carlism-TH-100092271006003/"
       class="floating-button"
@@ -297,15 +348,19 @@
       target="_blank"
       rel="noopener noreferrer"
     >
+
       <i class="fa-brands fa-facebook-messenger"></i>
+
     </a>
+
 
   </div>
 
 
-  <!-- =====================================
-       SCRIPTS
-  ====================================== -->
+
+  <!-- =========================================
+       JS
+  ========================================== -->
 
   <script src="data/products.js"></script>
 
@@ -313,7 +368,10 @@
 
   <script src="js/main.js"></script>
 
+  <script src="js/product-nav.js"></script>
+
   <script src="js/products.js"></script>
+
 
 </body>
 

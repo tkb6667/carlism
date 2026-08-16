@@ -1,5 +1,5 @@
 /* =====================================================
-   CARLISM - WHEELS & SUSPENSION
+   CARLISM - PRODUCTS
 ===================================================== */
 
 
@@ -57,7 +57,9 @@
 }
 
 
-/* BACK BUTTON */
+/* =====================================================
+   BACK BUTTON
+===================================================== */
 
 .back-link {
   min-height: 36px;
@@ -193,7 +195,6 @@
   max-height: 390px;
 
   object-fit: contain;
-
   object-position: center;
 
   mix-blend-mode: multiply;
@@ -243,6 +244,8 @@
 
   font-size: 10px;
   font-weight: 700;
+
+  cursor: pointer;
 
   transition:
     background 0.2s ease,
@@ -326,6 +329,9 @@
 
 /* =====================================================
    PRODUCT IMAGE
+
+   ใช้รูปสินค้า 3:2
+   ไม่ครอปรูปล้อ
 ===================================================== */
 
 .category-product-image {
@@ -335,11 +341,11 @@
 
   width: 100%;
 
-  aspect-ratio: 1.35 / 1;
+  aspect-ratio: 3 / 2;
 
   overflow: hidden;
 
-  background: #eeeeee;
+  background: #ffffff;
 }
 
 
@@ -347,15 +353,18 @@
   width: 100%;
   height: 100%;
 
-  object-fit: cover;
+  display: block;
 
-  transition: transform 0.45s ease;
+  object-fit: contain;
+  object-position: center;
+
+  transition: transform 0.35s ease;
 }
 
 
 .category-product-card:hover
 .category-product-image img {
-  transform: scale(1.035);
+  transform: scale(1.02);
 }
 
 
@@ -572,9 +581,12 @@
 
 /* =====================================================
    TABLET
+   <= 1024px
 ===================================================== */
 
 @media (max-width: 1024px) {
+
+  /* HERO */
 
   .product-page-hero {
     padding: 30px 0 48px;
@@ -600,6 +612,8 @@
   }
 
 
+  /* PRODUCTS */
+
   .category-products-grid {
     grid-template-columns:
       repeat(2, minmax(0, 1fr));
@@ -610,11 +624,14 @@
 
 /* =====================================================
    MOBILE
+   <= 768px
 ===================================================== */
 
 @media (max-width: 768px) {
 
-  /* HERO */
+  /* ===================================================
+     HERO
+  =================================================== */
 
   .product-page-hero {
     padding: 24px 0 32px;
@@ -676,7 +693,9 @@
   }
 
 
-  /* IMAGE BELOW TEXT */
+  /* ===================================================
+     HERO IMAGE
+  =================================================== */
 
   .product-hero-image {
     width: 100%;
@@ -695,7 +714,9 @@
   }
 
 
-  /* FILTER */
+  /* ===================================================
+     FILTER
+  =================================================== */
 
   .product-filter-bar {
     min-height: 0;
@@ -740,7 +761,9 @@
   }
 
 
-  /* PRODUCTS */
+  /* ===================================================
+     PRODUCTS
+  =================================================== */
 
   .product-list-section {
     padding: 25px 0 45px;
@@ -755,9 +778,12 @@
   }
 
 
-  .category-product-image {
-    aspect-ratio: 1 / 1;
-  }
+  /*
+    ไม่กำหนด aspect-ratio ใหม่ตรง Mobile
+
+    ใช้ 3 / 2 จาก Desktop ต่อเลย
+    เพื่อให้รูปสินค้าไม่เปลี่ยนเป็นสี่เหลี่ยม
+  */
 
 
   .category-product-info {
@@ -807,6 +833,11 @@
   }
 
 
+  /*
+    Mobile ไม่มี Hover
+    ซ่อน VIEW PRODUCT
+  */
+
   .category-product-view {
     display: none;
   }
@@ -816,9 +847,12 @@
 
 /* =====================================================
    SMALL MOBILE
+   <= 480px
 ===================================================== */
 
 @media (max-width: 480px) {
+
+  /* HERO */
 
   .product-page-hero {
     padding-bottom: 27px;
@@ -854,6 +888,8 @@
   }
 
 
+  /* PRODUCTS */
+
   .category-products-grid {
     gap: 8px;
   }
@@ -866,150 +902,6 @@
 
   .category-product-info h3 {
     font-size: 9px;
-  }
-
-}
-
-/* =====================================================
-   STICKY BACK NAV
-===================================================== */
-
-.product-sticky-nav {
-  display: none;
-}
-
-
-/* TABLET + MOBILE */
-@media (max-width: 1024px) {
-
-  /* ซ่อน breadcrumb ตัวเดิมใน Hero */
-  .product-page-breadcrumb {
-    display: none;
-  }
-
-
-  /* แถบค้างด้านบน */
-  .product-sticky-nav {
-    position: sticky;
-
-    top: 0;
-
-    z-index: 1500;
-
-    width: 100%;
-
-    min-height: 58px;
-
-    padding:
-      10px
-      clamp(15px, 4vw, 35px);
-
-    display: flex;
-
-    align-items: center;
-
-    gap: 10px;
-
-    background:
-      rgba(255, 255, 255, 0.96);
-
-    border-bottom:
-      1px solid #dddddd;
-
-    backdrop-filter: blur(10px);
-
-    -webkit-backdrop-filter: blur(10px);
-  }
-
-
-  .sticky-back-link {
-    height: 36px;
-
-    padding: 0 15px;
-
-    display: inline-flex;
-
-    align-items: center;
-
-    justify-content: center;
-
-    gap: 7px;
-
-    flex-shrink: 0;
-
-    background: #111111;
-
-    color: #ffffff;
-
-    border: 1px solid #111111;
-
-    font-size: 10px;
-
-    font-weight: 800;
-  }
-
-
-  .sticky-back-link i {
-    font-size: 9px;
-  }
-
-
-  .sticky-home-link {
-    flex-shrink: 0;
-
-    color: #111111;
-
-    font-size: 9px;
-
-    font-weight: 700;
-  }
-
-
-  .sticky-divider,
-  .product-sticky-nav > span {
-    color: #999999;
-
-    font-size: 9px;
-
-    font-weight: 500;
-  }
-
-
-  .sticky-current {
-    white-space: nowrap;
-
-    overflow: hidden;
-
-    text-overflow: ellipsis;
-  }
-
-}
-
-
-/* SMALL MOBILE */
-@media (max-width: 480px) {
-
-  .product-sticky-nav {
-    min-height: 54px;
-
-    padding: 9px 13px;
-
-    gap: 8px;
-  }
-
-
-  .sticky-back-link {
-    height: 34px;
-
-    padding: 0 12px;
-
-    font-size: 9px;
-  }
-
-
-  .sticky-home-link,
-  .product-sticky-nav > span {
-    font-size: 8px;
   }
 
 }

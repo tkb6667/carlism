@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+  >
+
+  <title>Product | CARLISM TH</title>
+
+  <meta
+    name="description"
+    content="CARLISM TH product details."
+  >
+
+
+  <link
+    rel="preconnect"
+    href="https://fonts.googleapis.com"
+  >
+
+  <link
+    rel="preconnect"
+    href="https://fonts.gstatic.com"
+    crossorigin
+  >
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet"
+  >
+
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+  >
+
+
+  <link
+    rel="stylesheet"
+    href="css/components.css"
+  >
+
+  <link
+    rel="stylesheet"
+    href="css/product-detail.css"
+  >
+
+  <link
+    rel="stylesheet"
+    href="css/responsive.css"
+  >
+
+</head>
+
+
+<body>
+
+
+  <!-- HEADER -->
+
+  <header id="site-header"></header>
+
+
+
+  <!-- =========================================
+       SHARED PRODUCT NAV
+  ========================================== -->
+
+  <div
+    class="product-sticky-nav"
+    id="productStickyNav"
+  >
+
+
+    <a
+      href="javascript:history.back()"
+      class="sticky-back-link"
+    >
+
+      <i class="fa-solid fa-arrow-left"></i>
+
+      BACK
+
+    </a>
+
+
+    <span class="sticky-divider">
+      |
+    </span>
+
+
+    <a
+      href="index.html"
+      class="sticky-home-link"
+    >
+      HOME
+    </a>
+
+
+    <span class="sticky-slash">
+      /
+    </span>
+
+
+    <a
+      href="products.html?category=wheels-suspension"
+      class="sticky-current"
+      id="detailCategoryLink"
+    >
+
+      WHEELS & SUSPENSION
+
+    </a>
+
+
+    <button
+      class="sticky-mobile-menu-toggle"
+      id="stickyMobileMenuToggle"
+      type="button"
+      aria-label="Open menu"
+      aria-expanded="false"
+    >
+
+      <i class="fa-solid fa-bars"></i>
+
+    </button>
+
+
+    <div
+      class="sticky-mobile-menu-panel"
+      id="stickyMobileMenu"
+    ></div>
+
+
+  </div>
+
+
+
+  <!-- =========================================
+       DETAIL
+  ========================================== -->
+
+  <main class="detail-page">
+
+
+    <div class="container">
+
+
+      <section class="detail-grid">
+
+
+        <!-- GALLERY -->
+
+        <div class="detail-gallery">
+
+
+          <button
+            type="button"
+            class="detail-main-image"
+            id="detailMainButton"
+            aria-label="Open gallery"
+          >
+
+            <img
+              id="detailMainImage"
+              src=""
+              alt=""
+            >
+
+
+            <span class="detail-expand">
+
+              <i class="fa-solid fa-expand"></i>
+
+            </span>
+
+
+          </button>
+
+
+          <div
+            class="detail-thumbnails"
+            id="detailThumbnails"
+          ></div>
+
+
+        </div>
+
+
+
+        <!-- INFO -->
+
+        <div class="detail-info">
+
+
+          <div class="detail-meta">
+
+            <span id="detailCategory">
+              PRODUCT
+            </span>
+
+            <span id="detailBrand">
+              CARLISM
+            </span>
+
+          </div>
+
+
+          <h1 id="detailName">
+            PRODUCT
+          </h1>
+
+
+          <p
+            class="detail-subtitle"
+            id="detailSubtitle"
+          ></p>
+
+
+          <div class="detail-separator"></div>
+
+
+          <div class="detail-price-row">
+
+            <span>
+              PRICE
+            </span>
+
+            <strong id="detailPrice">
+              CONTACT
+            </strong>
+
+          </div>
+
+
+          <div class="detail-specs">
+
+
+            <div class="detail-spec">
+
+              <span>
+                CATEGORY
+              </span>
+
+              <strong id="detailSpecCategory">
+                -
+              </strong>
+
+            </div>
+
+
+            <div class="detail-spec">
+
+              <span>
+                BRAND
+              </span>
+
+              <strong id="detailSpecBrand">
+                -
+              </strong>
+
+            </div>
+
+
+            <div class="detail-spec">
+
+              <span>
+                FINISH
+              </span>
+
+              <strong id="detailSpecFinish">
+                -
+              </strong>
+
+            </div>
+
+
+          </div>
+
+
+          <div class="detail-actions">
+
+
+            <a
+              href="https://line.me/R/ti/p/@carlismth"
+              class="detail-action detail-action-primary"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+
+              CHAT ON LINE
+
+              <i class="fa-solid fa-arrow-right"></i>
+
+            </a>
+
+
+            <a
+              href="https://www.facebook.com/p/Carlism-TH-100092271006003/"
+              class="detail-action"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+
+              FACEBOOK
+
+              <i class="fa-brands fa-facebook-messenger"></i>
+
+            </a>
+
+
+          </div>
+
+
+          <p class="detail-note">
+
+            Interested in this product?
+            Contact CARLISM TH for product information,
+            fitment and availability.
+
+          </p>
+
+
+        </div>
+
+
+      </section>
+
+
+    </div>
+
+
+  </main>
+
+
+
+  <!-- =========================================
+       LIGHTBOX
+  ========================================== -->
+
+  <div
+    class="detail-lightbox"
+    id="detailLightbox"
+    aria-hidden="true"
+  >
+
+
+    <button
+      type="button"
+      class="detail-lightbox-close"
+      id="detailLightboxClose"
+      aria-label="Close"
+    >
+
+      <i class="fa-solid fa-xmark"></i>
+
+    </button>
+
+
+    <button
+      type="button"
+      class="detail-lightbox-arrow detail-lightbox-prev"
+      id="detailLightboxPrev"
+      aria-label="Previous"
+    >
+
+      <i class="fa-solid fa-chevron-left"></i>
+
+    </button>
+
+
+    <div class="detail-lightbox-content">
+
+
+      <img
+        id="detailLightboxImage"
+        src=""
+        alt=""
+      >
+
+
+      <div
+        class="detail-lightbox-counter"
+        id="detailLightboxCounter"
+      >
+        1 / 1
+      </div>
+
+
+    </div>
+
+
+    <button
+      type="button"
+      class="detail-lightbox-arrow detail-lightbox-next"
+      id="detailLightboxNext"
+      aria-label="Next"
+    >
+
+      <i class="fa-solid fa-chevron-right"></i>
+
+    </button>
+
+
+  </div>
+
+
+
+  <!-- FOOTER -->
+
+  <footer id="site-footer"></footer>
+
+
+
+  <!-- FLOATING CHAT -->
+
+  <div class="floating-chat">
+
+
+    <a
+      href="https://line.me/R/ti/p/@carlismth"
+      class="floating-button"
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label="LINE"
+    >
+      <span>LINE</span>
+    </a>
+
+
+    <a
+      href="https://www.facebook.com/p/Carlism-TH-100092271006003/"
+      class="floating-button"
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label="Facebook Messenger"
+    >
+
+      <i class="fa-brands fa-facebook-messenger"></i>
+
+    </a>
+
+
+  </div>
+
+
+
+  <!-- JS -->
+
+  <script src="data/products.js"></script>
+
+  <script src="js/components.js"></script>
+
+  <script src="js/main.js"></script>
+
+  <script src="js/product-nav.js"></script>
+
+  <script src="js/product-detail.js"></script>
+
+
+</body>
+
+</html>

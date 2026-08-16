@@ -7,58 +7,125 @@ const products = [
   {
     id: 1,
 
-    category:
-      "wheels-suspension",
+    category: "wheels-suspension",
+    subcategory: "wheels",
+    subcategoryLabel: "WHEELS",
 
-    subcategory:
-      "wheels",
+    brand: "CARLISM",
 
-    subcategoryLabel:
-      "WHEELS",
+    name: "Carlism TH Custom forged wheels",
+    subtitle: "Bronze Finish",
 
-    brand:
-      "CARLISM",
-
-    name:
-      "CL-10 Forged Wheel",
-
-    subtitle:
-      "Matte Black",
-
-    price:
-      "฿45,000",
+    price: "CONTACT",
 
     image:
-      "assets/products/wheels/products/cl10.jpg"
+      "assets/images/wheels/478/DSC00478.jpg",
+
+    gallery: [
+
+      "assets/images/wheels/478/DSC00478.jpg",
+
+      "assets/images/wheels/478/DSC00476.jpg",
+
+      "assets/images/wheels/478/DSC00493.jpg",
+
+      "assets/images/wheels/478/DSC00475.jpg",
+
+      "assets/images/wheels/478/DSC00469.jpg"
+
+    ]
   },
 
 
   {
     id: 2,
 
-    category:
-      "wheels-suspension",
+    category: "wheels-suspension",
+    subcategory: "wheels",
+    subcategoryLabel: "WHEELS",
 
-    subcategory:
-      "suspension",
+    brand: "CARLISM",
 
-    subcategoryLabel:
-      "SUSPENSION",
+    name: "Carlism TH Custom forged wheels",
+    subtitle: "Matte Black",
 
-    brand:
-      "KW",
-
-    name:
-      "Adjustable Coilover Kit",
-
-    subtitle:
-      "Street / Track",
-
-    price:
-      "฿59,000",
+    price: "CONTACT",
 
     image:
-      "assets/products/wheels/products/coilover.jpg"
+      "assets/images/wheels/DSC00673.jpg",
+
+    gallery: [
+      "assets/images/wheels/DSC00673.jpg"
+    ]
+  },
+
+
+  {
+    id: 3,
+
+    category: "wheels-suspension",
+    subcategory: "wheels",
+    subcategoryLabel: "WHEELS",
+
+    brand: "CARLISM",
+
+    name: "Carlism TH Custom forged wheels",
+    subtitle: "Gloss Black",
+
+    price: "CONTACT",
+
+    image:
+      "assets/images/wheels/DSC01003.jpg",
+
+    gallery: [
+      "assets/images/wheels/DSC01003.jpg"
+    ]
+  },
+
+
+  {
+    id: 4,
+
+    category: "wheels-suspension",
+    subcategory: "wheels",
+    subcategoryLabel: "WHEELS",
+
+    brand: "CARLISM",
+
+    name: "Carlism TH Custom forged wheels",
+    subtitle: "Bronze Finish",
+
+    price: "CONTACT",
+
+    image:
+      "assets/images/wheels/DSC00736.jpg",
+
+    gallery: [
+      "assets/images/wheels/DSC00736.jpg"
+    ]
+  },
+
+
+  {
+    id: 5,
+
+    category: "wheels-suspension",
+    subcategory: "wheels",
+    subcategoryLabel: "WHEELS",
+
+    brand: "CARLISM",
+
+    name: "Carlism TH Custom forged wheels",
+    subtitle: "Silver Finish",
+
+    price: "CONTACT",
+
+    image:
+      "assets/images/wheels/DSC00660.jpg",
+
+    gallery: [
+      "assets/images/wheels/DSC00660.jpg"
+    ]
   },
 
 
@@ -67,89 +134,59 @@ const products = [
   ========================================== */
 
   {
-    id: 3,
+    id: 6,
 
-    category:
-      "performance",
+    category: "performance",
+    subcategory: "intake",
+    subcategoryLabel: "INTAKE",
 
-    subcategory:
-      "intake",
+    brand: "CARLISM",
 
-    subcategoryLabel:
-      "INTAKE",
+    name: "Carbon Intake System",
+    subtitle: "High Flow Intake",
 
-    brand:
-      "EVENTURI",
-
-    name:
-      "Carbon Intake System",
-
-    subtitle:
-      "High Flow Intake",
-
-    price:
-      "฿32,000",
+    price: "CONTACT",
 
     image:
-      "assets/products/performance/products/intake.jpg"
+      "assets/images/products/performance/intake.jpg"
   },
 
 
   {
-    id: 4,
+    id: 7,
 
-    category:
-      "performance",
+    category: "performance",
+    subcategory: "exhaust",
+    subcategoryLabel: "EXHAUST",
 
-    subcategory:
-      "exhaust",
+    brand: "CARLISM",
 
-    subcategoryLabel:
-      "EXHAUST",
+    name: "Performance Exhaust System",
+    subtitle: "Stainless Steel",
 
-    brand:
-      "CARLISM",
-
-    name:
-      "Performance Exhaust System",
-
-    subtitle:
-      "Stainless Steel",
-
-    price:
-      "฿45,000",
+    price: "CONTACT",
 
     image:
-      "assets/products/performance/products/exhaust.jpg"
+      "assets/images/products/performance/exhaust.jpg"
   },
 
 
   {
-    id: 5,
+    id: 8,
 
-    category:
-      "performance",
+    category: "performance",
+    subcategory: "engine",
+    subcategoryLabel: "ENGINE",
 
-    subcategory:
-      "engine",
+    brand: "CARLISM",
 
-    subcategoryLabel:
-      "ENGINE",
+    name: "Performance Engine Upgrade",
+    subtitle: "Street Performance",
 
-    brand:
-      "CARLISM",
-
-    name:
-      "Performance Engine Upgrade",
-
-    subtitle:
-      "Street Performance",
-
-    price:
-      "CONTACT",
+    price: "CONTACT",
 
     image:
-      "assets/products/performance/products/engine.jpg"
+      "assets/images/products/performance/engine.jpg"
   },
 
 
@@ -158,89 +195,59 @@ const products = [
   ========================================== */
 
   {
-    id: 6,
+    id: 9,
 
-    category:
-      "exterior",
+    category: "exterior",
+    subcategory: "aero",
+    subcategoryLabel: "AERO",
 
-    subcategory:
-      "aero",
+    brand: "CARLISM",
 
-    subcategoryLabel:
-      "AERO",
+    name: "Front Lip Splitter",
+    subtitle: "Gloss Black",
 
-    brand:
-      "CARLISM",
-
-    name:
-      "Front Lip Splitter",
-
-    subtitle:
-      "Gloss Black",
-
-    price:
-      "฿12,900",
+    price: "CONTACT",
 
     image:
-      "assets/products/exterior/products/front-lip.jpg"
+      "assets/images/products/exterior/front-lip.jpg"
   },
 
 
   {
-    id: 7,
+    id: 10,
 
-    category:
-      "exterior",
+    category: "exterior",
+    subcategory: "carbon",
+    subcategoryLabel: "CARBON",
 
-    subcategory:
-      "carbon",
+    brand: "CARLISM",
 
-    subcategoryLabel:
-      "CARBON",
+    name: "Carbon Fiber Hood",
+    subtitle: "Pre-Preg Carbon",
 
-    brand:
-      "CARLISM",
-
-    name:
-      "Carbon Fiber Hood",
-
-    subtitle:
-      "Pre-Preg Carbon",
-
-    price:
-      "฿69,000",
+    price: "CONTACT",
 
     image:
-      "assets/products/exterior/products/carbon-hood.jpg"
+      "assets/images/products/exterior/carbon-hood.jpg"
   },
 
 
   {
-    id: 8,
+    id: 11,
 
-    category:
-      "exterior",
+    category: "exterior",
+    subcategory: "body",
+    subcategoryLabel: "BODY",
 
-    subcategory:
-      "body",
+    brand: "CARLISM",
 
-    subcategoryLabel:
-      "BODY",
+    name: "Rear Diffuser",
+    subtitle: "Gloss Black",
 
-    brand:
-      "CARLISM",
-
-    name:
-      "Rear Diffuser",
-
-    subtitle:
-      "Gloss Black",
-
-    price:
-      "฿18,900",
+    price: "CONTACT",
 
     image:
-      "assets/products/exterior/products/rear-diffuser.jpg"
+      "assets/images/products/exterior/rear-diffuser.jpg"
   },
 
 
@@ -249,89 +256,59 @@ const products = [
   ========================================== */
 
   {
-    id: 9,
+    id: 12,
 
-    category:
-      "interior",
+    category: "interior",
+    subcategory: "steering",
+    subcategoryLabel: "STEERING",
 
-    subcategory:
-      "steering",
+    brand: "CARLISM",
 
-    subcategoryLabel:
-      "STEERING",
+    name: "Performance Steering Wheel",
+    subtitle: "Leather / Carbon",
 
-    brand:
-      "CARLISM",
-
-    name:
-      "Performance Steering Wheel",
-
-    subtitle:
-      "Leather / Carbon",
-
-    price:
-      "฿19,900",
+    price: "CONTACT",
 
     image:
-      "assets/products/interior/products/steering-wheel.jpg"
+      "assets/images/products/interior/steering-wheel.jpg"
   },
 
 
   {
-    id: 10,
+    id: 13,
 
-    category:
-      "interior",
+    category: "interior",
+    subcategory: "seats",
+    subcategoryLabel: "SEATS",
 
-    subcategory:
-      "seats",
+    brand: "CARLISM",
 
-    subcategoryLabel:
-      "SEATS",
+    name: "Sport Seat",
+    subtitle: "Performance Seat",
 
-    brand:
-      "RECARO",
-
-    name:
-      "Sport Seat",
-
-    subtitle:
-      "Performance Seat",
-
-    price:
-      "CONTACT",
+    price: "CONTACT",
 
     image:
-      "assets/products/interior/products/sport-seat.jpg"
+      "assets/images/products/interior/sport-seat.jpg"
   },
 
 
   {
-    id: 11,
+    id: 14,
 
-    category:
-      "interior",
+    category: "interior",
+    subcategory: "accessories",
+    subcategoryLabel: "ACCESSORIES",
 
-    subcategory:
-      "accessories",
+    brand: "CARLISM",
 
-    subcategoryLabel:
-      "ACCESSORIES",
+    name: "Interior Trim Set",
+    subtitle: "Premium Finish",
 
-    brand:
-      "CARLISM",
-
-    name:
-      "Interior Trim Set",
-
-    subtitle:
-      "Premium Finish",
-
-    price:
-      "฿9,900",
+    price: "CONTACT",
 
     image:
-      "assets/products/interior/products/trim-set.jpg"
+      "assets/images/products/interior/trim-set.jpg"
   },
 
 
@@ -340,89 +317,59 @@ const products = [
   ========================================== */
 
   {
-    id: 12,
+    id: 15,
 
-    category:
-      "tuning",
+    category: "tuning",
+    subcategory: "ecu",
+    subcategoryLabel: "ECU",
 
-    subcategory:
-      "ecu",
+    brand: "CARLISM",
 
-    subcategoryLabel:
-      "ECU",
+    name: "ECU Stage 1 Tune",
+    subtitle: "Stage 1",
 
-    brand:
-      "CARLISM",
-
-    name:
-      "ECU Stage 1 Tune",
-
-    subtitle:
-      "Stage 1",
-
-    price:
-      "CONTACT",
+    price: "CONTACT",
 
     image:
-      "assets/products/tuning/products/ecu-stage1.jpg"
+      "assets/images/products/tuning/ecu-stage1.jpg"
   },
 
 
   {
-    id: 13,
+    id: 16,
 
-    category:
-      "tuning",
+    category: "tuning",
+    subcategory: "software",
+    subcategoryLabel: "SOFTWARE",
 
-    subcategory:
-      "software",
+    brand: "CARLISM",
 
-    subcategoryLabel:
-      "SOFTWARE",
+    name: "Performance Software",
+    subtitle: "Engine Calibration",
 
-    brand:
-      "CARLISM",
-
-    name:
-      "Performance Software",
-
-    subtitle:
-      "Engine Calibration",
-
-    price:
-      "CONTACT",
+    price: "CONTACT",
 
     image:
-      "assets/products/tuning/products/software.jpg"
+      "assets/images/products/tuning/software.jpg"
   },
 
 
   {
-    id: 14,
+    id: 17,
 
-    category:
-      "tuning",
+    category: "tuning",
+    subcategory: "electronics",
+    subcategoryLabel: "ELECTRONICS",
 
-    subcategory:
-      "electronics",
+    brand: "CARLISM",
 
-    subcategoryLabel:
-      "ELECTRONICS",
+    name: "Performance Controller",
+    subtitle: "Electronic Upgrade",
 
-    brand:
-      "CARLISM",
-
-    name:
-      "Performance Controller",
-
-    subtitle:
-      "Electronic Upgrade",
-
-    price:
-      "CONTACT",
+    price: "CONTACT",
 
     image:
-      "assets/products/tuning/products/controller.jpg"
+      "assets/images/products/tuning/controller.jpg"
   },
 
 
@@ -431,89 +378,59 @@ const products = [
   ========================================== */
 
   {
-    id: 15,
+    id: 18,
 
-    category:
-      "accessories",
+    category: "accessories",
+    subcategory: "exterior-accessories",
+    subcategoryLabel: "EXTERIOR",
 
-    subcategory:
-      "exterior-accessories",
+    brand: "CARLISM",
 
-    subcategoryLabel:
-      "EXTERIOR",
+    name: "CARLISM Badge",
+    subtitle: "Exterior Accessory",
 
-    brand:
-      "CARLISM",
-
-    name:
-      "CARLISM Badge",
-
-    subtitle:
-      "Exterior Badge",
-
-    price:
-      "฿1,290",
+    price: "CONTACT",
 
     image:
-      "assets/products/accessories/products/badge.jpg"
+      "assets/images/products/accessories/badge.jpg"
   },
 
 
   {
-    id: 16,
+    id: 19,
 
-    category:
-      "accessories",
+    category: "accessories",
+    subcategory: "interior-accessories",
+    subcategoryLabel: "INTERIOR",
 
-    subcategory:
-      "interior-accessories",
+    brand: "CARLISM",
 
-    subcategoryLabel:
-      "INTERIOR",
+    name: "Premium Floor Mat",
+    subtitle: "Interior Accessory",
 
-    brand:
-      "CARLISM",
-
-    name:
-      "Premium Floor Mat",
-
-    subtitle:
-      "Interior Accessory",
-
-    price:
-      "฿4,900",
+    price: "CONTACT",
 
     image:
-      "assets/products/accessories/products/floor-mat.jpg"
+      "assets/images/products/accessories/floor-mat.jpg"
   },
 
 
   {
-    id: 17,
+    id: 20,
 
-    category:
-      "accessories",
+    category: "accessories",
+    subcategory: "lifestyle",
+    subcategoryLabel: "LIFESTYLE",
 
-    subcategory:
-      "lifestyle",
+    brand: "CARLISM",
 
-    subcategoryLabel:
-      "LIFESTYLE",
+    name: "CARLISM Keychain",
+    subtitle: "Lifestyle",
 
-    brand:
-      "CARLISM",
-
-    name:
-      "CARLISM Keychain",
-
-    subtitle:
-      "Lifestyle",
-
-    price:
-      "฿790",
+    price: "CONTACT",
 
     image:
-      "assets/products/accessories/products/keychain.jpg"
+      "assets/images/products/accessories/keychain.jpg"
   }
 
 ];
@@ -521,6 +438,6 @@ const products = [
 
 /* =========================================
    GLOBAL
-========================================== */
+========================================= */
 
 window.products = products;

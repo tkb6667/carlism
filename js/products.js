@@ -1,42 +1,21 @@
 document.addEventListener("DOMContentLoaded", () => {
 
-  /* =========================================
-     ELEMENTS
-  ========================================== */
-
-  const productsGrid =
+  const grid =
     document.querySelector("#productsGrid");
 
-  const productCount =
+  const count =
     document.querySelector("#productCount");
 
   const filterContainer =
-    document.querySelector("#productFilterButtons");
-
-  const categoryTitle =
-    document.querySelector("#categoryTitle");
-
-  const categoryDescription =
-    document.querySelector("#categoryDescription");
-
-  const categoryHeroImage =
-    document.querySelector("#categoryHeroImage");
-
-  const breadcrumbCategory =
-    document.querySelector("#breadcrumbCategory");
-
-  const stickyCategoryName =
-    document.querySelector("#stickyCategoryName");
+    document.querySelector(
+      "#productFilterButtons"
+    );
 
 
-  if (!productsGrid) {
+  if (!grid) {
     return;
   }
 
-
-  /* =========================================
-     PRODUCTS DATA
-  ========================================== */
 
   const products =
     Array.isArray(window.products)
@@ -50,10 +29,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const categories = {
 
-    /* -----------------------------------------
-       WHEELS & SUSPENSION
-    ------------------------------------------ */
-
     "wheels-suspension": {
 
       title:
@@ -66,38 +41,17 @@ document.addEventListener("DOMContentLoaded", () => {
         "Upgrade your style, stance and driving experience with our selection of wheels and suspension parts.",
 
       hero:
-        "assets/products/wheels/hero/wheels-hero.jpg",
-
-      heroAlt:
-        "Wheels and suspension",
+        "assets/images/wheels/DSC01003.jpg",
 
       filters: [
-
-        {
-          value: "all",
-          label: "ALL"
-        },
-
-        {
-          value: "wheels",
-          label: "WHEELS"
-        },
-
-        {
-          value: "suspension",
-          label: "SUSPENSION"
-        }
-
+        ["all", "ALL"],
+        ["wheels", "WHEELS"],
+        ["suspension", "SUSPENSION"]
       ]
-
     },
 
 
-    /* -----------------------------------------
-       PERFORMANCE
-    ------------------------------------------ */
-
-    "performance": {
+    performance: {
 
       title:
         "PERFORMANCE",
@@ -109,43 +63,18 @@ document.addEventListener("DOMContentLoaded", () => {
         "Enhance power, response and driving performance with our selection of performance upgrades.",
 
       hero:
-        "assets/products/performance/hero/performance-hero.jpg",
-
-      heroAlt:
-        "Performance products",
+        "",
 
       filters: [
-
-        {
-          value: "all",
-          label: "ALL"
-        },
-
-        {
-          value: "intake",
-          label: "INTAKE"
-        },
-
-        {
-          value: "exhaust",
-          label: "EXHAUST"
-        },
-
-        {
-          value: "engine",
-          label: "ENGINE"
-        }
-
+        ["all", "ALL"],
+        ["intake", "INTAKE"],
+        ["exhaust", "EXHAUST"],
+        ["engine", "ENGINE"]
       ]
-
     },
 
 
-    /* -----------------------------------------
-       EXTERIOR
-    ------------------------------------------ */
-
-    "exterior": {
+    exterior: {
 
       title:
         "EXTERIOR",
@@ -154,46 +83,21 @@ document.addEventListener("DOMContentLoaded", () => {
         "EXTERIOR",
 
       description:
-        "Transform the look of your vehicle with premium exterior styling and aerodynamic parts.",
+        "Transform your vehicle with premium exterior styling and aerodynamic parts.",
 
       hero:
-        "assets/products/exterior/hero/exterior-hero.jpg",
-
-      heroAlt:
-        "Exterior products",
+        "",
 
       filters: [
-
-        {
-          value: "all",
-          label: "ALL"
-        },
-
-        {
-          value: "aero",
-          label: "AERO"
-        },
-
-        {
-          value: "body",
-          label: "BODY"
-        },
-
-        {
-          value: "carbon",
-          label: "CARBON"
-        }
-
+        ["all", "ALL"],
+        ["aero", "AERO"],
+        ["body", "BODY"],
+        ["carbon", "CARBON"]
       ]
-
     },
 
 
-    /* -----------------------------------------
-       INTERIOR
-    ------------------------------------------ */
-
-    "interior": {
+    interior: {
 
       title:
         "INTERIOR",
@@ -202,46 +106,21 @@ document.addEventListener("DOMContentLoaded", () => {
         "INTERIOR",
 
       description:
-        "Refine your driving environment with premium interior accessories and performance-focused upgrades.",
+        "Refine your driving environment with premium interior upgrades.",
 
       hero:
-        "assets/products/interior/hero/interior-hero.jpg",
-
-      heroAlt:
-        "Interior products",
+        "",
 
       filters: [
-
-        {
-          value: "all",
-          label: "ALL"
-        },
-
-        {
-          value: "steering",
-          label: "STEERING"
-        },
-
-        {
-          value: "seats",
-          label: "SEATS"
-        },
-
-        {
-          value: "accessories",
-          label: "ACCESSORIES"
-        }
-
+        ["all", "ALL"],
+        ["steering", "STEERING"],
+        ["seats", "SEATS"],
+        ["accessories", "ACCESSORIES"]
       ]
-
     },
 
 
-    /* -----------------------------------------
-       TUNING
-    ------------------------------------------ */
-
-    "tuning": {
+    tuning: {
 
       title:
         "TUNING",
@@ -250,46 +129,21 @@ document.addEventListener("DOMContentLoaded", () => {
         "TUNING",
 
       description:
-        "Unlock greater performance with professional tuning solutions and electronic upgrades.",
+        "Unlock greater performance with professional tuning solutions.",
 
       hero:
-        "assets/products/tuning/hero/tuning-hero.jpg",
-
-      heroAlt:
-        "Tuning products",
+        "",
 
       filters: [
-
-        {
-          value: "all",
-          label: "ALL"
-        },
-
-        {
-          value: "ecu",
-          label: "ECU"
-        },
-
-        {
-          value: "software",
-          label: "SOFTWARE"
-        },
-
-        {
-          value: "electronics",
-          label: "ELECTRONICS"
-        }
-
+        ["all", "ALL"],
+        ["ecu", "ECU"],
+        ["software", "SOFTWARE"],
+        ["electronics", "ELECTRONICS"]
       ]
-
     },
 
 
-    /* -----------------------------------------
-       ACCESSORIES
-    ------------------------------------------ */
-
-    "accessories": {
+    accessories: {
 
       title:
         "ACCESSORIES",
@@ -298,45 +152,30 @@ document.addEventListener("DOMContentLoaded", () => {
         "ACCESSORIES",
 
       description:
-        "Complete your vehicle with carefully selected automotive accessories and lifestyle products.",
+        "Complete your vehicle with carefully selected automotive accessories.",
 
       hero:
-        "assets/products/accessories/hero/accessories-hero.jpg",
-
-      heroAlt:
-        "Automotive accessories",
+        "",
 
       filters: [
-
-        {
-          value: "all",
-          label: "ALL"
-        },
-
-        {
-          value: "exterior-accessories",
-          label: "EXTERIOR"
-        },
-
-        {
-          value: "interior-accessories",
-          label: "INTERIOR"
-        },
-
-        {
-          value: "lifestyle",
-          label: "LIFESTYLE"
-        }
-
+        ["all", "ALL"],
+        [
+          "exterior-accessories",
+          "EXTERIOR"
+        ],
+        [
+          "interior-accessories",
+          "INTERIOR"
+        ],
+        ["lifestyle", "LIFESTYLE"]
       ]
-
     }
 
   };
 
 
   /* =========================================
-     GET URL CATEGORY
+     URL
   ========================================== */
 
   const params =
@@ -345,173 +184,105 @@ document.addEventListener("DOMContentLoaded", () => {
     );
 
 
-  let currentCategory =
+  let category =
     params.get("category") ||
     "wheels-suspension";
 
 
-  /*
-    รองรับ URL เก่า
+  /* รองรับ URL เก่า */
 
-    products.html?category=wheels
-  */
-
-  if (
-    currentCategory === "wheels"
-  ) {
-
-    currentCategory =
-      "wheels-suspension";
-
+  if (category === "wheels") {
+    category = "wheels-suspension";
   }
 
 
-  /*
-    ถ้า URL category ไม่ถูก
-  */
-
-  if (
-    !categories[currentCategory]
-  ) {
-
-    currentCategory =
-      "wheels-suspension";
-
+  if (!categories[category]) {
+    category = "wheels-suspension";
   }
 
 
-  const currentCategoryData =
-    categories[currentCategory];
+  const config =
+    categories[category];
 
 
   /* =========================================
-     UPDATE PAGE INFORMATION
+     PAGE INFO
   ========================================== */
 
-  function updatePageInformation() {
-
-    document.title =
-      `${currentCategoryData.title} | CARLISM TH`;
+  document.title =
+    `${config.title} | CARLISM TH`;
 
 
-    /* META DESCRIPTION */
+  const title =
+    document.querySelector(
+      "#categoryTitle"
+    );
 
-    const metaDescription =
-      document.querySelector(
-        'meta[name="description"]'
-      );
+  const description =
+    document.querySelector(
+      "#categoryDescription"
+    );
 
+  const breadcrumb =
+    document.querySelector(
+      "#breadcrumbCategory"
+    );
 
-    if (metaDescription) {
+  const stickyName =
+    document.querySelector(
+      "#stickyCategoryName"
+    );
 
-      metaDescription.setAttribute(
-        "content",
-        currentCategoryData.description
-      );
-
-    }
-
-
-    /* TITLE */
-
-    if (categoryTitle) {
-
-      categoryTitle.innerHTML =
-        currentCategoryData.titleHTML;
-
-    }
+  const hero =
+    document.querySelector(
+      "#categoryHeroImage"
+    );
 
 
-    /* DESCRIPTION */
-
-    if (categoryDescription) {
-
-      categoryDescription.textContent =
-        currentCategoryData.description;
-
-    }
-
-
-    /* BREADCRUMB */
-
-    if (breadcrumbCategory) {
-
-      breadcrumbCategory.textContent =
-        currentCategoryData.title;
-
-    }
-
-
-    /* STICKY CATEGORY */
-
-    if (stickyCategoryName) {
-
-      stickyCategoryName.textContent =
-        currentCategoryData.title;
-
-    }
-
-
-    /* HERO IMAGE */
-
-    if (categoryHeroImage) {
-
-      categoryHeroImage.src =
-        currentCategoryData.hero;
-
-
-      categoryHeroImage.alt =
-        currentCategoryData.heroAlt;
-
-
-      categoryHeroImage.addEventListener(
-        "error",
-        () => {
-
-          categoryHeroImage.style.display =
-            "none";
-
-        }
-      );
-
-    }
-
+  if (title) {
+    title.innerHTML =
+      config.titleHTML;
   }
 
 
-  /* =========================================
-     CREATE FILTER BUTTONS
-  ========================================== */
+  if (description) {
+    description.textContent =
+      config.description;
+  }
 
-  function createFilterButtons() {
 
-    if (!filterContainer) {
-      return;
+  if (breadcrumb) {
+    breadcrumb.textContent =
+      config.title;
+  }
+
+
+  if (stickyName) {
+    stickyName.textContent =
+      config.title;
+  }
+
+
+  if (hero) {
+
+    if (config.hero) {
+
+      hero.src =
+        config.hero;
+
+      hero.alt =
+        config.title;
+
+      hero.style.display =
+        "";
+
+    } else {
+
+      hero.removeAttribute("src");
+
+      hero.style.display =
+        "none";
     }
-
-
-    filterContainer.innerHTML =
-      currentCategoryData.filters
-
-        .map(
-          (filter, index) => `
-
-            <button
-              class="product-filter-btn ${
-                index === 0
-                  ? "active"
-                  : ""
-              }"
-              data-filter="${filter.value}"
-              type="button"
-            >
-              ${filter.label}
-            </button>
-
-          `
-        )
-
-        .join("");
 
   }
 
@@ -522,36 +293,47 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const categoryProducts =
     products.filter(
-      (product) => {
-
-        return (
-          product.category ===
-          currentCategory
-        );
-
-      }
+      product =>
+        product.category === category
     );
 
 
   /* =========================================
-     CREATE PRODUCT CARD
+     PRODUCT CARD
+
+     ทั้งการ์ดกดได้
   ========================================== */
 
-  function createProductCard(
-    product
-  ) {
+  function card(product) {
+
+    const productUrl =
+      `product-detail.html?id=${product.id}`;
+
+
+    const subcategory =
+      product.subcategoryLabel ||
+      product.subcategory ||
+      "";
+
+
+    const subtitle =
+      product.subtitle ||
+      product.variant ||
+      "";
+
 
     return `
 
-      <article class="category-product-card">
+      <a
+        href="${productUrl}"
+        class="category-product-card"
+        aria-label="View ${product.name}"
+      >
 
 
         <!-- IMAGE -->
 
-        <a
-          href="product-detail.html?id=${product.id}"
-          class="category-product-image"
-        >
+        <div class="category-product-image">
 
           <img
             src="${product.image}"
@@ -559,11 +341,13 @@ document.addEventListener("DOMContentLoaded", () => {
             loading="lazy"
           >
 
+
           <div class="category-product-view">
             VIEW PRODUCT
           </div>
 
-        </a>
+        </div>
+
 
 
         <!-- INFO -->
@@ -574,11 +358,7 @@ document.addEventListener("DOMContentLoaded", () => {
           <div class="category-product-top">
 
             <span class="category-product-category">
-              ${
-                product.subcategoryLabel ||
-                product.subcategory ||
-                ""
-              }
+              ${subcategory}
             </span>
 
 
@@ -589,40 +369,44 @@ document.addEventListener("DOMContentLoaded", () => {
           </div>
 
 
+
           <h3>
             ${product.name}
           </h3>
 
 
+
           <span class="category-product-subtitle">
-            ${
-              product.subtitle ||
-              product.variant ||
-              ""
-            }
+            ${subtitle}
           </span>
 
 
+
           <div class="category-product-bottom">
+
 
             <span class="category-product-price">
               ${product.price || ""}
             </span>
 
 
-            <a
-              href="product-detail.html?id=${product.id}"
+            <span
               class="category-product-arrow"
-              aria-label="View ${product.name}"
+              aria-hidden="true"
             >
+
               <i class="fa-solid fa-arrow-right"></i>
-            </a>
+
+            </span>
+
 
           </div>
 
+
         </div>
 
-      </article>
+
+      </a>
 
     `;
 
@@ -636,40 +420,41 @@ document.addEventListener("DOMContentLoaded", () => {
   function setupImageFallback() {
 
     const images =
-      productsGrid.querySelectorAll(
+      grid.querySelectorAll(
         ".category-product-image img"
       );
 
 
-    images.forEach(
-      (image) => {
+    images.forEach((image) => {
 
-        image.addEventListener(
-          "error",
-          () => {
+      image.addEventListener(
+        "error",
+        () => {
 
-            const wrapper =
-              image.closest(
-                ".category-product-image"
-              );
-
-
-            if (wrapper) {
-
-              image.remove();
+          const wrapper =
+            image.closest(
+              ".category-product-image"
+            );
 
 
-              wrapper.classList.add(
-                "image-missing"
-              );
-
-            }
-
+          if (!wrapper) {
+            return;
           }
-        );
 
-      }
-    );
+
+          image.remove();
+
+          wrapper.classList.add(
+            "image-missing"
+          );
+
+        },
+        {
+          once: true
+        }
+      );
+
+    });
 
   }
 
@@ -678,44 +463,26 @@ document.addEventListener("DOMContentLoaded", () => {
      RENDER PRODUCTS
   ========================================== */
 
-  function renderProducts(
-    filter = "all"
-  ) {
+  function render(filter = "all") {
 
-    const filteredProducts =
+    const filtered =
       filter === "all"
-
         ? categoryProducts
-
         : categoryProducts.filter(
-            (product) => {
-
-              return (
-                product.subcategory ===
-                filter
-              );
-
-            }
+            product =>
+              product.subcategory === filter
           );
 
 
-    /* COUNT */
-
-    if (productCount) {
-
-      productCount.textContent =
-        filteredProducts.length;
-
+    if (count) {
+      count.textContent =
+        filtered.length;
     }
 
 
-    /* EMPTY */
+    if (!filtered.length) {
 
-    if (
-      filteredProducts.length === 0
-    ) {
-
-      productsGrid.innerHTML = `
+      grid.innerHTML = `
 
         <div class="products-empty">
 
@@ -730,17 +497,12 @@ document.addEventListener("DOMContentLoaded", () => {
       `;
 
       return;
-
     }
 
 
-    /* PRODUCTS */
-
-    productsGrid.innerHTML =
-      filteredProducts
-
-        .map(createProductCard)
-
+    grid.innerHTML =
+      filtered
+        .map(card)
         .join("");
 
 
@@ -750,579 +512,138 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
   /* =========================================
-     ACTIVE FILTER
+     FILTER BUTTONS
   ========================================== */
 
-  function setActiveFilter(
-    filter
-  ) {
+  if (filterContainer) {
+
+    filterContainer.innerHTML =
+      config.filters
+        .map(
+          ([value, label]) => `
+
+            <button
+              type="button"
+              class="product-filter-btn"
+              data-filter="${value}"
+            >
+              ${label}
+            </button>
+
+          `
+        )
+        .join("");
+
 
     const buttons =
-      document.querySelectorAll(
+      filterContainer.querySelectorAll(
         ".product-filter-btn"
       );
 
 
-    buttons.forEach(
-      (button) => {
+    /* =======================================
+       ACTIVE FILTER
+    ======================================== */
+
+    function activate(filter) {
+
+      buttons.forEach((button) => {
 
         button.classList.toggle(
           "active",
-          button.dataset.filter ===
-            filter
+          button.dataset.filter === filter
         );
 
-      }
-    );
+      });
 
-  }
-
-
-  /* =========================================
-     FILTER EVENTS
-  ========================================== */
-
-  function setupFilterEvents() {
-
-    const buttons =
-      document.querySelectorAll(
-        ".product-filter-btn"
-      );
+    }
 
 
-    buttons.forEach(
-      (button) => {
+    /* =======================================
+       FILTER CLICK
+    ======================================== */
 
-        button.addEventListener(
-          "click",
-          () => {
+    buttons.forEach((button) => {
 
-            const filter =
-              button.dataset.filter ||
-              "all";
+      button.addEventListener(
+        "click",
+        () => {
+
+          const filter =
+            button.dataset.filter ||
+            "all";
 
 
-            setActiveFilter(
-              filter
+          activate(filter);
+
+          render(filter);
+
+
+          /* URL */
+
+          const url =
+            new URL(
+              window.location.href
             );
 
 
-            renderProducts(
-              filter
+          if (filter === "all") {
+
+            url.searchParams.delete(
+              "filter"
             );
 
+          } else {
 
-            /* UPDATE URL */
-
-            const url =
-              new URL(
-                window.location.href
-              );
-
-
-            if (
-              filter === "all"
-            ) {
-
-              url.searchParams.delete(
-                "filter"
-              );
-
-            } else {
-
-              url.searchParams.set(
-                "filter",
-                filter
-              );
-
-            }
-
-
-            window.history.replaceState(
-              {},
-              "",
-              url
+            url.searchParams.set(
+              "filter",
+              filter
             );
 
           }
-        );
-
-      }
-    );
-
-  }
 
 
-  /* =========================================
-     FILTER FROM URL
-  ========================================== */
+          window.history.replaceState(
+            {},
+            "",
+            url
+          );
 
-  function getStartingFilter() {
+        }
+      );
+
+    });
+
+
+    /* =======================================
+       FILTER FROM URL
+    ======================================== */
 
     const requestedFilter =
       params.get("filter");
 
 
-    if (!requestedFilter) {
-
-      return "all";
-
-    }
-
-
-    const filterExists =
-      currentCategoryData.filters.some(
-        (filter) => {
-
-          return (
-            filter.value ===
-            requestedFilter
-          );
-
-        }
+    const validFilter =
+      config.filters.some(
+        ([value]) =>
+          value === requestedFilter
       );
 
 
-    return filterExists
-      ? requestedFilter
-      : "all";
+    const startingFilter =
+      validFilter
+        ? requestedFilter
+        : "all";
+
+
+    activate(startingFilter);
+
+    render(startingFilter);
+
+  } else {
+
+    render();
 
   }
-
-
-  /* =========================================
-     MOBILE COMPACT STICKY HEADER
-  ========================================== */
-
-  function initMobileStickyNavigation() {
-
-    const stickyNav =
-      document.querySelector(
-        "#productStickyNav"
-      );
-
-
-    const stickyMenuToggle =
-      document.querySelector(
-        "#stickyMobileMenuToggle"
-      );
-
-
-    const stickyMenu =
-      document.querySelector(
-        "#stickyMobileMenu"
-      );
-
-
-    if (
-      !stickyNav ||
-      !stickyMenuToggle ||
-      !stickyMenu
-    ) {
-
-      return;
-
-    }
-
-
-    /* =====================================
-       MENU ICON
-    ===================================== */
-
-    const stickyMenuIcon =
-      stickyMenuToggle.querySelector(
-        "i"
-      );
-
-
-    /* =====================================
-       COPY MENU FROM HEADER
-    ===================================== */
-
-    function copyMainMenu() {
-
-      const originalNavMenu =
-        document.querySelector(
-          ".nav-menu"
-        );
-
-
-      if (!originalNavMenu) {
-
-        return false;
-
-      }
-
-
-      stickyMenu.innerHTML =
-        originalNavMenu.innerHTML;
-
-
-      return true;
-
-    }
-
-
-    /*
-      เผื่อ components.js
-      ยังสร้าง Header ไม่เสร็จ
-    */
-
-    let attempts = 0;
-
-
-    function waitForMainMenu() {
-
-      if (copyMainMenu()) {
-
-        return;
-
-      }
-
-
-      attempts++;
-
-
-      if (attempts < 30) {
-
-        setTimeout(
-          waitForMainMenu,
-          50
-        );
-
-      }
-
-    }
-
-
-    waitForMainMenu();
-
-
-    /* =====================================
-       ICON STATE
-    ===================================== */
-
-    function setMenuIcon(
-      open
-    ) {
-
-      if (!stickyMenuIcon) {
-
-        return;
-
-      }
-
-
-      stickyMenuIcon.classList.toggle(
-        "fa-bars",
-        !open
-      );
-
-
-      stickyMenuIcon.classList.toggle(
-        "fa-xmark",
-        open
-      );
-
-    }
-
-
-    /* =====================================
-       CLOSE COMPACT MENU
-    ===================================== */
-
-    function closeCompactMenu() {
-
-      stickyNav.classList.remove(
-        "menu-open"
-      );
-
-
-      stickyMenuToggle.setAttribute(
-        "aria-expanded",
-        "false"
-      );
-
-
-      setMenuIcon(false);
-
-    }
-
-
-    /* =====================================
-       CLOSE ORIGINAL HEADER MENU
-    ===================================== */
-
-    function closeOriginalMenu() {
-
-      const originalNavMenu =
-        document.querySelector(
-          ".nav-menu"
-        );
-
-
-      const originalToggle =
-        document.querySelector(
-          ".menu-toggle"
-        );
-
-
-      if (originalNavMenu) {
-
-        originalNavMenu.classList.remove(
-          "active"
-        );
-
-      }
-
-
-      if (originalToggle) {
-
-        originalToggle.classList.remove(
-          "active"
-        );
-
-
-        originalToggle.setAttribute(
-          "aria-expanded",
-          "false"
-        );
-
-      }
-
-    }
-
-
-    /* =====================================
-       COMPACT HAMBURGER CLICK
-    ===================================== */
-
-    stickyMenuToggle.addEventListener(
-      "click",
-      (event) => {
-
-        event.stopPropagation();
-
-
-        const open =
-          stickyNav.classList.toggle(
-            "menu-open"
-          );
-
-
-        stickyMenuToggle.setAttribute(
-          "aria-expanded",
-          open
-            ? "true"
-            : "false"
-        );
-
-
-        setMenuIcon(open);
-
-      }
-    );
-
-
-    /* =====================================
-       CLICK MENU LINK
-    ===================================== */
-
-    stickyMenu.addEventListener(
-      "click",
-      (event) => {
-
-        const link =
-          event.target.closest(
-            "a"
-          );
-
-
-        if (link) {
-
-          closeCompactMenu();
-
-        }
-
-      }
-    );
-
-
-    /* =====================================
-       CLICK OUTSIDE
-    ===================================== */
-
-    document.addEventListener(
-      "click",
-      (event) => {
-
-        if (
-          !stickyNav.contains(
-            event.target
-          )
-        ) {
-
-          closeCompactMenu();
-
-        }
-
-      }
-    );
-
-
-    /* =====================================
-       ESCAPE
-    ===================================== */
-
-    document.addEventListener(
-      "keydown",
-      (event) => {
-
-        if (
-          event.key === "Escape"
-        ) {
-
-          closeCompactMenu();
-
-        }
-
-      }
-    );
-
-
-    /* =====================================
-       SCROLL STATE
-    ===================================== */
-
-    function updateStickyNavigation() {
-
-      const isMobile =
-        window.matchMedia(
-          "(max-width: 820px)"
-        ).matches;
-
-
-      const shouldCompact =
-        isMobile &&
-        window.scrollY > 90;
-
-
-      stickyNav.classList.toggle(
-        "is-compact",
-        shouldCompact
-      );
-
-
-      document.body.classList.toggle(
-        "product-mobile-compact",
-        shouldCompact
-      );
-
-
-      /*
-        ตอนเข้าสู่ Compact
-        ปิดเมนู Header เดิม
-      */
-
-      if (shouldCompact) {
-
-        closeOriginalMenu();
-
-      } else {
-
-        closeCompactMenu();
-
-      }
-
-
-      /*
-        ถ้ากลับเป็น PC
-      */
-
-      if (!isMobile) {
-
-        closeCompactMenu();
-
-
-        stickyNav.classList.remove(
-          "is-compact"
-        );
-
-
-        document.body.classList.remove(
-          "product-mobile-compact"
-        );
-
-      }
-
-    }
-
-
-    /* =====================================
-       SCROLL LISTENER
-    ===================================== */
-
-    window.addEventListener(
-      "scroll",
-      updateStickyNavigation,
-      {
-        passive: true
-      }
-    );
-
-
-    /* =====================================
-       RESIZE LISTENER
-    ===================================== */
-
-    window.addEventListener(
-      "resize",
-      updateStickyNavigation
-    );
-
-
-    /* INITIAL */
-
-    updateStickyNavigation();
-
-  }
-
-
-  /* =========================================
-     INIT
-  ========================================== */
-
-  updatePageInformation();
-
-
-  createFilterButtons();
-
-
-  setupFilterEvents();
-
-
-  const startingFilter =
-    getStartingFilter();
-
-
-  setActiveFilter(
-    startingFilter
-  );
-
-
-  renderProducts(
-    startingFilter
-  );
-
-
-  /*
-    รอ Header จาก components.js
-    ก่อนเริ่มระบบ Compact
-  */
-
-  setTimeout(
-    initMobileStickyNavigation,
-    0
-  );
 
 });
