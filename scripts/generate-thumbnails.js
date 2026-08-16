@@ -16,18 +16,12 @@ const PRODUCTS_FILE = path.join(
   "products.js"
 );
 
-/*
-  Thumbnail สำหรับ Product Card
+const HERO_ROOT = path.join(
+  ROOT_DIR,
+  "assets",
+  "products"
+);
 
-  width 1200:
-  - คมบนมือถือ
-  - คมบน Retina
-  - เบากว่า Original มาก
-
-  quality 88:
-  - เน้นความชัด
-  - ยังลดขนาดไฟล์ได้เยอะ
-*/
 const THUMB_WIDTH = 1200;
 const WEBP_QUALITY = 88;
 
@@ -52,21 +46,13 @@ function loadProducts() {
     );
 
 
-  /*
-    products.js มี:
-
-    const products = [...]
-    window.products = products;
-
-    เราจึงสร้าง window จำลองขึ้นมา
-    เพื่อให้ Node.js อ่านข้อมูลได้
-  */
   const sandbox = {
     window: {}
   };
 
 
   vm.createContext(sandbox);
+
 
   vm.runInContext(
     code,
@@ -98,16 +84,6 @@ function loadProducts() {
 
 function getThumbnailPath(imagePath) {
 
-  /*
-    ตัวอย่าง:
-
-    Original:
-    assets/images/wheels/478/DSC00478.jpg
-
-    Thumbnail:
-    assets/images/wheels/478/thumbs/DSC00478.webp
-  */
-
   const normalized =
     imagePath.replace(/\\/g, "/");
 
@@ -128,6 +104,108 @@ function getThumbnailPath(imagePath) {
     "thumbs",
     `${filename}.webp`
   );
+}
+
+
+/* =========================================
+   GET HERO IMAGES
+========================================= */
+
+function getHeroImages() {
+
+  const heroImages = [];
+
+
+  if (!fs.existsSync(HERO_ROOT)) {
+    return heroImages;
+  }
+
+
+  const folders =
+    fs.readdirSync(
+      HERO_ROOT,
+      {
+        withFileTypes: true
+      }
+    );
+
+
+  folders.forEach((folder) => {
+
+    if (!folder.isDirectory()) {
+      return;
+    }
+
+
+    const heroFolder =
+      path.join(
+        HERO_ROOT,
+        folder.name,
+        "hero"
+      );
+
+
+    if (!fs.existsSync(heroFolder)) {
+      return;
+    }
+
+
+    const files =
+      fs.readdirSync(
+        heroFolder,
+        {
+          withFileTypes: true
+        }
+      );
+
+
+    files.forEach((file) => {
+
+      if (!file.isFile()) {
+        return;
+      }
+
+
+      const extension =
+        path.extname(
+          file.name
+        ).toLowerCase();
+
+
+      if (
+        extension !== ".jpg" &&
+        extension !== ".jpeg" &&
+        extension !== ".png" &&
+        extension !== ".webp"
+      ) {
+        return;
+      }
+
+
+      const absolutePath =
+        path.join(
+          heroFolder,
+          file.name
+        );
+
+
+      const relativePath =
+        path.relative(
+          ROOT_DIR,
+          absolutePath
+        );
+
+
+      heroImages.push(
+        relativePath.replace(/\\/g, "/")
+      );
+
+    });
+
+  });
+
+
+  return heroImages;
 }
 
 
@@ -164,6 +242,7 @@ async function createThumbnail(
 
 
   console.log("");
+
   console.log(
     `[${index}/${total}] ${imagePath}`
   );
@@ -176,7 +255,7 @@ async function createThumbnail(
   if (!fs.existsSync(sourceFile)) {
 
     console.log(
-      `  ❌ ไม่พบ Original`
+      "  ❌ ไม่พบ Original"
     );
 
     return {
@@ -212,17 +291,13 @@ async function createThumbnail(
       fs.statSync(outputFile);
 
 
-    /*
-      ถ้า Thumbnail ใหม่กว่า Original
-      ไม่ต้องสร้างใหม่
-    */
     if (
       thumbnailStat.mtimeMs >=
       sourceStat.mtimeMs
     ) {
 
       console.log(
-        `  ⏭️  มี Thumbnail ล่าสุดแล้ว`
+        "  ⏭️  มี Thumbnail ล่าสุดแล้ว"
       );
 
       console.log(
@@ -246,26 +321,14 @@ async function createThumbnail(
 
     await sharp(sourceFile)
 
-      /*
-        แก้ orientation จากกล้อง
-        ตาม EXIF อัตโนมัติ
-      */
       .rotate()
 
-      /*
-        ลดเฉพาะไฟล์ Thumbnail
-
-        Original ไม่ถูกแก้
-      */
       .resize({
         width: THUMB_WIDTH,
         withoutEnlargement: true,
         fit: "inside"
       })
 
-      /*
-        WebP คุณภาพสูง
-      */
       .webp({
         quality: WEBP_QUALITY,
         effort: 4
@@ -273,10 +336,6 @@ async function createThumbnail(
 
       .toFile(outputFile);
 
-
-    /* =====================================
-       FILE SIZE
-    ====================================== */
 
     const originalSize =
       fs.statSync(sourceFile).size;
@@ -334,7 +393,7 @@ async function createThumbnail(
   } catch (error) {
 
     console.log(
-      `  ❌ สร้าง Thumbnail ไม่สำเร็จ`
+      "  ❌ สร้าง Thumbnail ไม่สำเร็จ"
     );
 
     console.log(
@@ -360,6 +419,7 @@ async function createThumbnail(
 async function main() {
 
   console.log("");
+
   console.log(
     "========================================="
   );
@@ -377,14 +437,11 @@ async function main() {
     loadProducts();
 
 
-  /*
-    เอาเฉพาะ image หลักของสินค้า
+  /* =======================================
+     PRODUCT IMAGES
+  ======================================== */
 
-    gallery จะไม่ถูกสร้าง Thumbnail
-    เพราะ Gallery ใช้ Original
-    ในหน้ารายละเอียดสินค้า
-  */
-  const imagePaths =
+  const productImages =
     products
 
       .map(
@@ -399,21 +456,45 @@ async function main() {
       );
 
 
-  /*
-    ป้องกันกรณีสินค้าหลายตัว
-    ใช้ Original รูปเดียวกัน
-  */
-  const uniqueImages =
-    [...new Set(imagePaths)];
+  /* =======================================
+     HERO IMAGES
+  ======================================== */
+
+  const contactImages = [
+  "assets/images/hero/DSC00740.jpg"
+];
+
+
+  /* =======================================
+     MERGE ALL
+  ======================================== */
+
+const allImages =
+  [
+    ...new Set([
+      ...productImages,
+      ...heroImages,
+      ...contactImages
+    ])
+  ];
 
 
   console.log("");
+
   console.log(
     `พบสินค้า: ${products.length} รายการ`
   );
 
   console.log(
-    `พบรูปที่ต้องสร้าง Thumbnail: ${uniqueImages.length} รูป`
+    `รูปสินค้า: ${productImages.length} รูป`
+  );
+
+  console.log(
+    `Hero: ${heroImages.length} รูป`
+  );
+
+  console.log(
+    `รวมทั้งหมด: ${allImages.length} รูป`
   );
 
   console.log(
@@ -430,15 +511,15 @@ async function main() {
 
   for (
     let i = 0;
-    i < uniqueImages.length;
+    i < allImages.length;
     i++
   ) {
 
     const result =
       await createThumbnail(
-        uniqueImages[i],
+        allImages[i],
         i + 1,
-        uniqueImages.length
+        allImages.length
       );
 
 
@@ -480,6 +561,7 @@ async function main() {
 
 
   console.log("");
+
   console.log(
     "========================================="
   );
@@ -520,6 +602,7 @@ async function main() {
 main().catch((error) => {
 
   console.error("");
+
   console.error(
     "เกิดข้อผิดพลาด:"
   );

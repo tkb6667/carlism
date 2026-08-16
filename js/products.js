@@ -1,9 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
 
-  /* =========================================
-     ELEMENTS
-  ========================================== */
-
   const grid = document.querySelector("#productsGrid");
   const count = document.querySelector("#productCount");
   const filterContainer = document.querySelector("#productFilterButtons");
@@ -21,17 +17,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const categories = {
 
-    /* WHEELS & SUSPENSION */
     "wheels-suspension": {
       title: "WHEELS & SUSPENSION",
       titleHTML: "WHEELS &<br>SUSPENSION",
-
       description:
         "Upgrade your style, stance and driving experience with our selection of wheels and suspension parts.",
-
       hero:
         "assets/products/wheels/hero/wheels-hero.jpg",
-
       filters: [
         ["all", "ALL"],
         ["wheels", "WHEELS"],
@@ -39,18 +31,13 @@ document.addEventListener("DOMContentLoaded", () => {
       ]
     },
 
-
-    /* PERFORMANCE */
     performance: {
       title: "PERFORMANCE",
       titleHTML: "PERFORMANCE",
-
       description:
         "Enhance power, response and driving performance with our selection of performance upgrades.",
-
       hero:
         "assets/products/wheels/hero/DSC00139.jpg",
-
       filters: [
         ["all", "ALL"],
         ["intake", "INTAKE"],
@@ -59,18 +46,13 @@ document.addEventListener("DOMContentLoaded", () => {
       ]
     },
 
-
-    /* EXTERIOR */
     exterior: {
       title: "EXTERIOR",
       titleHTML: "EXTERIOR",
-
       description:
         "Transform your vehicle with premium exterior styling and aerodynamic parts.",
-
       hero:
         "assets/products/wheels/hero/DSC09760.jpg",
-
       filters: [
         ["all", "ALL"],
         ["aero", "AERO"],
@@ -79,18 +61,13 @@ document.addEventListener("DOMContentLoaded", () => {
       ]
     },
 
-
-    /* INTERIOR */
     interior: {
       title: "INTERIOR",
       titleHTML: "INTERIOR",
-
       description:
         "Refine your driving environment with premium interior upgrades.",
-
       hero:
         "assets/products/wheels/hero/DSC08517.jpg",
-
       filters: [
         ["all", "ALL"],
         ["steering", "STEERING"],
@@ -99,18 +76,13 @@ document.addEventListener("DOMContentLoaded", () => {
       ]
     },
 
-
-    /* TUNING */
     tuning: {
       title: "TUNING",
       titleHTML: "TUNING",
-
       description:
         "Unlock greater performance with professional tuning solutions.",
-
       hero:
         "assets/products/wheels/hero/154.jpg",
-
       filters: [
         ["all", "ALL"],
         ["ecu", "ECU"],
@@ -119,17 +91,12 @@ document.addEventListener("DOMContentLoaded", () => {
       ]
     },
 
-
-    /* ACCESSORIES */
     accessories: {
       title: "ACCESSORIES",
       titleHTML: "ACCESSORIES",
-
       description:
         "Complete your vehicle with carefully selected automotive accessories.",
-
       hero: "",
-
       filters: [
         ["all", "ALL"],
         ["exterior-accessories", "EXTERIOR"],
@@ -153,17 +120,13 @@ document.addEventListener("DOMContentLoaded", () => {
     params.get("category") ||
     "wheels-suspension";
 
-
-  /* รองรับ URL เก่า */
   if (category === "wheels") {
     category = "wheels-suspension";
   }
 
-
   if (!categories[category]) {
     category = "wheels-suspension";
   }
-
 
   const config = categories[category];
 
@@ -174,7 +137,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   document.title =
     `${config.title} | CARLISM TH`;
-
 
   const title =
     document.querySelector("#categoryTitle");
@@ -191,21 +153,17 @@ document.addEventListener("DOMContentLoaded", () => {
   const hero =
     document.querySelector("#categoryHeroImage");
 
-
   if (title) {
     title.innerHTML = config.titleHTML;
   }
-
 
   if (description) {
     description.textContent = config.description;
   }
 
-
   if (breadcrumb) {
     breadcrumb.textContent = config.title;
   }
-
 
   if (stickyName) {
     stickyName.textContent = config.title;
@@ -213,25 +171,71 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
   /* =========================================
-     HERO IMAGE
+     THUMBNAIL PATH
+  ========================================== */
+
+  function getThumbnailPath(imagePath) {
+
+    if (!imagePath) return "";
+
+    const normalized =
+      imagePath.replace(/\\/g, "/");
+
+    const slash =
+      normalized.lastIndexOf("/");
+
+    if (slash === -1) {
+      return imagePath;
+    }
+
+    const directory =
+      normalized.substring(0, slash);
+
+    const filename =
+      normalized.substring(slash + 1);
+
+    const name =
+      filename.replace(/\.[^/.]+$/, "");
+
+    return `${directory}/thumbs/${name}.webp`;
+  }
+
+
+  /* =========================================
+     HERO
   ========================================== */
 
   if (hero) {
 
     if (config.hero) {
 
-      hero.src = config.hero;
-      hero.alt = config.title;
+      const heroThumb =
+        getThumbnailPath(config.hero);
 
-      /*
-        Hero เป็นรูปด้านบน
-        ให้ browser โหลดก่อน
-      */
+      hero.src = heroThumb;
+      hero.dataset.original = config.hero;
+
+      hero.alt = config.title;
       hero.loading = "eager";
       hero.fetchPriority = "high";
       hero.decoding = "async";
-
       hero.style.display = "";
+
+      hero.addEventListener(
+        "error",
+        () => {
+
+          if (
+            hero.dataset.fallbackUsed !== "true"
+          ) {
+
+            hero.dataset.fallbackUsed = "true";
+            hero.src = hero.dataset.original;
+
+          }
+
+        }
+      );
 
     } else {
 
@@ -255,77 +259,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
   /* =========================================
-     CREATE THUMBNAIL PATH
-  ========================================== */
-
-  function getThumbnailPath(imagePath) {
-
-    if (!imagePath) {
-      return "";
-    }
-
-    /*
-      รองรับทั้ง / และ \
-    */
-    const normalized =
-      imagePath.replace(/\\/g, "/");
-
-
-    const lastSlash =
-      normalized.lastIndexOf("/");
-
-
-    /*
-      ถ้าไม่มี folder
-      ใช้ Original ไปก่อน
-    */
-    if (lastSlash === -1) {
-      return imagePath;
-    }
-
-
-    const directory =
-      normalized.substring(
-        0,
-        lastSlash
-      );
-
-
-    const filename =
-      normalized.substring(
-        lastSlash + 1
-      );
-
-
-    const lastDot =
-      filename.lastIndexOf(".");
-
-
-    const filenameWithoutExtension =
-      lastDot !== -1
-        ? filename.substring(0, lastDot)
-        : filename;
-
-
-    /*
-      ตัวอย่าง:
-
-      Original
-      assets/images/wheels/478/DSC00478.jpg
-
-      จะกลายเป็น
-
-      assets/images/wheels/478/thumbs/DSC00478.webp
-    */
-    return (
-      `${directory}/thumbs/` +
-      `${filenameWithoutExtension}.webp`
-    );
-
-  }
-
-
-  /* =========================================
      PRODUCT CARD
   ========================================== */
 
@@ -334,23 +267,16 @@ document.addEventListener("DOMContentLoaded", () => {
     const productUrl =
       `product-detail.html?id=${product.id}`;
 
-
     const subcategory =
       product.subcategoryLabel ||
       product.subcategory ||
       "";
-
 
     const subtitle =
       product.subtitle ||
       product.variant ||
       "";
 
-
-    /*
-      สร้าง path Thumbnail จาก Original
-      อัตโนมัติ
-    */
     const thumbnail =
       getThumbnailPath(
         product.image
@@ -425,7 +351,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
       </a>
     `;
-
   }
 
 
@@ -435,70 +360,47 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function setupImageFallback() {
 
-    const images =
-      grid.querySelectorAll(
+    grid
+      .querySelectorAll(
         ".category-product-image img"
-      );
+      )
+      .forEach((image) => {
 
+        image.addEventListener(
+          "error",
+          () => {
 
-    images.forEach((image) => {
+            const original =
+              image.dataset.original;
 
-      image.addEventListener(
-        "error",
-        () => {
+            if (
+              original &&
+              image.dataset.fallbackUsed !== "true"
+            ) {
 
-          const original =
-            image.dataset.original;
+              image.dataset.fallbackUsed = "true";
+              image.src = original;
 
+              return;
+            }
 
-          /*
-            STEP 1
+            const wrapper =
+              image.closest(
+                ".category-product-image"
+              );
 
-            ถ้า Thumbnail โหลดไม่ได้
-            ให้กลับไปใช้ Original
-          */
-          if (
-            original &&
-            image.dataset.fallbackUsed !== "true"
-          ) {
+            if (!wrapper) return;
 
-            image.dataset.fallbackUsed = "true";
+            image.remove();
 
-            image.src = original;
-
-            return;
-          }
-
-
-          /*
-            STEP 2
-
-            ถ้า Original ก็โหลดไม่ได้
-            ค่อยซ่อนรูป
-          */
-          const wrapper =
-            image.closest(
-              ".category-product-image"
+            wrapper.classList.add(
+              "image-missing"
             );
 
-
-          if (!wrapper) {
-            return;
           }
+        );
 
-
-          image.remove();
-
-
-          wrapper.classList.add(
-            "image-missing"
-          );
-
-        }
-      );
-
-    });
-
+      });
   }
 
 
@@ -516,49 +418,34 @@ document.addEventListener("DOMContentLoaded", () => {
               product.subcategory === filter
           );
 
-
     if (count) {
       count.textContent =
         filtered.length;
     }
 
-
     if (!filtered.length) {
 
       grid.innerHTML = `
         <div class="products-empty">
-
           <i class="fa-solid fa-box-open"></i>
-
-          <p>
-            No products available.
-          </p>
-
+          <p>No products available.</p>
         </div>
       `;
 
       return;
-
     }
-
 
     grid.innerHTML =
       filtered
         .map(card)
         .join("");
 
-
-    /*
-      หลังจากสร้าง <img> แล้ว
-      ค่อยติด fallback
-    */
     setupImageFallback();
-
   }
 
 
   /* =========================================
-     FILTER BUTTONS
+     FILTER
   ========================================== */
 
   if (filterContainer) {
@@ -585,10 +472,6 @@ document.addEventListener("DOMContentLoaded", () => {
       );
 
 
-    /* =======================================
-       ACTIVE FILTER
-    ======================================== */
-
     function activate(filter) {
 
       buttons.forEach((button) => {
@@ -599,13 +482,8 @@ document.addEventListener("DOMContentLoaded", () => {
         );
 
       });
-
     }
 
-
-    /* =======================================
-       FILTER CLICK
-    ======================================== */
 
     buttons.forEach((button) => {
 
@@ -617,17 +495,13 @@ document.addEventListener("DOMContentLoaded", () => {
             button.dataset.filter ||
             "all";
 
-
           activate(filter);
-
           render(filter);
-
 
           const url =
             new URL(
               window.location.href
             );
-
 
           if (filter === "all") {
 
@@ -644,7 +518,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
           }
 
-
           window.history.replaceState(
             {},
             "",
@@ -656,10 +529,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     });
 
-
-    /* =======================================
-       FILTER FROM URL
-    ======================================== */
 
     const requestedFilter =
       params.get("filter");
@@ -679,7 +548,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     activate(startingFilter);
-
     render(startingFilter);
 
 
