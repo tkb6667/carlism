@@ -37,218 +37,322 @@ const products = [
   },
 
 
-  {
-    id: 2,
+{
+  id: 2,
 
-    category: "wheels-suspension",
-    subcategory: "wheels",
-    subcategoryLabel: "WHEELS",
+  category: "wheels-suspension",
+  subcategory: "wheels",
+  subcategoryLabel: "WHEELS",
 
-    brand: "CARLISM",
+  brand: "CARLISM",
 
-    name: "Carlism TH Custom forged wheels",
-    subtitle: "Matte Black",
+  name: "Carlism TH Custom forged wheels",
+  subtitle: "Matte Black",
 
-    price: "CONTACT",
+  price: "CONTACT",
 
-    image:
-      "assets/images/wheels/DSC00673.jpg",
+  image:
+    "assets/images/wheels/673/DSC00673.jpg",
 
-    gallery: [
-      "assets/images/wheels/DSC00673.jpg"
-    ]
-  },
+  gallery: [
+    "assets/images/wheels/673/DSC00673.jpg",
+    "assets/images/wheels/673/DSC00679.jpg",
+    "assets/images/wheels/673/DSC00693.jpg",
+    "assets/images/wheels/673/DSC00701.jpg"
+  ]
+},
 
+{
+  id: 3,
 
-  {
-    id: 3,
+  category: "wheels-suspension",
+  subcategory: "wheels",
+  subcategoryLabel: "WHEELS",
 
-    category: "wheels-suspension",
-    subcategory: "wheels",
-    subcategoryLabel: "WHEELS",
+  brand: "CARLISM",
 
-    brand: "CARLISM",
+  name: "Carlism TH Custom forged wheels",
+  subtitle: "Gloss Black",
 
-    name: "Carlism TH Custom forged wheels",
-    subtitle: "Gloss Black",
+  price: "CONTACT",
 
-    price: "CONTACT",
+  image:
+    "assets/images/wheels/1003/DSC01003.jpg",
 
-    image:
-      "assets/images/wheels/DSC01003.jpg",
-
-    gallery: [
-      "assets/images/wheels/DSC01003.jpg"
-    ]
-  },
-
-
-  {
-    id: 4,
-
-    category: "wheels-suspension",
-    subcategory: "wheels",
-    subcategoryLabel: "WHEELS",
-
-    brand: "CARLISM",
-
-    name: "Carlism TH Custom forged wheels",
-    subtitle: "Bronze Finish",
-
-    price: "CONTACT",
-
-    image:
-      "assets/images/wheels/DSC00736.jpg",
-
-    gallery: [
-      "assets/images/wheels/DSC00736.jpg"
-    ]
-  },
+  gallery: [
+    "assets/images/wheels/1003/DSC01003.jpg",
+    "assets/images/wheels/1003/DSC01012.jpg",
+    "assets/images/wheels/1003/DSC00996.jpg",
+    "assets/images/wheels/1003/DSC00992.jpg",
+    "assets/images/wheels/1003/DSC00998.jpg"
+  ]
+},
 
 
-  {
-    id: 5,
+{
+  id: 4,
 
-    category: "wheels-suspension",
-    subcategory: "wheels",
-    subcategoryLabel: "WHEELS",
+  category: "wheels-suspension",
+  subcategory: "wheels",
+  subcategoryLabel: "WHEELS",
 
-    brand: "CARLISM",
+  brand: "CARLISM",
 
-    name: "Carlism TH Custom forged wheels",
-    subtitle: "Silver Finish",
+  name: "Carlism TH Custom forged wheels",
+  subtitle: "Bronze Finish",
 
-    price: "CONTACT",
+  price: "CONTACT",
 
-    image:
-      "assets/images/wheels/DSC00660.jpg",
+  image:
+    "assets/images/wheels/736/DSC00736.jpg",
 
-    gallery: [
-      "assets/images/wheels/DSC00660.jpg"
-    ]
-  },
+  gallery: [
+    "assets/images/wheels/736/DSC00736.jpg",
+    "assets/images/wheels/736/DSC00727.jpg",
+    "assets/images/wheels/736/DSC00735.jpg",
+    "assets/images/wheels/736/DSC00724.jpg"
+  ]
+},
+
+{
+  id: 5,
+
+  category: "wheels-suspension",
+  subcategory: "wheels",
+  subcategoryLabel: "WHEELS",
+
+  brand: "CARLISM",
+
+  name: "Carlism TH Custom forged wheels",
+  subtitle: "Silver Finish",
+
+  price: "CONTACT",
+
+  image:
+    "assets/images/wheels/660/DSC00660.jpg",
+
+  gallery: [
+    "assets/images/wheels/660/DSC00660.jpg",
+    "assets/images/wheels/660/DSC00662.jpg",
+    "assets/images/wheels/660/DSC00651.jpg",
+    "assets/images/wheels/660/DSC00658.jpg"
+
+  ]
+},
 
 
   /* =========================================
      PERFORMANCE
   ========================================== */
 
-  {
-    id: 6,
+{
+  id: 6,
 
-    category: "performance",
-    subcategory: "intake",
-    subcategoryLabel: "INTAKE",
+  category: "performance",
+  subcategory: "engine",
+  subcategoryLabel: "ENGINE",
 
-    brand: "CARLISM",
+  brand: "APR",
 
-    name: "Carbon Intake System",
-    subtitle: "High Flow Intake",
+  name: "APR Ignition Coil Pack",
+  subtitle: "High-Performance Ignition Upgrade",
 
-    price: "CONTACT",
+  price: "CONTACT",
 
-    image:
-      "assets/images/products/performance/intake.jpg"
-  },
+  image:
+    "assets/images/performance/DSC09248.jpg",
 
-
-  {
-    id: 7,
-
-    category: "performance",
-    subcategory: "exhaust",
-    subcategoryLabel: "EXHAUST",
-
-    brand: "CARLISM",
-
-    name: "Performance Exhaust System",
-    subtitle: "Stainless Steel",
-
-    price: "CONTACT",
-
-    image:
-      "assets/images/products/performance/exhaust.jpg"
-  },
+  gallery: [
+    "assets/images/performance/DSC09248.jpg"
+  ]
+},
 
 
-  {
-    id: 8,
+/* =========================================
+   EXTERIOR
+========================================== */
 
-    category: "performance",
-    subcategory: "engine",
-    subcategoryLabel: "ENGINE",
+{
+  id: 29,
 
-    brand: "CARLISM",
+  category: "exterior",
+  subcategory: "body",
+  subcategoryLabel: "BODY",
 
-    name: "Performance Engine Upgrade",
-    subtitle: "Street Performance",
+  brand: "CARLISM",
 
-    price: "CONTACT",
+  name: "Mercedes-Benz Exterior Styling",
+  subtitle: "Premium Body Upgrade",
 
-    image:
-      "assets/images/products/performance/engine.jpg"
-  },
+  price: "CONTACT",
 
+  image:
+    "assets/images/exterior/Untitled-1.jpg",
 
-  /* =========================================
-     EXTERIOR
-  ========================================== */
-
-  {
-    id: 9,
-
-    category: "exterior",
-    subcategory: "aero",
-    subcategoryLabel: "AERO",
-
-    brand: "CARLISM",
-
-    name: "Front Lip Splitter",
-    subtitle: "Gloss Black",
-
-    price: "CONTACT",
-
-    image:
-      "assets/images/products/exterior/front-lip.jpg"
-  },
+  gallery: [
+    "assets/images/exterior/Untitled-1.jpg"
+  ]
+},
 
 
-  {
-    id: 10,
+{
+  id: 10,
 
-    category: "exterior",
-    subcategory: "carbon",
-    subcategoryLabel: "CARBON",
+  category: "exterior",
+  subcategory: "carbon",
+  subcategoryLabel: "CARBON",
 
-    brand: "CARLISM",
+  brand: "CARLISM",
 
-    name: "Carbon Fiber Hood",
-    subtitle: "Pre-Preg Carbon",
+  name: "Carbon Exterior Upgrade",
+  subtitle: "Carbon Fiber Styling",
 
-    price: "CONTACT",
+  price: "CONTACT",
 
-    image:
-      "assets/images/products/exterior/carbon-hood.jpg"
-  },
+  image:
+    "assets/images/exterior/13.jpg",
+
+  gallery: [
+    "assets/images/exterior/13.jpg"
+  ]
+},
+
+{
+  id: 28,
+
+  category: "exterior",
+  subcategory: "aero",
+  subcategoryLabel: "AERO",
+
+  brand: "CARLISM",
+
+  name: "Exterior Aero Parts",
+  subtitle: "Sport Exterior Upgrade",
+
+  price: "CONTACT",
+
+  image:
+    "assets/images/exterior/fl5 3.jpg",
+
+  gallery: [
+    "assets/images/exterior/fl5 3.jpg"
+  ]
+},
+
+{
+  id: 9,
+
+  category: "exterior",
+  subcategory: "aero",
+  subcategoryLabel: "AERO",
+
+  brand: "CARLISM",
+
+  name: "Exterior Aero Upgrade",
+  subtitle: "Premium Exterior Styling",
+
+  price: "CONTACT",
+
+  image:
+    "assets/images/exterior/5.jpg",
+
+  gallery: [
+    "assets/images/exterior/5.jpg"
+  ]
+},
 
 
-  {
-    id: 11,
 
-    category: "exterior",
-    subcategory: "body",
-    subcategoryLabel: "BODY",
+{
+  id: 11,
 
-    brand: "CARLISM",
+  category: "exterior",
+  subcategory: "body",
+  subcategoryLabel: "BODY",
 
-    name: "Rear Diffuser",
-    subtitle: "Gloss Black",
+  brand: "CARLISM",
 
-    price: "CONTACT",
+  name: "Exterior Styling Upgrade",
+  subtitle: "Premium Body Upgrade",
 
-    image:
-      "assets/images/products/exterior/rear-diffuser.jpg"
-  },
+  price: "CONTACT",
+
+  image:
+    "assets/images/exterior/DSC00124.jpg",
+
+  gallery: [
+    "assets/images/exterior/DSC00124.jpg"
+  ]
+},
+
+
+{
+  id: 25,
+
+  category: "exterior",
+  subcategory: "carbon",
+  subcategoryLabel: "CARBON",
+
+  brand: "CARLISM",
+
+  name: "Carbon Exterior Parts",
+  subtitle: "Carbon Fiber Upgrade",
+
+  price: "CONTACT",
+
+  image:
+    "assets/images/exterior/DSC00144.jpg",
+
+  gallery: [
+    "assets/images/exterior/DSC00144.jpg"
+  ]
+},
+
+
+{
+  id: 26,
+
+  category: "exterior",
+  subcategory: "aero",
+  subcategoryLabel: "AERO",
+
+  brand: "CARLISM",
+
+  name: "Aero Styling Parts",
+  subtitle: "Exterior Performance Styling",
+
+  price: "CONTACT",
+
+  image:
+    "assets/images/exterior/DSC09467.jpg",
+
+  gallery: [
+    "assets/images/exterior/DSC09467.jpg"
+  ]
+},
+
+
+{
+  id: 27,
+
+  category: "exterior",
+  subcategory: "body",
+  subcategoryLabel: "BODY",
+
+  brand: "CARLISM",
+
+  name: "Premium Exterior Parts",
+  subtitle: "Body Styling Upgrade",
+
+  price: "CONTACT",
+
+  image:
+    "assets/images/exterior/DSC09754.jpg",
+
+  gallery: [
+    "assets/images/exterior/DSC09754.jpg"
+  ]
+},
 
   /* =========================================
      INTERIOR
@@ -329,66 +433,98 @@ const products = [
   ]
 },
 
-
-  /* =========================================
-     TUNING
-  ========================================== */
-
   {
-    id: 15,
+    id: 22,
 
-    category: "tuning",
-    subcategory: "ecu",
-    subcategoryLabel: "ECU",
+    category: "interior",
+    subcategory: "accessories",
+    subcategoryLabel: "ACCESSORIES",
 
     brand: "CARLISM",
 
-    name: "ECU Stage 1 Tune",
-    subtitle: "Stage 1",
+    name: "Digital Cluster Coding",
+    subtitle: "Display Coding & Configuration",
 
     price: "CONTACT",
 
     image:
-      "assets/images/products/tuning/ecu-stage1.jpg"
+      "assets/images/interior/DSC08517.jpg",
+
+    gallery: [
+      "assets/images/interior/DSC08517.jpg"
+    ]
   },
 
 
   {
-    id: 16,
+    id: 23,
 
-    category: "tuning",
-    subcategory: "software",
-    subcategoryLabel: "SOFTWARE",
+    category: "interior",
+    subcategory: "accessories",
+    subcategoryLabel: "ACCESSORIES",
 
     brand: "CARLISM",
 
-    name: "Performance Software",
-    subtitle: "Engine Calibration",
+    name: "Carbon Paddle Shifter",
+    subtitle: "Carbon Fiber Paddle Upgrade",
 
     price: "CONTACT",
 
     image:
-      "assets/images/products/tuning/software.jpg"
-  },
+      "assets/images/interior/DSC09205.jpg",
 
+    gallery: [
+      "assets/images/interior/DSC09205.jpg"
+    ]
+  },
 
   {
-    id: 17,
+  id: 24,
 
-    category: "tuning",
-    subcategory: "electronics",
-    subcategoryLabel: "ELECTRONICS",
+  category: "interior",
+  subcategory: "accessories",
+  subcategoryLabel: "ACCESSORIES",
 
-    brand: "CARLISM",
+  brand: "CARLISM",
 
-    name: "Performance Controller",
-    subtitle: "Electronic Upgrade",
+  name: "Mercedes-Benz Carbon Interior Trim",
+  subtitle: "Carbon Fiber Interior Upgrade",
 
-    price: "CONTACT",
+  price: "CONTACT",
 
-    image:
-      "assets/images/products/tuning/controller.jpg"
-  },
+  image:
+    "assets/images/interior/DSC00042.jpg",
+
+  gallery: [
+    "assets/images/interior/DSC00042.jpg"
+  ]
+},
+
+/* =========================================
+   TUNING
+========================================== */
+
+{
+  id: 15,
+
+  category: "tuning",
+  subcategory: "tuning",
+  subcategoryLabel: "TUNING SERVICE",
+
+  brand: "CARLISM",
+
+  name: "ECU & Performance Tuning",
+  subtitle: "Professional Vehicle Calibration",
+
+  price: "CONTACT",
+
+  image:
+    "assets/images/tuning/DSC09231.jpg",
+
+  gallery: [
+    "assets/images/tuning/DSC09231.jpg"
+  ]
+},
 
 
   /* =========================================
