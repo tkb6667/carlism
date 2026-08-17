@@ -730,3 +730,22 @@
     width: 155px;
   }
 }
+
+/* =========================================
+   MOBILE BOTTOM SAFE AREA
+========================================= */
+
+html {
+  background: #0d0d0d;
+}
+
+#site-footer,
+.footer {
+  background: #0d0d0d;
+}
+
+@supports (padding: env(safe-area-inset-bottom)) {
+  .footer {
+    padding-bottom: max(30px, env(safe-area-inset-bottom));
+  }
+}

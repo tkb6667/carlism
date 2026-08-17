@@ -5,30 +5,24 @@ document.addEventListener("DOMContentLoaded", () => {
       ? window.products
       : [];
 
-
   const params =
     new URLSearchParams(
       window.location.search
     );
 
-
   const id =
     Number(params.get("id"));
-
 
   const product =
     products.find(
       item => Number(item.id) === id
     );
 
-
   if (!product) {
-
     console.error(
       "Product not found:",
       id
     );
-
     return;
   }
 
@@ -38,26 +32,13 @@ document.addEventListener("DOMContentLoaded", () => {
   ========================================== */
 
   const categoryNames = {
-
-    "wheels-suspension":
-      "WHEELS & SUSPENSION",
-
-    performance:
-      "PERFORMANCE",
-
-    exterior:
-      "EXTERIOR",
-
-    interior:
-      "INTERIOR",
-
-    tuning:
-      "TUNING",
-
-    accessories:
-      "ACCESSORIES"
+    "wheels-suspension": "WHEELS & SUSPENSION",
+    performance: "PERFORMANCE",
+    exterior: "EXTERIOR",
+    interior: "INTERIOR",
+    tuning: "TUNING",
+    accessories: "ACCESSORIES"
   };
-
 
   const categoryName =
     categoryNames[product.category] ||
@@ -71,15 +52,12 @@ document.addEventListener("DOMContentLoaded", () => {
   document.title =
     `${product.name} | CARLISM TH`;
 
-
   const categoryLink =
     document.querySelector(
       "#detailCategoryLink"
     );
 
-
   if (categoryLink) {
-
     categoryLink.textContent =
       categoryName;
 
@@ -97,6 +75,7 @@ document.addEventListener("DOMContentLoaded", () => {
       element.textContent =
         value || "-";
     }
+
   }
 
 
@@ -154,14 +133,10 @@ document.addEventListener("DOMContentLoaded", () => {
   const gallery =
     Array.isArray(product.gallery) &&
     product.gallery.length
-
       ? product.gallery
-
       : [product.image];
 
-
   let index = 0;
-
 
   const mainImage =
     document.querySelector(
@@ -210,11 +185,9 @@ document.addEventListener("DOMContentLoaded", () => {
     const lastSlash =
       normalized.lastIndexOf("/");
 
-
     if (lastSlash === -1) {
       return imagePath;
     }
-
 
     const directory =
       normalized.substring(
@@ -222,25 +195,16 @@ document.addEventListener("DOMContentLoaded", () => {
         lastSlash
       );
 
-
     const filename =
       normalized.substring(
         lastSlash + 1
       );
 
-
-    const lastDot =
-      filename.lastIndexOf(".");
-
-
     const name =
-      lastDot !== -1
-        ? filename.substring(
-            0,
-            lastDot
-          )
-        : filename;
-
+      filename.replace(
+        /\.[^/.]+$/,
+        ""
+      );
 
     return (
       `${directory}/thumbs/` +
@@ -254,35 +218,34 @@ document.addEventListener("DOMContentLoaded", () => {
   ========================================== */
 
   thumbs.innerHTML =
-    gallery.map(
-      (image, i) => {
+    gallery
+      .map(
+        (image, i) => {
 
-        const thumbnail =
-          getThumbnailPath(image);
+          const thumbnail =
+            getThumbnailPath(image);
 
-        return `
-
-          <button
-            type="button"
-            class="detail-thumb ${
-              i === 0 ? "active" : ""
-            }"
-            data-index="${i}"
-          >
-
-            <img
-              src="${thumbnail}"
-              data-original="${image}"
-              alt="${product.name} ${i + 1}"
-              loading="lazy"
-              decoding="async"
+          return `
+            <button
+              type="button"
+              class="detail-thumb ${
+                i === 0 ? "active" : ""
+              }"
+              data-index="${i}"
             >
+              <img
+                src="${thumbnail}"
+                data-original="${image}"
+                alt="${product.name} ${i + 1}"
+                loading="lazy"
+                decoding="async"
+              >
+            </button>
+          `;
 
-          </button>
-
-        `;
-      }
-    ).join("");
+        }
+      )
+      .join("");
 
 
   /* =========================================
@@ -300,7 +263,6 @@ document.addEventListener("DOMContentLoaded", () => {
           const original =
             image.dataset.original;
 
-
           if (
             original &&
             image.dataset.fallbackUsed !== "true"
@@ -311,6 +273,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
             image.src =
               original;
+
           }
 
         }
@@ -329,17 +292,24 @@ document.addEventListener("DOMContentLoaded", () => {
       (newIndex + gallery.length) %
       gallery.length;
 
-
-    const image =
+    const original =
       gallery[index];
+
+    const webp =
+      getThumbnailPath(original);
 
 
     /*
-      รูปหลักใช้ Original
-      เพื่อคงความชัดเต็ม
+      รูปใหญ่ในหน้า Detail
+      ใช้ WebP ก่อน
     */
+    delete mainImage.dataset.fallbackUsed;
+
+    mainImage.dataset.original =
+      original;
+
     mainImage.src =
-      image;
+      webp;
 
     mainImage.alt =
       `${product.name} ${index + 1}`;
@@ -352,9 +322,29 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     /*
-      สำคัญ:
-      ยังไม่โหลด Lightbox image
-      จนกว่าผู้ใช้จะเปิด Lightbox
+      ถ้า WebP ไม่มี
+      → fallback ไป Original
+    */
+    mainImage.onerror = () => {
+
+      if (
+        mainImage.dataset.fallbackUsed !== "true"
+      ) {
+
+        mainImage.dataset.fallbackUsed =
+          "true";
+
+        mainImage.src =
+          original;
+
+      }
+
+    };
+
+
+    /*
+      ถ้า Lightbox เปิดอยู่
+      ให้ใช้ Original เต็ม
     */
     if (
       lightbox.classList.contains(
@@ -363,10 +353,11 @@ document.addEventListener("DOMContentLoaded", () => {
     ) {
 
       lightboxImage.src =
-        image;
+        original;
 
       lightboxImage.alt =
         `${product.name} ${index + 1}`;
+
     }
 
 
@@ -388,6 +379,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         }
       );
+
   }
 
 
@@ -413,6 +405,7 @@ document.addEventListener("DOMContentLoaded", () => {
           button.dataset.index
         )
       );
+
     }
   );
 
@@ -424,15 +417,14 @@ document.addEventListener("DOMContentLoaded", () => {
   function openLightbox() {
 
     /*
-      ค่อยโหลด Original สำหรับ Lightbox
-      ตอนผู้ใช้กดเปิดจริง ๆ
+      Lightbox ใช้ Original
+      ตอนกดเปิดจริง
     */
     lightboxImage.src =
       gallery[index];
 
     lightboxImage.alt =
       `${product.name} ${index + 1}`;
-
 
     lightbox.classList.add(
       "active"
@@ -446,6 +438,7 @@ document.addEventListener("DOMContentLoaded", () => {
     document.body.classList.add(
       "lightbox-open"
     );
+
   }
 
 
@@ -464,14 +457,10 @@ document.addEventListener("DOMContentLoaded", () => {
       "lightbox-open"
     );
 
-
-    /*
-      เคลียร์ src ออก
-      ไม่ให้ Lightbox ค้างรูปไว้
-    */
     lightboxImage.removeAttribute(
       "src"
     );
+
   }
 
 
@@ -522,6 +511,7 @@ document.addEventListener("DOMContentLoaded", () => {
       ) {
         closeLightbox();
       }
+
     }
   );
 
@@ -542,13 +532,11 @@ document.addEventListener("DOMContentLoaded", () => {
         return;
       }
 
-
       if (
         event.key === "Escape"
       ) {
         closeLightbox();
       }
-
 
       if (
         event.key === "ArrowLeft"
@@ -557,7 +545,6 @@ document.addEventListener("DOMContentLoaded", () => {
           index - 1
         );
       }
-
 
       if (
         event.key === "ArrowRight"
@@ -602,13 +589,11 @@ document.addEventListener("DOMContentLoaded", () => {
           .clientX -
         startX;
 
-
       if (
         Math.abs(distance) < 50
       ) {
         return;
       }
-
 
       showImage(
         distance > 0

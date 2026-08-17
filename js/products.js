@@ -6,9 +6,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
   if (!grid) return;
 
-  const products = Array.isArray(window.products)
-    ? window.products
-    : [];
+  const products =
+    Array.isArray(window.products)
+      ? window.products
+      : [];
+
+  const BASE_URL =
+    "https://tkb6667.github.io/carlism/";
 
 
   /* =========================================
@@ -16,6 +20,25 @@ document.addEventListener("DOMContentLoaded", () => {
   ========================================== */
 
   const categories = {
+
+    all: {
+      title: "ALL PRODUCTS",
+      titleHTML: "ALL PRODUCTS",
+      description:
+        "Explore our complete selection of automotive parts, styling upgrades, performance products and accessories.",
+      hero:
+        "assets/products/wheels/hero/wheels-hero.jpg",
+      filters: [
+        ["all", "ALL"],
+        ["wheels-suspension", "WHEELS & SUSPENSION"],
+        ["performance", "PERFORMANCE"],
+        ["exterior", "EXTERIOR"],
+        ["interior", "INTERIOR"],
+        ["tuning", "TUNING"],
+        ["accessories", "ACCESSORIES"]
+      ]
+    },
+
 
     "wheels-suspension": {
       title: "WHEELS & SUSPENSION",
@@ -30,6 +53,7 @@ document.addEventListener("DOMContentLoaded", () => {
         ["suspension", "SUSPENSION"]
       ]
     },
+
 
     performance: {
       title: "PERFORMANCE",
@@ -46,6 +70,7 @@ document.addEventListener("DOMContentLoaded", () => {
       ]
     },
 
+
     exterior: {
       title: "EXTERIOR",
       titleHTML: "EXTERIOR",
@@ -60,6 +85,7 @@ document.addEventListener("DOMContentLoaded", () => {
         ["carbon", "CARBON"]
       ]
     },
+
 
     interior: {
       title: "INTERIOR",
@@ -76,6 +102,7 @@ document.addEventListener("DOMContentLoaded", () => {
       ]
     },
 
+
     tuning: {
       title: "TUNING",
       titleHTML: "TUNING",
@@ -90,6 +117,7 @@ document.addEventListener("DOMContentLoaded", () => {
         ["electronics", "ELECTRONICS"]
       ]
     },
+
 
     accessories: {
       title: "ACCESSORIES",
@@ -112,31 +140,38 @@ document.addEventListener("DOMContentLoaded", () => {
      URL
   ========================================== */
 
-  const params = new URLSearchParams(
-    window.location.search
-  );
+  const params =
+    new URLSearchParams(
+      window.location.search
+    );
 
   let category =
     params.get("category") ||
-    "wheels-suspension";
+    "all";
+
+
+  /* รองรับ URL เก่า */
 
   if (category === "wheels") {
     category = "wheels-suspension";
   }
 
+
   if (!categories[category]) {
-    category = "wheels-suspension";
+    category = "all";
   }
 
-  const config = categories[category];
+
+  const isAllProducts =
+    category === "all";
+
+  const config =
+    categories[category];
 
 
   /* =========================================
      PAGE INFO
   ========================================== */
-
-  document.title =
-    `${config.title} | CARLISM TH`;
 
   const title =
     document.querySelector("#categoryTitle");
@@ -153,30 +188,48 @@ document.addEventListener("DOMContentLoaded", () => {
   const hero =
     document.querySelector("#categoryHeroImage");
 
+
   if (title) {
-    title.innerHTML = config.titleHTML;
+    title.innerHTML =
+      config.titleHTML;
   }
 
   if (description) {
-    description.textContent = config.description;
+    description.textContent =
+      config.description;
   }
 
   if (breadcrumb) {
-    breadcrumb.textContent = config.title;
+    breadcrumb.textContent =
+      config.title;
   }
 
   if (stickyName) {
-    stickyName.textContent = config.title;
+    stickyName.textContent =
+      config.title;
   }
 
 
   /* =========================================
-     THUMBNAIL PATH
+     URL HELPERS
   ========================================== */
+
+  function absoluteUrl(path) {
+
+    if (!path) return "";
+
+    return new URL(
+      path,
+      BASE_URL
+    ).href;
+  }
+
 
   function getThumbnailPath(imagePath) {
 
-    if (!imagePath) return "";
+    if (!imagePath) {
+      return "";
+    }
 
     const normalized =
       imagePath.replace(/\\/g, "/");
@@ -189,15 +242,129 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     const directory =
-      normalized.substring(0, slash);
+      normalized.substring(
+        0,
+        slash
+      );
 
     const filename =
-      normalized.substring(slash + 1);
+      normalized.substring(
+        slash + 1
+      );
 
     const name =
-      filename.replace(/\.[^/.]+$/, "");
+      filename.replace(
+        /\.[^/.]+$/,
+        ""
+      );
 
-    return `${directory}/thumbs/${name}.webp`;
+    return (
+      `${directory}/thumbs/${name}.webp`
+    );
+  }
+
+
+  /* =========================================
+     JSON-LD
+  ========================================== */
+
+  function setJsonLd(id, data) {
+
+    let script =
+      document.querySelector(
+        `#${id}`
+      );
+
+    if (!script) {
+
+      script =
+        document.createElement(
+          "script"
+        );
+
+      script.id = id;
+
+      script.type =
+        "application/ld+json";
+
+      document.head.appendChild(
+        script
+      );
+    }
+
+    script.textContent =
+      JSON.stringify(data);
+  }
+
+
+  function updateProductsSchema(list) {
+
+    setJsonLd(
+      "productsItemListSchema",
+      {
+        "@context":
+          "https://schema.org",
+
+        "@type":
+          "ItemList",
+
+        "name":
+          config.title,
+
+        "numberOfItems":
+          list.length,
+
+        "itemListElement":
+          list.map(
+            (product, index) => {
+
+              const url =
+                `${BASE_URL}product-detail.html?id=${product.id}`;
+
+              return {
+                "@type":
+                  "ListItem",
+
+                "position":
+                  index + 1,
+
+                "url":
+                  url,
+
+                "item": {
+                  "@type":
+                    "Product",
+
+                  "name":
+                    product.name,
+
+                  "url":
+                    url,
+
+                  "image":
+                    absoluteUrl(
+                      product.image
+                    ),
+
+                  "category":
+                    product.subcategoryLabel ||
+                    product.category,
+
+                  "brand": {
+                    "@type":
+                      "Brand",
+
+                    "name":
+                      product.brand ||
+                      "CARLISM TH"
+                  }
+                }
+              };
+
+            }
+          )
+      }
+    );
   }
 
 
@@ -209,53 +376,75 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (config.hero) {
 
-      const heroThumb =
-        getThumbnailPath(config.hero);
+      hero.src =
+        getThumbnailPath(
+          config.hero
+        );
 
-      hero.src = heroThumb;
-      hero.dataset.original = config.hero;
+      hero.dataset.original =
+        config.hero;
 
-      hero.alt = config.title;
-      hero.loading = "eager";
-      hero.fetchPriority = "high";
-      hero.decoding = "async";
-      hero.style.display = "";
+      hero.alt =
+        config.title;
+
+      hero.loading =
+        "eager";
+
+      hero.fetchPriority =
+        "high";
+
+      hero.decoding =
+        "async";
+
+      hero.style.display =
+        "";
+
 
       hero.addEventListener(
         "error",
         () => {
 
           if (
-            hero.dataset.fallbackUsed !== "true"
+            hero.dataset.fallbackUsed ===
+            "true"
           ) {
-
-            hero.dataset.fallbackUsed = "true";
-            hero.src = hero.dataset.original;
-
+            return;
           }
+
+          hero.dataset.fallbackUsed =
+            "true";
+
+          hero.src =
+            hero.dataset.original;
 
         }
       );
 
     } else {
 
-      hero.removeAttribute("src");
-      hero.style.display = "none";
+      hero.removeAttribute(
+        "src"
+      );
+
+      hero.style.display =
+        "none";
 
     }
-
   }
 
 
   /* =========================================
-     CATEGORY PRODUCTS
+     PRODUCTS
   ========================================== */
 
-  const categoryProducts =
-    products.filter(
-      (product) =>
-        product.category === category
-    );
+  const pageProducts =
+    isAllProducts
+      ? products
+      : products.filter(
+          product =>
+            product.category ===
+            category
+        );
 
 
   /* =========================================
@@ -364,7 +553,7 @@ document.addEventListener("DOMContentLoaded", () => {
       .querySelectorAll(
         ".category-product-image img"
       )
-      .forEach((image) => {
+      .forEach(image => {
 
         image.addEventListener(
           "error",
@@ -375,21 +564,28 @@ document.addEventListener("DOMContentLoaded", () => {
 
             if (
               original &&
-              image.dataset.fallbackUsed !== "true"
+              image.dataset.fallbackUsed !==
+                "true"
             ) {
 
-              image.dataset.fallbackUsed = "true";
-              image.src = original;
+              image.dataset.fallbackUsed =
+                "true";
+
+              image.src =
+                original;
 
               return;
             }
+
 
             const wrapper =
               image.closest(
                 ".category-product-image"
               );
 
-            if (!wrapper) return;
+            if (!wrapper) {
+              return;
+            }
 
             image.remove();
 
@@ -405,156 +601,296 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
   /* =========================================
-     RENDER PRODUCTS
+     FILTER
   ========================================== */
 
-  function render(filter = "all") {
+  function getFilteredProducts(
+    filter
+  ) {
+
+    if (filter === "all") {
+      return pageProducts;
+    }
+
+
+    return pageProducts.filter(
+      product => {
+
+        if (isAllProducts) {
+
+          return (
+            product.category ===
+            filter
+          );
+        }
+
+        return (
+          product.subcategory ===
+          filter
+        );
+
+      }
+    );
+  }
+
+
+  /* =========================================
+     RENDER
+  ========================================== */
+
+  function render(
+    filter = "all"
+  ) {
 
     const filtered =
-      filter === "all"
-        ? categoryProducts
-        : categoryProducts.filter(
-            (product) =>
-              product.subcategory === filter
-          );
+      getFilteredProducts(
+        filter
+      );
+
 
     if (count) {
+
       count.textContent =
         filtered.length;
     }
+
+
+    updateProductsSchema(
+      filtered
+    );
+
 
     if (!filtered.length) {
 
       grid.innerHTML = `
         <div class="products-empty">
+
           <i class="fa-solid fa-box-open"></i>
-          <p>No products available.</p>
+
+          <p>
+            No products available.
+          </p>
+
         </div>
       `;
 
       return;
     }
 
+
     grid.innerHTML =
       filtered
         .map(card)
         .join("");
+
 
     setupImageFallback();
   }
 
 
   /* =========================================
-     FILTER
+     FILTER URL
   ========================================== */
 
-  if (filterContainer) {
+  function getFilterHref(
+    filter
+  ) {
 
-    filterContainer.innerHTML =
-      config.filters
-        .map(
-          ([value, label]) => `
-            <button
-              type="button"
-              class="product-filter-btn"
-              data-filter="${value}"
-            >
-              ${label}
-            </button>
-          `
-        )
-        .join("");
+    /*
+      ALL PRODUCTS:
+      crawler สามารถตามไปแต่ละหมวดได้จริง
+    */
 
+    if (isAllProducts) {
 
-    const buttons =
-      filterContainer.querySelectorAll(
-        ".product-filter-btn"
+      if (filter === "all") {
+        return "products.html";
+      }
+
+      return (
+        `products.html?category=${filter}`
       );
-
-
-    function activate(filter) {
-
-      buttons.forEach((button) => {
-
-        button.classList.toggle(
-          "active",
-          button.dataset.filter === filter
-        );
-
-      });
     }
 
 
-    buttons.forEach((button) => {
+    /*
+      CATEGORY PAGE
+    */
+
+    const base =
+      `products.html?category=${category}`;
+
+
+    if (filter === "all") {
+      return base;
+    }
+
+
+    return (
+      `${base}&filter=${filter}`
+    );
+  }
+
+
+  /* =========================================
+     CREATE FILTER LINKS
+  ========================================== */
+
+  if (!filterContainer) {
+
+    render();
+
+    return;
+  }
+
+
+  filterContainer.innerHTML =
+    config.filters
+      .map(
+        ([value, label]) => `
+          <a
+            href="${getFilterHref(value)}"
+            class="product-filter-btn"
+            data-filter="${value}"
+          >
+            ${label}
+          </a>
+        `
+      )
+      .join("");
+
+
+  const buttons =
+    filterContainer.querySelectorAll(
+      ".product-filter-btn"
+    );
+
+
+  function activate(filter) {
+
+    buttons.forEach(
+      button => {
+
+        button.classList.toggle(
+          "active",
+          button.dataset.filter ===
+            filter
+        );
+
+      }
+    );
+  }
+
+
+  function updateFilterUrl(
+    filter
+  ) {
+
+    const url =
+      new URL(
+        window.location.href
+      );
+
+
+    if (filter === "all") {
+
+      url.searchParams.delete(
+        "filter"
+      );
+
+    } else {
+
+      url.searchParams.set(
+        "filter",
+        filter
+      );
+
+    }
+
+
+    window.history.replaceState(
+      {},
+      "",
+      url
+    );
+  }
+
+
+  /* =========================================
+     FILTER CLICK
+  ========================================== */
+
+  buttons.forEach(
+    button => {
 
       button.addEventListener(
         "click",
-        () => {
+        event => {
+
+          /*
+            Browser ปกติ:
+            filter หน้าเดิม
+
+            Crawler:
+            ยังเห็น href จริง
+          */
+
+          event.preventDefault();
+
 
           const filter =
             button.dataset.filter ||
             "all";
 
-          activate(filter);
-          render(filter);
 
-          const url =
-            new URL(
-              window.location.href
-            );
+          activate(
+            filter
+          );
 
-          if (filter === "all") {
+          render(
+            filter
+          );
 
-            url.searchParams.delete(
-              "filter"
-            );
-
-          } else {
-
-            url.searchParams.set(
-              "filter",
-              filter
-            );
-
-          }
-
-          window.history.replaceState(
-            {},
-            "",
-            url
+          updateFilterUrl(
+            filter
           );
 
         }
       );
 
-    });
+    }
+  );
 
 
-    const requestedFilter =
-      params.get("filter");
+  /* =========================================
+     INITIAL FILTER
+  ========================================== */
+
+  const requestedFilter =
+    params.get(
+      "filter"
+    );
 
 
-    const validFilter =
-      config.filters.some(
-        ([value]) =>
-          value === requestedFilter
-      );
+  const validFilter =
+    config.filters.some(
+      ([value]) =>
+        value === requestedFilter
+    );
 
 
-    const startingFilter =
-      validFilter
-        ? requestedFilter
-        : "all";
+  const startingFilter =
+    validFilter
+      ? requestedFilter
+      : "all";
 
 
-    activate(startingFilter);
-    render(startingFilter);
+  activate(
+    startingFilter
+  );
 
-
-  } else {
-
-    render();
-
-  }
+  render(
+    startingFilter
+  );
 
 });

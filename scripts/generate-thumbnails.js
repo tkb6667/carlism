@@ -38,21 +38,16 @@ function loadProducts() {
     );
   }
 
-
-  const code =
-    fs.readFileSync(
-      PRODUCTS_FILE,
-      "utf8"
-    );
-
+  const code = fs.readFileSync(
+    PRODUCTS_FILE,
+    "utf8"
+  );
 
   const sandbox = {
     window: {}
   };
 
-
   vm.createContext(sandbox);
-
 
   vm.runInContext(
     code,
@@ -62,17 +57,14 @@ function loadProducts() {
     }
   );
 
-
   const products =
     sandbox.window.products;
-
 
   if (!Array.isArray(products)) {
     throw new Error(
       "ไม่พบ window.products ใน data/products.js"
     );
   }
-
 
   return products;
 }
@@ -87,17 +79,14 @@ function getThumbnailPath(imagePath) {
   const normalized =
     imagePath.replace(/\\/g, "/");
 
-
   const directory =
     path.posix.dirname(normalized);
-
 
   const filename =
     path.posix.basename(
       normalized,
       path.posix.extname(normalized)
     );
-
 
   return path.posix.join(
     directory,
@@ -115,11 +104,9 @@ function getHeroImages() {
 
   const heroImages = [];
 
-
   if (!fs.existsSync(HERO_ROOT)) {
     return heroImages;
   }
-
 
   const folders =
     fs.readdirSync(
@@ -129,13 +116,11 @@ function getHeroImages() {
       }
     );
 
-
   folders.forEach((folder) => {
 
     if (!folder.isDirectory()) {
       return;
     }
-
 
     const heroFolder =
       path.join(
@@ -144,11 +129,9 @@ function getHeroImages() {
         "hero"
       );
 
-
     if (!fs.existsSync(heroFolder)) {
       return;
     }
-
 
     const files =
       fs.readdirSync(
@@ -158,19 +141,16 @@ function getHeroImages() {
         }
       );
 
-
     files.forEach((file) => {
 
       if (!file.isFile()) {
         return;
       }
 
-
       const extension =
         path.extname(
           file.name
         ).toLowerCase();
-
 
       if (
         extension !== ".jpg" &&
@@ -181,20 +161,17 @@ function getHeroImages() {
         return;
       }
 
-
       const absolutePath =
         path.join(
           heroFolder,
           file.name
         );
 
-
       const relativePath =
         path.relative(
           ROOT_DIR,
           absolutePath
         );
-
 
       heroImages.push(
         relativePath.replace(/\\/g, "/")
@@ -203,7 +180,6 @@ function getHeroImages() {
     });
 
   });
-
 
   return heroImages;
 }
@@ -222,13 +198,11 @@ async function createThumbnail(
   const thumbnailPath =
     getThumbnailPath(imagePath);
 
-
   const sourceFile =
     path.join(
       ROOT_DIR,
       ...imagePath.split("/")
     );
-
 
   const outputFile =
     path.join(
@@ -236,21 +210,17 @@ async function createThumbnail(
       ...thumbnailPath.split("/")
     );
 
-
   const outputDirectory =
     path.dirname(outputFile);
 
 
   console.log("");
-
   console.log(
     `[${index}/${total}] ${imagePath}`
   );
 
 
-  /* =======================================
-     CHECK ORIGINAL
-  ======================================== */
+  /* CHECK ORIGINAL */
 
   if (!fs.existsSync(sourceFile)) {
 
@@ -266,9 +236,7 @@ async function createThumbnail(
   }
 
 
-  /* =======================================
-     CREATE THUMBS FOLDER
-  ======================================== */
+  /* CREATE THUMBS FOLDER */
 
   fs.mkdirSync(
     outputDirectory,
@@ -278,9 +246,7 @@ async function createThumbnail(
   );
 
 
-  /* =======================================
-     CHECK IF THUMBNAIL IS UP TO DATE
-  ======================================== */
+  /* SKIP IF THUMBNAIL IS NEWER */
 
   if (fs.existsSync(outputFile)) {
 
@@ -289,7 +255,6 @@ async function createThumbnail(
 
     const thumbnailStat =
       fs.statSync(outputFile);
-
 
     if (
       thumbnailStat.mtimeMs >=
@@ -313,37 +278,29 @@ async function createThumbnail(
   }
 
 
-  /* =======================================
-     GENERATE WEBP
-  ======================================== */
+  /* GENERATE WEBP */
 
   try {
 
     await sharp(sourceFile)
-
       .rotate()
-
       .resize({
         width: THUMB_WIDTH,
         withoutEnlargement: true,
         fit: "inside"
       })
-
       .webp({
         quality: WEBP_QUALITY,
         effort: 4
       })
-
       .toFile(outputFile);
 
 
     const originalSize =
       fs.statSync(sourceFile).size;
 
-
     const thumbnailSize =
       fs.statSync(outputFile).size;
-
 
     const originalMB =
       (
@@ -352,13 +309,11 @@ async function createThumbnail(
         1024
       ).toFixed(2);
 
-
     const thumbnailKB =
       (
         thumbnailSize /
         1024
       ).toFixed(0);
-
 
     const saving =
       (
@@ -400,15 +355,12 @@ async function createThumbnail(
       `  ${error.message}`
     );
 
-
     return {
       status: "error",
       imagePath,
       thumbnailPath
     };
-
   }
-
 }
 
 
@@ -419,15 +371,12 @@ async function createThumbnail(
 async function main() {
 
   console.log("");
-
   console.log(
     "========================================="
   );
-
   console.log(
     " CARLISM TH - THUMBNAIL GENERATOR"
   );
-
   console.log(
     "========================================="
   );
@@ -437,18 +386,14 @@ async function main() {
     loadProducts();
 
 
-  /* =======================================
-     PRODUCT IMAGES
-  ======================================== */
+  /* PRODUCT IMAGES */
 
   const productImages =
     products
-
       .map(
         (product) =>
           product.image
       )
-
       .filter(
         (image) =>
           typeof image === "string" &&
@@ -456,27 +401,29 @@ async function main() {
       );
 
 
-  /* =======================================
-     HERO IMAGES
-  ======================================== */
+  /* HERO IMAGES */
+
+  const heroImages =
+    getHeroImages();
+
+
+  /* CONTACT IMAGE */
 
   const contactImages = [
-  "assets/images/hero/DSC00740.jpg"
-];
-
-
-  /* =======================================
-     MERGE ALL
-  ======================================== */
-
-const allImages =
-  [
-    ...new Set([
-      ...productImages,
-      ...heroImages,
-      ...contactImages
-    ])
+    "assets/images/hero/DSC00740.jpg"
   ];
+
+
+  /* MERGE ALL */
+
+  const allImages =
+    [
+      ...new Set([
+        ...productImages,
+        ...heroImages,
+        ...contactImages
+      ])
+    ];
 
 
   console.log("");
@@ -491,6 +438,10 @@ const allImages =
 
   console.log(
     `Hero: ${heroImages.length} รูป`
+  );
+
+  console.log(
+    `Contact: ${contactImages.length} รูป`
   );
 
   console.log(
@@ -522,15 +473,11 @@ const allImages =
         allImages.length
       );
 
-
     results.push(result);
-
   }
 
 
-  /* =======================================
-     SUMMARY
-  ======================================== */
+  /* SUMMARY */
 
   const created =
     results.filter(
@@ -538,20 +485,17 @@ const allImages =
         item.status === "created"
     ).length;
 
-
   const skipped =
     results.filter(
       (item) =>
         item.status === "skipped"
     ).length;
 
-
   const missing =
     results.filter(
       (item) =>
         item.status === "missing"
     ).length;
-
 
   const errors =
     results.filter(
@@ -561,15 +505,12 @@ const allImages =
 
 
   console.log("");
-
   console.log(
     "========================================="
   );
-
   console.log(
     " เสร็จเรียบร้อย"
   );
-
   console.log(
     "========================================="
   );
@@ -591,7 +532,6 @@ const allImages =
   );
 
   console.log("");
-
 }
 
 
@@ -602,15 +542,10 @@ const allImages =
 main().catch((error) => {
 
   console.error("");
-
   console.error(
     "เกิดข้อผิดพลาด:"
   );
-
-  console.error(
-    error
-  );
+  console.error(error);
 
   process.exit(1);
-
 });

@@ -10,13 +10,73 @@
     content="width=device-width, initial-scale=1.0, viewport-fit=cover"
   >
 
+
+  <!-- =========================================
+       SEO
+  ========================================== -->
+
   <title>Product | CARLISM TH</title>
 
   <meta
+    id="seoDescription"
     name="description"
-    content="CARLISM TH product details."
+    content="Explore automotive products from CARLISM TH."
   >
 
+  <meta
+    name="robots"
+    content="index, follow"
+  >
+
+  <link
+    id="canonicalUrl"
+    rel="canonical"
+    href="https://tkb6667.github.io/carlism/product-detail.html"
+  >
+
+
+  <!-- =========================================
+       OPEN GRAPH
+  ========================================== -->
+
+  <meta
+    property="og:type"
+    content="website"
+  >
+
+  <meta
+    property="og:site_name"
+    content="CARLISM TH"
+  >
+
+  <meta
+    id="ogTitle"
+    property="og:title"
+    content="Product | CARLISM TH"
+  >
+
+  <meta
+    id="ogDescription"
+    property="og:description"
+    content="Explore automotive products from CARLISM TH."
+  >
+
+  <meta
+    id="ogUrl"
+    property="og:url"
+    content="https://tkb6667.github.io/carlism/product-detail.html"
+  >
+
+  <meta
+    id="ogImage"
+    property="og:image"
+    content=""
+  >
+
+
+  <!-- =========================================
+       CONNECTION
+  ========================================== -->
 
   <link
     rel="preconnect"
@@ -29,16 +89,30 @@
     crossorigin
   >
 
+
+  <!-- =========================================
+       FONT
+  ========================================== -->
+
   <link
     href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap"
     rel="stylesheet"
   >
+
+
+  <!-- =========================================
+       ICON
+  ========================================== -->
 
   <link
     rel="stylesheet"
     href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
   >
 
+
+  <!-- =========================================
+       CSS
+  ========================================== -->
 
   <link
     rel="stylesheet"
@@ -61,10 +135,11 @@
 <body>
 
 
-  <!-- HEADER -->
+  <!-- =========================================
+       HEADER
+  ========================================== -->
 
   <header id="site-header"></header>
-
 
 
   <!-- =========================================
@@ -76,16 +151,12 @@
     id="productStickyNav"
   >
 
-
     <a
       href="javascript:history.back()"
       class="sticky-back-link"
     >
-
       <i class="fa-solid fa-arrow-left"></i>
-
       BACK
-
     </a>
 
 
@@ -108,13 +179,11 @@
 
 
     <a
-      href="products.html?category=wheels-suspension"
+      href="products.html"
       class="sticky-current"
       id="detailCategoryLink"
     >
-
-      WHEELS & SUSPENSION
-
+      PRODUCTS
     </a>
 
 
@@ -125,9 +194,7 @@
       aria-label="Open menu"
       aria-expanded="false"
     >
-
       <i class="fa-solid fa-bars"></i>
-
     </button>
 
 
@@ -136,28 +203,25 @@
       id="stickyMobileMenu"
     ></div>
 
-
   </div>
 
 
-
   <!-- =========================================
-       DETAIL
+       PRODUCT DETAIL
   ========================================== -->
 
   <main class="detail-page">
 
-
     <div class="container">
-
 
       <section class="detail-grid">
 
 
-        <!-- GALLERY -->
+        <!-- =====================================
+             GALLERY
+        ====================================== -->
 
         <div class="detail-gallery">
-
 
           <button
             type="button"
@@ -168,17 +232,12 @@
 
             <img
               id="detailMainImage"
-              src=""
               alt=""
             >
 
-
             <span class="detail-expand">
-
               <i class="fa-solid fa-expand"></i>
-
             </span>
-
 
           </button>
 
@@ -188,12 +247,12 @@
             id="detailThumbnails"
           ></div>
 
-
         </div>
 
 
-
-        <!-- INFO -->
+        <!-- =====================================
+             PRODUCT INFO
+        ====================================== -->
 
         <div class="detail-info">
 
@@ -225,6 +284,8 @@
           <div class="detail-separator"></div>
 
 
+          <!-- PRICE -->
+
           <div class="detail-price-row">
 
             <span>
@@ -237,6 +298,8 @@
 
           </div>
 
+
+          <!-- SPECS -->
 
           <div class="detail-specs">
 
@@ -283,8 +346,9 @@
           </div>
 
 
-          <div class="detail-actions">
+          <!-- CONTACT -->
 
+          <div class="detail-actions">
 
             <a
               href="https://line.me/R/ti/p/@carlismth"
@@ -292,11 +356,9 @@
               target="_blank"
               rel="noopener noreferrer"
             >
-
               CHAT ON LINE
 
               <i class="fa-solid fa-arrow-right"></i>
-
             </a>
 
 
@@ -306,23 +368,18 @@
               target="_blank"
               rel="noopener noreferrer"
             >
-
               FACEBOOK
 
               <i class="fa-brands fa-facebook-messenger"></i>
-
             </a>
-
 
           </div>
 
 
           <p class="detail-note">
-
             Interested in this product?
             Contact CARLISM TH for product information,
             fitment and availability.
-
           </p>
 
 
@@ -331,12 +388,9 @@
 
       </section>
 
-
     </div>
 
-
   </main>
-
 
 
   <!-- =========================================
@@ -349,16 +403,13 @@
     aria-hidden="true"
   >
 
-
     <button
       type="button"
       class="detail-lightbox-close"
       id="detailLightboxClose"
       aria-label="Close"
     >
-
       <i class="fa-solid fa-xmark"></i>
-
     </button>
 
 
@@ -368,21 +419,16 @@
       id="detailLightboxPrev"
       aria-label="Previous"
     >
-
       <i class="fa-solid fa-chevron-left"></i>
-
     </button>
 
 
     <div class="detail-lightbox-content">
 
-
       <img
         id="detailLightboxImage"
-        src=""
         alt=""
       >
-
 
       <div
         class="detail-lightbox-counter"
@@ -390,7 +436,6 @@
       >
         1 / 1
       </div>
-
 
     </div>
 
@@ -401,26 +446,50 @@
       id="detailLightboxNext"
       aria-label="Next"
     >
-
       <i class="fa-solid fa-chevron-right"></i>
-
     </button>
-
 
   </div>
 
 
+  <!-- =========================================
+       NO JAVASCRIPT FALLBACK
+  ========================================== -->
 
-  <!-- FOOTER -->
+  <noscript>
+
+    <section class="container">
+
+      <h2>
+        CARLISM TH Product
+      </h2>
+
+      <p>
+        JavaScript is required to display this product.
+        Browse our complete product collection below.
+      </p>
+
+      <a href="products.html">
+        VIEW ALL PRODUCTS
+      </a>
+
+    </section>
+
+  </noscript>
+
+
+  <!-- =========================================
+       FOOTER
+  ========================================== -->
 
   <footer id="site-footer"></footer>
 
 
-
-  <!-- FLOATING CHAT -->
+  <!-- =========================================
+       FLOATING CHAT
+  ========================================== -->
 
   <div class="floating-chat">
-
 
     <a
       href="https://line.me/R/ti/p/@carlismth"
@@ -440,17 +509,15 @@
       rel="noopener noreferrer"
       aria-label="Facebook Messenger"
     >
-
       <i class="fa-brands fa-facebook-messenger"></i>
-
     </a>
-
 
   </div>
 
 
-
-  <!-- JS -->
+  <!-- =========================================
+       JS
+  ========================================== -->
 
   <script src="data/products.js"></script>
 
@@ -461,6 +528,339 @@
   <script src="js/product-nav.js"></script>
 
   <script src="js/product-detail.js"></script>
+
+
+  <!-- =========================================
+       DYNAMIC SEO + PRODUCT SCHEMA
+  ========================================== -->
+
+  <script>
+    (() => {
+
+      const BASE_URL =
+        "https://tkb6667.github.io/carlism/";
+
+
+      /* =======================================
+         FIND PRODUCT
+      ======================================== */
+
+      const params =
+        new URLSearchParams(
+          window.location.search
+        );
+
+
+      const id =
+        Number(
+          params.get("id")
+        );
+
+
+      const products =
+        Array.isArray(window.products)
+          ? window.products
+          : [];
+
+
+      const product =
+        products.find(
+          (item) =>
+            Number(item.id) === id
+        );
+
+
+      if (!product) {
+        return;
+      }
+
+
+      /* =======================================
+         CATEGORY
+      ======================================== */
+
+      const categoryNames = {
+
+        "wheels-suspension":
+          "Wheels & Suspension",
+
+        performance:
+          "Performance",
+
+        exterior:
+          "Exterior",
+
+        interior:
+          "Interior",
+
+        tuning:
+          "Tuning",
+
+        accessories:
+          "Accessories"
+
+      };
+
+
+      const categoryName =
+        categoryNames[product.category] ||
+        "Products";
+
+
+      /* =======================================
+         SEO VALUES
+      ======================================== */
+
+      const subtitle =
+        product.subtitle ||
+        product.variant ||
+        "";
+
+
+      const seoTitle =
+        `${product.name} | CARLISM TH`;
+
+
+      const seoDescription =
+        subtitle
+
+          ? `${product.name} - ${subtitle}. Contact CARLISM TH for product information, fitment and availability.`
+
+          : `${product.name}. Contact CARLISM TH for product information, fitment and availability.`;
+
+
+      const canonical =
+        `${BASE_URL}product-detail.html?id=${product.id}`;
+
+
+      const categoryUrl =
+        `${BASE_URL}products.html?category=${product.category}`;
+
+
+      /* =======================================
+         PRODUCT IMAGES
+      ======================================== */
+
+      const productImages =
+        (
+          Array.isArray(product.gallery) &&
+          product.gallery.length
+
+            ? product.gallery
+
+            : [product.image]
+        )
+        .filter(Boolean)
+        .map(
+          (image) =>
+            new URL(
+              image,
+              BASE_URL
+            ).href
+        );
+
+
+      /* =======================================
+         META
+      ======================================== */
+
+      document.title =
+        seoTitle;
+
+
+      document
+        .querySelector("#seoDescription")
+        ?.setAttribute(
+          "content",
+          seoDescription
+        );
+
+
+      document
+        .querySelector("#canonicalUrl")
+        ?.setAttribute(
+          "href",
+          canonical
+        );
+
+
+      /* =======================================
+         OPEN GRAPH
+      ======================================== */
+
+      document
+        .querySelector("#ogTitle")
+        ?.setAttribute(
+          "content",
+          seoTitle
+        );
+
+
+      document
+        .querySelector("#ogDescription")
+        ?.setAttribute(
+          "content",
+          seoDescription
+        );
+
+
+      document
+        .querySelector("#ogUrl")
+        ?.setAttribute(
+          "content",
+          canonical
+        );
+
+
+      if (productImages.length) {
+
+        document
+          .querySelector("#ogImage")
+          ?.setAttribute(
+            "content",
+            productImages[0]
+          );
+
+      }
+
+
+      /* =======================================
+         PRODUCT + BREADCRUMB JSON-LD
+      ======================================== */
+
+      const structuredData = {
+
+        "@context":
+          "https://schema.org",
+
+        "@graph": [
+
+          {
+            "@type":
+              "Product",
+
+            "@id":
+              `${canonical}#product`,
+
+            "name":
+              product.name,
+
+            "description":
+              seoDescription,
+
+            "url":
+              canonical,
+
+            "image":
+              productImages,
+
+            "category":
+              product.subcategoryLabel ||
+              categoryName,
+
+            "brand": {
+
+              "@type":
+                "Brand",
+
+              "name":
+                product.brand ||
+                "CARLISM TH"
+
+            }
+
+          },
+
+
+          {
+            "@type":
+              "BreadcrumbList",
+
+            "@id":
+              `${canonical}#breadcrumb`,
+
+            "itemListElement": [
+
+              {
+                "@type":
+                  "ListItem",
+
+                "position":
+                  1,
+
+                "name":
+                  "Home",
+
+                "item":
+                  BASE_URL
+              },
+
+
+              {
+                "@type":
+                  "ListItem",
+
+                "position":
+                  2,
+
+                "name":
+                  categoryName,
+
+                "item":
+                  categoryUrl
+              },
+
+
+              {
+                "@type":
+                  "ListItem",
+
+                "position":
+                  3,
+
+                "name":
+                  product.name,
+
+                "item":
+                  canonical
+              }
+
+            ]
+
+          }
+
+        ]
+
+      };
+
+
+      const schema =
+        document.createElement(
+          "script"
+        );
+
+
+      schema.id =
+        "productStructuredData";
+
+
+      schema.type =
+        "application/ld+json";
+
+
+      schema.textContent =
+        JSON.stringify(
+          structuredData
+        );
+
+
+      document.head.appendChild(
+        schema
+      );
+
+
+    })();
+  </script>
 
 
 </body>
