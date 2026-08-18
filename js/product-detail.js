@@ -28,7 +28,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
   /* =========================================
-     CATEGORY NAME
+     CATEGORY
   ========================================== */
 
   const categoryNames = {
@@ -75,7 +75,6 @@ document.addEventListener("DOMContentLoaded", () => {
       element.textContent =
         value || "-";
     }
-
   }
 
 
@@ -138,6 +137,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   let index = 0;
 
+
   const mainImage =
     document.querySelector(
       "#detailMainImage"
@@ -170,7 +170,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
   /* =========================================
-     THUMBNAIL PATH
+     WEBP PATH
   ========================================== */
 
   function getThumbnailPath(imagePath) {
@@ -182,22 +182,22 @@ document.addEventListener("DOMContentLoaded", () => {
     const normalized =
       imagePath.replace(/\\/g, "/");
 
-    const lastSlash =
+    const slash =
       normalized.lastIndexOf("/");
 
-    if (lastSlash === -1) {
+    if (slash === -1) {
       return imagePath;
     }
 
     const directory =
       normalized.substring(
         0,
-        lastSlash
+        slash
       );
 
     const filename =
       normalized.substring(
-        lastSlash + 1
+        slash + 1
       );
 
     const name =
@@ -222,7 +222,7 @@ document.addEventListener("DOMContentLoaded", () => {
       .map(
         (image, i) => {
 
-          const thumbnail =
+          const webp =
             getThumbnailPath(image);
 
           return `
@@ -234,7 +234,7 @@ document.addEventListener("DOMContentLoaded", () => {
               data-index="${i}"
             >
               <img
-                src="${thumbnail}"
+                src="${webp}"
                 data-original="${image}"
                 alt="${product.name} ${i + 1}"
                 loading="lazy"
@@ -242,14 +242,13 @@ document.addEventListener("DOMContentLoaded", () => {
               >
             </button>
           `;
-
         }
       )
       .join("");
 
 
   /* =========================================
-     THUMBNAIL FALLBACK
+     THUMB FALLBACK
   ========================================== */
 
   thumbs
@@ -273,13 +272,43 @@ document.addEventListener("DOMContentLoaded", () => {
 
             image.src =
               original;
-
           }
 
         }
       );
 
     });
+
+
+  /* =========================================
+     LOAD ORIGINAL IN BACKGROUND
+  ========================================== */
+
+  function loadFullImage(
+    original,
+    targetImage
+  ) {
+
+    const fullImage =
+      new Image();
+
+    fullImage.src =
+      original;
+
+    fullImage.onload = () => {
+
+      if (
+        lightbox.classList.contains("active") &&
+        gallery[index] === original
+      ) {
+
+        targetImage.src =
+          original;
+
+      }
+
+    };
+  }
 
 
   /* =========================================
@@ -299,10 +328,8 @@ document.addEventListener("DOMContentLoaded", () => {
       getThumbnailPath(original);
 
 
-    /*
-      รูปใหญ่ในหน้า Detail
-      ใช้ WebP ก่อน
-    */
+    /* MAIN IMAGE → WEBP */
+
     delete mainImage.dataset.fallbackUsed;
 
     mainImage.dataset.original =
@@ -321,10 +348,8 @@ document.addEventListener("DOMContentLoaded", () => {
       "async";
 
 
-    /*
-      ถ้า WebP ไม่มี
-      → fallback ไป Original
-    */
+    /* WEBP ไม่มี → ORIGINAL */
+
     mainImage.onerror = () => {
 
       if (
@@ -342,10 +367,8 @@ document.addEventListener("DOMContentLoaded", () => {
     };
 
 
-    /*
-      ถ้า Lightbox เปิดอยู่
-      ให้ใช้ Original เต็ม
-    */
+    /* LIGHTBOX เปิดอยู่ */
+
     if (
       lightbox.classList.contains(
         "active"
@@ -353,10 +376,15 @@ document.addEventListener("DOMContentLoaded", () => {
     ) {
 
       lightboxImage.src =
-        original;
+        webp;
 
       lightboxImage.alt =
         `${product.name} ${index + 1}`;
+
+      loadFullImage(
+        original,
+        lightboxImage
+      );
 
     }
 
@@ -379,7 +407,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
         }
       );
-
   }
 
 
@@ -405,7 +432,6 @@ document.addEventListener("DOMContentLoaded", () => {
           button.dataset.index
         )
       );
-
     }
   );
 
@@ -416,15 +442,21 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function openLightbox() {
 
-    /*
-      Lightbox ใช้ Original
-      ตอนกดเปิดจริง
-    */
-    lightboxImage.src =
+    const original =
       gallery[index];
+
+    const webp =
+      getThumbnailPath(original);
+
+
+    /* WEBP ขึ้นก่อนทันที */
+
+    lightboxImage.src =
+      webp;
 
     lightboxImage.alt =
       `${product.name} ${index + 1}`;
+
 
     lightbox.classList.add(
       "active"
@@ -437,6 +469,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
     document.body.classList.add(
       "lightbox-open"
+    );
+
+
+    /* ORIGINAL โหลดเบื้องหลัง */
+
+    loadFullImage(
+      original,
+      lightboxImage
     );
 
   }
@@ -541,17 +581,13 @@ document.addEventListener("DOMContentLoaded", () => {
       if (
         event.key === "ArrowLeft"
       ) {
-        showImage(
-          index - 1
-        );
+        showImage(index - 1);
       }
 
       if (
         event.key === "ArrowRight"
       ) {
-        showImage(
-          index + 1
-        );
+        showImage(index + 1);
       }
 
     }
