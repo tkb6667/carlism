@@ -155,8 +155,7 @@ function getHeroImages() {
       if (
         extension !== ".jpg" &&
         extension !== ".jpeg" &&
-        extension !== ".png" &&
-        extension !== ".webp"
+        extension !== ".png"
       ) {
         return;
       }
@@ -182,6 +181,56 @@ function getHeroImages() {
   });
 
   return heroImages;
+}
+
+
+/* =========================================
+   GET PRODUCT + GALLERY IMAGES
+========================================= */
+
+function getProductImages(products) {
+
+  const images = [];
+
+  products.forEach((product) => {
+
+    /* MAIN IMAGE */
+
+    if (
+      typeof product.image === "string" &&
+      product.image.trim() !== ""
+    ) {
+      images.push(
+        product.image.replace(/\\/g, "/")
+      );
+    }
+
+
+    /* GALLERY */
+
+    if (Array.isArray(product.gallery)) {
+
+      product.gallery.forEach((image) => {
+
+        if (
+          typeof image === "string" &&
+          image.trim() !== ""
+        ) {
+
+          images.push(
+            image.replace(/\\/g, "/")
+          );
+
+        }
+
+      });
+
+    }
+
+  });
+
+
+  return images;
 }
 
 
@@ -215,12 +264,15 @@ async function createThumbnail(
 
 
   console.log("");
+
   console.log(
     `[${index}/${total}] ${imagePath}`
   );
 
 
-  /* CHECK ORIGINAL */
+  /* =======================================
+     ORIGINAL NOT FOUND
+  ======================================== */
 
   if (!fs.existsSync(sourceFile)) {
 
@@ -236,7 +288,31 @@ async function createThumbnail(
   }
 
 
-  /* CREATE THUMBS FOLDER */
+  /* =======================================
+     DO NOT OVERWRITE EXISTING WEBP
+  ======================================== */
+
+  if (fs.existsSync(outputFile)) {
+
+    console.log(
+      "  ⏭️  มี WebP อยู่แล้ว ไม่สร้างซ้ำ"
+    );
+
+    console.log(
+      `  → ${thumbnailPath}`
+    );
+
+    return {
+      status: "skipped",
+      imagePath,
+      thumbnailPath
+    };
+  }
+
+
+  /* =======================================
+     CREATE THUMBS DIRECTORY
+  ======================================== */
 
   fs.mkdirSync(
     outputDirectory,
@@ -246,39 +322,9 @@ async function createThumbnail(
   );
 
 
-  /* SKIP IF THUMBNAIL IS NEWER */
-
-  if (fs.existsSync(outputFile)) {
-
-    const sourceStat =
-      fs.statSync(sourceFile);
-
-    const thumbnailStat =
-      fs.statSync(outputFile);
-
-    if (
-      thumbnailStat.mtimeMs >=
-      sourceStat.mtimeMs
-    ) {
-
-      console.log(
-        "  ⏭️  มี Thumbnail ล่าสุดแล้ว"
-      );
-
-      console.log(
-        `  → ${thumbnailPath}`
-      );
-
-      return {
-        status: "skipped",
-        imagePath,
-        thumbnailPath
-      };
-    }
-  }
-
-
-  /* GENERATE WEBP */
+  /* =======================================
+     GENERATE WEBP
+  ======================================== */
 
   try {
 
@@ -302,6 +348,7 @@ async function createThumbnail(
     const thumbnailSize =
       fs.statSync(outputFile).size;
 
+
     const originalMB =
       (
         originalSize /
@@ -309,21 +356,25 @@ async function createThumbnail(
         1024
       ).toFixed(2);
 
+
     const thumbnailKB =
       (
         thumbnailSize /
         1024
       ).toFixed(0);
 
+
     const saving =
-      (
-        (
-          1 -
-          thumbnailSize /
-          originalSize
-        ) *
-        100
-      ).toFixed(1);
+      originalSize > 0
+        ? (
+            (
+              1 -
+              thumbnailSize /
+              originalSize
+            ) *
+            100
+          ).toFixed(1)
+        : "0.0";
 
 
     console.log(
@@ -386,35 +437,36 @@ async function main() {
     loadProducts();
 
 
-  /* PRODUCT IMAGES */
+  /* =======================================
+     PRODUCT + GALLERY
+  ======================================== */
 
   const productImages =
-    products
-      .map(
-        (product) =>
-          product.image
-      )
-      .filter(
-        (image) =>
-          typeof image === "string" &&
-          image.trim() !== ""
-      );
+    getProductImages(
+      products
+    );
 
 
-  /* HERO IMAGES */
+  /* =======================================
+     HERO
+  ======================================== */
 
   const heroImages =
     getHeroImages();
 
 
-  /* CONTACT IMAGE */
+  /* =======================================
+     CONTACT
+  ======================================== */
 
   const contactImages = [
     "assets/images/hero/DSC00740.jpg"
   ];
 
 
-  /* MERGE ALL */
+  /* =======================================
+     REMOVE DUPLICATES
+  ======================================== */
 
   const allImages =
     [
@@ -433,7 +485,7 @@ async function main() {
   );
 
   console.log(
-    `รูปสินค้า: ${productImages.length} รูป`
+    `Product + Gallery: ${productImages.length} path`
   );
 
   console.log(
@@ -445,11 +497,11 @@ async function main() {
   );
 
   console.log(
-    `รวมทั้งหมด: ${allImages.length} รูป`
+    `หลังตัด path ซ้ำ: ${allImages.length} รูป`
   );
 
   console.log(
-    `ขนาดสูงสุด: ${THUMB_WIDTH}px`
+    `Thumbnail Width: ${THUMB_WIDTH}px`
   );
 
   console.log(
@@ -474,32 +526,35 @@ async function main() {
       );
 
     results.push(result);
+
   }
 
 
-  /* SUMMARY */
+  /* =======================================
+     SUMMARY
+  ======================================== */
 
   const created =
     results.filter(
-      (item) =>
+      item =>
         item.status === "created"
     ).length;
 
   const skipped =
     results.filter(
-      (item) =>
+      item =>
         item.status === "skipped"
     ).length;
 
   const missing =
     results.filter(
-      (item) =>
+      item =>
         item.status === "missing"
     ).length;
 
   const errors =
     results.filter(
-      (item) =>
+      item =>
         item.status === "error"
     ).length;
 
@@ -520,7 +575,7 @@ async function main() {
   );
 
   console.log(
-    `⏭️  มีอยู่แล้ว: ${skipped}`
+    `⏭️  มีอยู่แล้ว / ไม่สร้างซ้ำ: ${skipped}`
   );
 
   console.log(
@@ -542,10 +597,15 @@ async function main() {
 main().catch((error) => {
 
   console.error("");
+
   console.error(
     "เกิดข้อผิดพลาด:"
   );
-  console.error(error);
+
+  console.error(
+    error
+  );
 
   process.exit(1);
+
 });

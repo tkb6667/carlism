@@ -237,13 +237,23 @@
 
   padding: 0 20px;
 
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  box-sizing: border-box;
+
   background: #ffffff;
   color: #111111;
 
   border: 1px solid #cccccc;
 
+  font-family: inherit;
   font-size: 10px;
   font-weight: 700;
+  line-height: 1;
+
+  text-decoration: none;
 
   cursor: pointer;
 
