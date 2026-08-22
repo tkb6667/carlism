@@ -2,17 +2,17 @@ const fs = require("fs");
 const path = require("path");
 const sharp = require("sharp");
 
+
 /* =========================================
    CONFIG
 ========================================= */
 
 const ROOT_DIR = path.resolve(__dirname, "..");
 
-const IMAGES_ROOT = path.join(
-  ROOT_DIR,
-  "assets",
-  "images"
-);
+const IMAGE_ROOTS = [
+  path.join(ROOT_DIR, "assets", "images"),
+  path.join(ROOT_DIR, "assets", "products")
+];
 
 const THUMB_WIDTH = 1200;
 const WEBP_QUALITY = 88;
@@ -46,11 +46,7 @@ function getAllImages(directory) {
     );
 
     if (item.isDirectory()) {
-
-      // ไม่เข้าไปสร้าง thumbs ซ้อน thumbs
-      if (
-        item.name.toLowerCase() === "thumbs"
-      ) {
+      if (item.name.toLowerCase() === "thumbs") {
         continue;
       }
 
@@ -69,9 +65,7 @@ function getAllImages(directory) {
       .extname(item.name)
       .toLowerCase();
 
-    if (
-      IMAGE_EXTENSIONS.includes(extension)
-    ) {
+    if (IMAGE_EXTENSIONS.includes(extension)) {
       images.push(fullPath);
     }
   }
@@ -134,26 +128,18 @@ async function createWebp(
     `[${index}/${total}] ${relativeSource}`
   );
 
-  /* -----------------------------------------
-     SKIP EXISTING WEBP
-  ----------------------------------------- */
+
+  /* SKIP EXISTING */
 
   if (fs.existsSync(outputFile)) {
-    console.log(
-      "  ⏭️ มี WebP อยู่แล้ว"
-    );
-
-    console.log(
-      `  → ${relativeOutput}`
-    );
+    console.log("  ⏭️ มี WebP อยู่แล้ว");
+    console.log(`  → ${relativeOutput}`);
 
     return "skipped";
   }
 
 
-  /* -----------------------------------------
-     CREATE thumbs FOLDER
-  ----------------------------------------- */
+  /* CREATE thumbs */
 
   fs.mkdirSync(
     outputDirectory,
@@ -163,9 +149,7 @@ async function createWebp(
   );
 
 
-  /* -----------------------------------------
-     CONVERT
-  ----------------------------------------- */
+  /* CONVERT */
 
   try {
     await sharp(sourceFile)
@@ -228,14 +212,8 @@ async function createWebp(
     return "created";
 
   } catch (error) {
-
-    console.log(
-      "  ❌ แปลงไม่สำเร็จ"
-    );
-
-    console.log(
-      `  ${error.message}`
-    );
+    console.log("  ❌ แปลงไม่สำเร็จ");
+    console.log(`  ${error.message}`);
 
     return "error";
   }
@@ -261,7 +239,7 @@ async function main() {
 
 
   const images =
-    getAllImages(IMAGES_ROOT);
+    IMAGE_ROOTS.flatMap(getAllImages);
 
 
   console.log("");

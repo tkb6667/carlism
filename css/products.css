@@ -2,6 +2,7 @@
    CARLISM - PRODUCTS
 ===================================================== */
 
+
 /* HERO */
 
 .product-page-hero {
@@ -108,20 +109,17 @@
 .product-hero-image {
   width: 100%;
   min-width: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  aspect-ratio: 16 / 8;
+  overflow: hidden;
+  background: #eee;
 }
 
 .product-hero-image img {
-  display: block;
   width: 100%;
-  height: auto;
-  max-width: 760px;
-  max-height: 390px;
-  object-fit: contain;
-  object-position: center;
-  mix-blend-mode: multiply;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  object-position: center 70%;
 }
 
 
@@ -133,20 +131,19 @@
 }
 
 .product-filter-bar {
+  width: 100%;
   min-height: 82px;
   display: flex;
   align-items: center;
-  gap: 20px;
-  min-width: 0;
 }
 
 .product-filter-scroll {
-  flex: 1;
+  width: 100%;
   min-width: 0;
   display: grid;
   grid-template-columns: 36px minmax(0, 1fr) 36px;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
 }
 
 .product-filter-buttons {
@@ -181,9 +178,8 @@
   transition: opacity 0.2s ease;
 }
 
-.product-filter-arrow:disabled {
-  opacity: 0.18;
-  cursor: default;
+.product-filter-arrow.is-disabled {
+  opacity: 0.2;
 }
 
 .product-filter-btn {
@@ -221,22 +217,29 @@
   border-color: #111;
 }
 
-.product-count {
-  flex: 0 0 auto;
-  color: #777;
-  font-size: 10px;
-  font-weight: 600;
-  letter-spacing: 0.8px;
-  white-space: nowrap;
-}
-
 
 /* PRODUCTS */
 
 .product-list-section {
   min-height: 350px;
-  padding: 45px 0 70px;
+  padding: 28px 0 70px;
   background: #f7f7f7;
+}
+
+.product-list-head {
+  min-height: 22px;
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.product-count {
+  color: #777;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.8px;
+  white-space: nowrap;
 }
 
 .category-products-grid {
@@ -429,12 +432,13 @@
     font-size: clamp(42px, 5.5vw, 58px);
   }
 
-  .product-hero-image img {
-    max-height: 330px;
+  .product-hero-image {
+    aspect-ratio: 16 / 9;
   }
 
   .category-products-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr));
   }
 
 }
@@ -484,11 +488,7 @@
 
   .product-hero-image {
     margin-top: 2px;
-  }
-
-  .product-hero-image img {
-    max-width: 520px;
-    max-height: 260px;
+    aspect-ratio: 16 / 9;
   }
 
 
@@ -496,12 +496,12 @@
 
   .product-filter-bar {
     min-height: 68px;
-    gap: 8px;
   }
 
   .product-filter-scroll {
-    grid-template-columns: 28px minmax(0, 1fr) 28px;
-    gap: 4px;
+    grid-template-columns:
+      28px minmax(0, 1fr) 28px;
+    gap: 5px;
   }
 
   .product-filter-arrow {
@@ -521,19 +521,24 @@
     font-size: 9px;
   }
 
-  .product-count {
-    font-size: 8px;
-  }
-
 
   /* PRODUCTS */
 
   .product-list-section {
-    padding: 25px 0 45px;
+    padding: 20px 0 45px;
+  }
+
+  .product-list-head {
+    margin-bottom: 12px;
+  }
+
+  .product-count {
+    font-size: 8px;
   }
 
   .category-products-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr));
     gap: 11px;
   }
 
@@ -604,18 +609,12 @@
 
   .product-hero-image {
     margin-top: 0;
-  }
-
-  .product-hero-image img {
-    max-height: 225px;
-  }
-
-  .product-filter-bar {
-    gap: 5px;
+    aspect-ratio: 16 / 9;
   }
 
   .product-filter-scroll {
-    grid-template-columns: 25px minmax(0, 1fr) 25px;
+    grid-template-columns:
+      25px minmax(0, 1fr) 25px;
   }
 
   .product-filter-arrow {

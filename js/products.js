@@ -18,21 +18,21 @@ document.addEventListener("DOMContentLoaded", () => {
     "https://tkb6667.github.io/carlism/";
 
   const categories = {
-    all: {
-      title: "ALL PRODUCTS",
-      description:
-        "Explore our complete selection of automotive parts, styling upgrades, performance products and accessories.",
-      hero: "assets/products/wheels/hero/wheels-hero.jpg",
-      filters: [
-        ["all", "ALL"],
-        ["wheels-suspension", "WHEELS & SUSPENSION"],
-        ["performance", "PERFORMANCE"],
-        ["exterior", "EXTERIOR"],
-        ["interior", "INTERIOR"],
-        ["tuning", "TUNING"],
-        ["accessories", "ACCESSORIES"]
-      ]
-    },
+all: {
+  title: "ALL PRODUCTS",
+  description:
+    "Explore our complete selection of automotive parts, styling upgrades, performance products and accessories.",
+  hero: "assets/products/wheels/hero/Carlism-260.jpg",
+  filters: [
+    ["all", "ALL"],
+    ["wheels-suspension", "WHEELS & SUSPENSION"],
+    ["performance", "PERFORMANCE"],
+    ["exterior", "EXTERIOR"],
+    ["interior", "INTERIOR"],
+    ["tuning", "TUNING"],
+    ["accessories", "ACCESSORIES"]
+  ]
+},
 
     "wheels-suspension": {
       title: "WHEELS & SUSPENSION",
@@ -60,26 +60,25 @@ document.addEventListener("DOMContentLoaded", () => {
       ]
     },
 
-    exterior: {
-      title: "EXTERIOR",
-      description:
-        "Transform your vehicle with premium exterior styling and aerodynamic parts.",
-      hero: "assets/products/wheels/hero/DSC09760.jpg",
-      filters: [
-        ["all", "ALL"],
-        ["front-lip", "FRONT LIP"],
-        ["diffuser", "DIFFUSER"],
-        ["canards", "CANARDS"],
-        ["side-skirts", "SIDE SKIRTS"],
-        ["spoiler", "SPOILER"],
-        ["front-grille", "FRONT GRILLE"],
-        ["hood-trunk-lid", "HOOD & TRUNK LID"],
-        ["door-handles", "DOOR HANDLES"],
-        ["side-mirrors", "SIDE MIRRORS"],
-        ["light", "LIGHT"]
-      ]
-    },
-
+exterior: {
+  title: "EXTERIOR",
+  description:
+    "Transform your vehicle with premium exterior styling and aerodynamic parts.",
+  hero: "assets/products/wheels/hero/1.jpg",
+  filters: [
+    ["all", "ALL"],
+    ["front-lip", "FRONT LIP"],
+    ["diffuser", "DIFFUSER"],
+    ["canards", "CANARDS"],
+    ["side-skirts", "SIDE SKIRTS"],
+    ["spoiler", "SPOILER"],
+    ["front-grille", "FRONT GRILLE"],
+    ["hood-trunk-lid", "HOOD & TRUNK LID"],
+    ["door-handles", "DOOR HANDLES"],
+    ["side-mirrors", "SIDE MIRRORS"],
+    ["light", "LIGHT"]
+  ]
+},
     interior: {
       title: "INTERIOR",
       description:
