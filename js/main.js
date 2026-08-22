@@ -1,8 +1,111 @@
 document.addEventListener("DOMContentLoaded", () => {
 
-  /* =====================================
-     DATA
-  ===================================== */
+  /* HERO */
+
+  const hero = document.querySelector("#heroSlider");
+  const slides = [...document.querySelectorAll(".hero-slide")];
+  const progress = document.querySelector("#heroProgress");
+  const HERO_DELAY = 5000;
+
+  if (hero && slides.length && progress) {
+    let current = 0;
+    let timer;
+    let startX = 0;
+    let dragging = false;
+
+    progress.innerHTML = slides
+      .map((_, i) => `
+        <button
+          class="hero-progress-item"
+          type="button"
+          aria-label="Show slide ${i + 1}"
+        >
+          <span class="hero-progress-track"></span>
+        </button>
+      `)
+      .join("");
+
+    const indicators = [...progress.children];
+
+    const showSlide = index => {
+      current =
+        (index + slides.length) %
+        slides.length;
+
+      slides.forEach((slide, i) =>
+        slide.classList.toggle(
+          "active",
+          i === current
+        )
+      );
+
+      indicators.forEach((item, i) =>
+        item.classList.toggle(
+          "active",
+          i === current
+        )
+      );
+    };
+
+    const startAuto = () => {
+      clearInterval(timer);
+
+      timer = setInterval(
+        () => showSlide(current + 1),
+        HERO_DELAY
+      );
+    };
+
+    indicators.forEach((item, i) => {
+      item.addEventListener("click", () => {
+        showSlide(i);
+        startAuto();
+      });
+    });
+
+    hero.addEventListener("pointerdown", event => {
+      if (event.target.closest("a, button")) return;
+
+      startX = event.clientX;
+      dragging = true;
+
+      hero.setPointerCapture?.(
+        event.pointerId
+      );
+
+      clearInterval(timer);
+    });
+
+    hero.addEventListener("pointerup", event => {
+      if (!dragging) return;
+
+      dragging = false;
+
+      const distance =
+        event.clientX - startX;
+
+      if (Math.abs(distance) >= 50) {
+        showSlide(
+          distance < 0
+            ? current + 1
+            : current - 1
+        );
+      }
+
+      startAuto();
+    });
+
+    hero.addEventListener("pointercancel", () => {
+      dragging = false;
+      startAuto();
+    });
+
+    showSlide(0);
+    startAuto();
+  }
+
+
+  /* DATA */
 
   const categories = [
     ["wheels-suspension", "fa-compact-disc", "WHEELS & SUSPENSION"],
@@ -13,7 +116,6 @@ document.addEventListener("DOMContentLoaded", () => {
     ["accessories", "fa-screwdriver-wrench", "ACCESSORIES"]
   ];
 
-
   const brands = [
     ["Mercedes-Benz", "assets/images/hero/brands/mercedes.png"],
     ["BMW", "assets/images/hero/brands/bmw.svg"],
@@ -22,44 +124,22 @@ document.addEventListener("DOMContentLoaded", () => {
     ["Volkswagen", "assets/images/hero/brands/volkswagen.svg"]
   ];
 
-
-  const showcases = [
-    [
-      "Mercedes-Benz Wheels",
-      "assets/images/hero/showcase/Untitled-1.jpg"
-    ],
-    [
-      "BMW Wheels",
-      "assets/images/hero/showcase/14.jpg"
-    ],
-    [
-      "Performance Accessories",
-      "https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?auto=format&fit=crop&w=900&q=85"
-    ],
-    [
-      "Engine Performance",
-      "https://images.unsplash.com/photo-1504215680853-026ed2a45def?auto=format&fit=crop&w=900&q=85"
-    ],
-    [
-      "Exterior Parts",
-      "https://images.unsplash.com/photo-1555215695-3004980ad54e?auto=format&fit=crop&w=900&q=85"
-    ],
-    [
-      "Tuning",
-      "https://images.unsplash.com/photo-1549399542-7e3f8b79c341?auto=format&fit=crop&w=900&q=85"
-    ]
-  ];
+const showcases = [
+  ["Showcase 1", "assets/images/hero/showcase/thumbs/1.webp"],
+  ["Showcase 2", "assets/images/hero/showcase/thumbs/2.webp"],
+  ["Showcase 3", "assets/images/hero/showcase/thumbs/3.webp"],
+  ["Showcase 4", "assets/images/hero/showcase/thumbs/4.webp"],
+  ["Showcase 5", "assets/images/hero/showcase/thumbs/5.webp"],
+  ["Showcase 6", "assets/images/hero/showcase/thumbs/6.webp"]
+];
 
 
-  /* =====================================
-     CATEGORIES
-  ===================================== */
+  /* CATEGORIES */
 
   const categoryGrid =
     document.querySelector("#categoryGrid");
 
   if (categoryGrid) {
-
     categoryGrid.innerHTML = categories
       .map(([category, icon, name]) => `
         <a
@@ -69,57 +149,44 @@ document.addEventListener("DOMContentLoaded", () => {
           <div class="category-icon">
             <i class="fa-solid ${icon}"></i>
           </div>
-
           <span>${name}</span>
         </a>
       `)
       .join("");
-
   }
 
 
-  /* =====================================
-     BRANDS
-  ===================================== */
+  /* BRANDS */
 
   const brandsRow =
     document.querySelector("#brandsRow");
 
   if (brandsRow) {
-
     brandsRow.innerHTML = brands
       .map(([name, image]) => `
         <div class="brand-item">
-
           <img
             src="${image}"
             alt="${name}"
             loading="lazy"
             decoding="async"
           >
-
           <span>${name}</span>
-
         </div>
       `)
       .join("");
-
   }
 
 
-  /* =====================================
-     SHOWCASE
-  ===================================== */
+  /* SHOWCASE */
 
   const showcaseGrid =
     document.querySelector("#showcaseGrid");
 
   if (showcaseGrid) {
-
     showcaseGrid.innerHTML = showcases
       .map(([alt, image]) => `
         <div class="showcase-card">
-
           <img
             src="${image}"
             alt="${alt}"
@@ -127,17 +194,13 @@ document.addEventListener("DOMContentLoaded", () => {
             decoding="async"
             draggable="false"
           >
-
         </div>
       `)
       .join("");
-
   }
 
 
-  /* =====================================
-     MOBILE MENU
-  ===================================== */
+  /* MOBILE MENU */
 
   const menuToggle =
     document.querySelector(".menu-toggle");
@@ -145,57 +208,39 @@ document.addEventListener("DOMContentLoaded", () => {
   const navMenu =
     document.querySelector(".nav-menu");
 
-
   if (menuToggle && navMenu) {
+    menuToggle.addEventListener("click", () => {
+      const open =
+        navMenu.classList.toggle("active");
 
-    menuToggle.addEventListener(
-      "click",
-      () => {
+      menuToggle.classList.toggle(
+        "active",
+        open
+      );
 
-        const open =
-          navMenu.classList.toggle("active");
-
-        menuToggle.classList.toggle(
-          "active",
-          open
-        );
-
-        menuToggle.setAttribute(
-          "aria-expanded",
-          String(open)
-        );
-
-      }
-    );
-
+      menuToggle.setAttribute(
+        "aria-expanded",
+        String(open)
+      );
+    });
 
     navMenu
       .querySelectorAll("a")
-      .forEach((link) => {
+      .forEach(link => {
+        link.addEventListener("click", () => {
+          navMenu.classList.remove("active");
+          menuToggle.classList.remove("active");
 
-        link.addEventListener(
-          "click",
-          () => {
-
-            navMenu.classList.remove("active");
-            menuToggle.classList.remove("active");
-
-            menuToggle.setAttribute(
-              "aria-expanded",
-              "false"
-            );
-
-          }
-        );
-
+          menuToggle.setAttribute(
+            "aria-expanded",
+            "false"
+          );
+        });
       });
-
   }
 
 
-  /* =====================================
-     BRAND SLIDER
-  ===================================== */
+  /* BRAND SLIDER */
 
   const brandLeft =
     document.querySelector(".brand-arrow-left");
@@ -203,38 +248,29 @@ document.addEventListener("DOMContentLoaded", () => {
   const brandRight =
     document.querySelector(".brand-arrow-right");
 
-
-  if (
-    brandsRow &&
-    brandLeft &&
-    brandRight
-  ) {
-
+  if (brandsRow && brandLeft && brandRight) {
     let scrollTimer;
 
-
-    const getMaxScroll = () =>
+    const maxScroll = () =>
       Math.max(
         0,
         brandsRow.scrollWidth -
         brandsRow.clientWidth
       );
 
-
-    const getScrollStep = () => {
-
+    const scrollStep = () => {
       const item =
         brandsRow.querySelector(".brand-item");
 
       if (!item) return 170;
 
-      const styles =
+      const style =
         getComputedStyle(brandsRow);
 
       const gap =
         parseFloat(
-          styles.columnGap ||
-          styles.gap ||
+          style.columnGap ||
+          style.gap ||
           0
         );
 
@@ -244,97 +280,58 @@ document.addEventListener("DOMContentLoaded", () => {
       );
     };
 
-
     const updateArrows = () => {
-
-      const max =
-        getMaxScroll();
-
-      const current =
-        brandsRow.scrollLeft;
-
-      const start =
-        current <= 2;
-
-      const end =
-        current >= max - 2;
-
-      const disabled =
-        max <= 2;
-
+      const max = maxScroll();
+      const current = brandsRow.scrollLeft;
 
       brandLeft.disabled =
-        disabled || start;
+        max <= 2 || current <= 2;
 
       brandRight.disabled =
-        disabled || end;
-
+        max <= 2 || current >= max - 2;
 
       brandLeft.classList.toggle(
         "is-disabled",
-        disabled || start
+        brandLeft.disabled
       );
 
       brandRight.classList.toggle(
         "is-disabled",
-        disabled || end
+        brandRight.disabled
       );
-
     };
 
-
-    const move = (direction) => {
-
-      const max =
-        getMaxScroll();
-
-      const target =
-        Math.min(
-          max,
+    const move = direction => {
+      brandsRow.scrollTo({
+        left: Math.min(
+          maxScroll(),
           Math.max(
             0,
             brandsRow.scrollLeft +
-            getScrollStep() * direction
+            scrollStep() * direction
           )
-        );
-
-
-      brandsRow.scrollTo({
-        left: target,
+        ),
         behavior: "smooth"
       });
-
     };
-
 
     brandLeft.addEventListener(
       "click",
       () => {
-
-        if (!brandLeft.disabled) {
-          move(-1);
-        }
-
+        if (!brandLeft.disabled) move(-1);
       }
     );
-
 
     brandRight.addEventListener(
       "click",
       () => {
-
-        if (!brandRight.disabled) {
-          move(1);
-        }
-
+        if (!brandRight.disabled) move(1);
       }
     );
-
 
     brandsRow.addEventListener(
       "scroll",
       () => {
-
         clearTimeout(scrollTimer);
 
         scrollTimer =
@@ -342,48 +339,19 @@ document.addEventListener("DOMContentLoaded", () => {
             updateArrows,
             30
           );
-
       },
-      {
-        passive: true
-      }
+      { passive: true }
     );
 
+    addEventListener("resize", updateArrows);
 
-    window.addEventListener(
-      "resize",
-      () => {
+    requestAnimationFrame(updateArrows);
 
-        const max =
-          getMaxScroll();
-
-        if (
-          brandsRow.scrollLeft >
-          max
-        ) {
-          brandsRow.scrollLeft =
-            max;
-        }
-
-        updateArrows();
-
-      }
-    );
-
-
-    requestAnimationFrame(
-      updateArrows
-    );
-
-
-    window.addEventListener(
+    addEventListener(
       "load",
       updateArrows,
-      {
-        once: true
-      }
+      { once: true }
     );
-
   }
 
 });

@@ -2,7 +2,6 @@
 <html lang="en">
 
 <head>
-
   <meta charset="UTF-8">
 
   <meta
@@ -10,49 +9,24 @@
     content="width=device-width, initial-scale=1.0, viewport-fit=cover"
   >
 
-
-  <!-- =========================================
-       BASIC SEO
-  ========================================== -->
-
-  <title>
-    CARLISM | Premium Automotive Parts
-  </title>
+  <title>CARLISM | Premium Automotive Parts</title>
 
   <meta
     name="description"
     content="Premium automotive parts, performance tuning, wheels, suspension, exterior and interior upgrades."
   >
 
-  <meta
-    name="robots"
-    content="index, follow"
-  >
-
-
-  <!-- =========================================
-       CANONICAL
-  ========================================== -->
+  <meta name="robots" content="index, follow">
 
   <link
     rel="canonical"
     href="https://tkb6667.github.io/carlism/"
   >
 
+  <!-- OPEN GRAPH -->
 
-  <!-- =========================================
-       OPEN GRAPH
-  ========================================== -->
-
-  <meta
-    property="og:type"
-    content="website"
-  >
-
-  <meta
-    property="og:site_name"
-    content="CARLISM TH"
-  >
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="CARLISM TH">
 
   <meta
     property="og:title"
@@ -69,15 +43,12 @@
     content="https://tkb6667.github.io/carlism/"
   >
 
-  <meta
-    property="og:image"
-    content="https://tkb6667.github.io/carlism/assets/images/hero/hero-mercedes.jpg.jpg"
-  >
+<meta
+  property="og:image"
+  content="https://tkb6667.github.io/carlism/assets/images/heroo/s1.jpg"
+>
 
-
-  <!-- =========================================
-       STRUCTURED DATA
-  ========================================== -->
+  <!-- SCHEMA -->
 
   <script type="application/ld+json">
   {
@@ -110,22 +81,17 @@
   }
   </script>
 
-
-  <!-- =========================================
-       HERO PRELOAD
-  ========================================== -->
+  <!-- HERO PRELOAD -->
 
   <link
     rel="preload"
     as="image"
-    href="assets/images/hero/hero-mercedes.jpg.jpg"
+    href="assets/images/heroo/thumbs/s1.webp"
+    type="image/webp"
     fetchpriority="high"
   >
 
-
-  <!-- =========================================
-       CONNECTION
-  ========================================== -->
+  <!-- FONT -->
 
   <link
     rel="preconnect"
@@ -143,79 +109,60 @@
     href="https://images.unsplash.com"
   >
 
-
-  <!-- =========================================
-       FONT
-  ========================================== -->
-
   <link
     href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap"
     rel="stylesheet"
   >
-
-
-  <!-- =========================================
-       ICON
-  ========================================== -->
 
   <link
     rel="stylesheet"
     href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
   >
 
+  <!-- CSS -->
 
-  <!-- =========================================
-       CSS
-  ========================================== -->
-
-  <link
-    rel="stylesheet"
-    href="css/components.css"
-  >
-
-  <link
-    rel="stylesheet"
-    href="css/style.css"
-  >
-
-  <link
-    rel="stylesheet"
-    href="css/responsive.css"
-  >
-
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/responsive.css">
 </head>
-
 
 <body>
 
-
-  <!-- =========================================
-       HEADER
-  ========================================== -->
-
   <header id="site-header"></header>
-
 
   <main>
 
+    <!-- HERO -->
 
-    <!-- =========================================
-         HERO
-    ========================================== -->
+    <section
+      class="hero"
+      id="heroSlider"
+    >
 
-    <section class="hero">
+<img
+  class="hero-image hero-slide active"
+  src="assets/images/heroo/thumbs/s1.webp"
+  alt="CARLISM TH"
+  loading="eager"
+  decoding="async"
+  fetchpriority="high"
+>
 
-      <img
-        class="hero-image"
-        src="assets/images/hero/hero-mercedes.jpg.jpg"
-        alt="CARLISM Performance Car"
-        loading="eager"
-        decoding="async"
-        fetchpriority="high"
-      >
+<img
+  class="hero-image hero-slide"
+  src="assets/images/heroo/thumbs/s2.webp"
+  alt="CARLISM TH"
+  decoding="async"
+>
+
+<img
+  class="hero-image hero-slide"
+  src="assets/images/heroo/thumbs/s3.webp"
+  alt="CARLISM TH"
+  decoding="async"
+>
 
       <div class="hero-overlay"></div>
-
 
       <div class="container hero-container">
 
@@ -233,7 +180,6 @@
             We do every step neatly.
           </p>
 
-
           <div class="hero-actions">
 
             <a
@@ -241,10 +187,8 @@
               class="btn btn-primary"
             >
               VIEW COLLECTION
-
               <i class="fa-solid fa-arrow-right"></i>
             </a>
-
 
             <a
               href="contact.html"
@@ -259,12 +203,16 @@
 
       </div>
 
+      <div
+        class="hero-progress"
+        id="heroProgress"
+        aria-label="Hero slides"
+      ></div>
+
     </section>
 
 
-    <!-- =========================================
-         CATEGORIES
-    ========================================== -->
+    <!-- CATEGORIES -->
 
     <section class="category-section">
 
@@ -276,9 +224,7 @@
     </section>
 
 
-    <!-- =========================================
-         BRANDS
-    ========================================== -->
+    <!-- BRANDS -->
 
     <section class="brands-section">
 
@@ -288,28 +234,25 @@
           SUPPORTED VEHICLE BRANDS
         </h2>
 
-
         <div class="brands-slider">
 
           <button
             class="brand-arrow brand-arrow-left"
-            aria-label="Previous brands"
             type="button"
+            aria-label="Previous brands"
           >
             <i class="fa-solid fa-chevron-left"></i>
           </button>
-
 
           <div
             class="brands-row"
             id="brandsRow"
           ></div>
 
-
           <button
             class="brand-arrow brand-arrow-right"
-            aria-label="Next brands"
             type="button"
+            aria-label="Next brands"
           >
             <i class="fa-solid fa-chevron-right"></i>
           </button>
@@ -321,9 +264,7 @@
     </section>
 
 
-    <!-- =========================================
-         SHOWCASE
-    ========================================== -->
+    <!-- SHOWCASE -->
 
     <section class="showcase-section">
 
@@ -335,9 +276,7 @@
     </section>
 
 
-    <!-- =========================================
-         FEATURED PRODUCTS
-    ========================================== -->
+    <!-- PRODUCTS -->
 
     <section class="featured-section">
 
@@ -346,37 +285,36 @@
         <div class="section-header">
 
           <h2>
-            FEATURED PRODUCTS
+            OUR COLLECTION
           </h2>
-
 
           <a
             href="products.html"
             class="view-all"
           >
             VIEW ALL PRODUCTS
-
             <i class="fa-solid fa-arrow-right"></i>
           </a>
 
         </div>
+
+        <div
+          class="products-grid"
+          id="featuredProducts"
+        ></div>
 
       </div>
 
     </section>
 
 
-    <!-- =========================================
-         CONTACT CTA
-    ========================================== -->
+    <!-- CONTACT -->
 
     <section class="contact-cta">
 
       <div class="contact-cta-bg"></div>
 
-
       <div class="container contact-cta-container">
-
 
         <div class="contact-text">
 
@@ -398,7 +336,6 @@
             class="btn btn-light"
           >
             CONTACT US NOW
-
             <i class="fa-solid fa-arrow-right"></i>
           </a>
 
@@ -406,9 +343,6 @@
 
 
         <div class="contact-cards">
-
-
-          <!-- LINE -->
 
           <a
             href="https://line.me/R/ti/p/@carlismth"
@@ -421,30 +355,16 @@
               LINE
             </div>
 
-
             <div class="contact-card-info">
-
-              <strong>
-                Chat on LINE
-              </strong>
-
-              <span>
-                ID: @carlismth
-              </span>
-
-              <p>
-                Fast response during business hours.
-              </p>
-
+              <strong>Chat on LINE</strong>
+              <span>ID: @carlismth</span>
+              <p>Fast response during business hours.</p>
             </div>
-
 
             <i class="fa-solid fa-arrow-right"></i>
 
           </a>
 
-
-          <!-- FACEBOOK -->
 
           <a
             href="https://www.facebook.com/p/Carlism-TH-100092271006003/"
@@ -454,31 +374,18 @@
           >
 
             <div class="contact-logo messenger-logo">
-              <i class="fa-brands fa-facebook-messenger"></i>
+              <i class="fa-brands fa-facebook-f"></i>
             </div>
-
 
             <div class="contact-card-info">
-
-              <strong>
-                Message on Facebook
-              </strong>
-
-              <span>
-                Carlismth
-              </span>
-
-              <p>
-                We typically reply within a few minutes.
-              </p>
-
+              <strong>Facebook</strong>
+              <span>Carlismth</span>
+              <p>Follow and contact us on Facebook.</p>
             </div>
-
 
             <i class="fa-solid fa-arrow-right"></i>
 
           </a>
-
 
         </div>
 
@@ -486,23 +393,15 @@
 
     </section>
 
-
   </main>
 
-
-  <!-- =========================================
-       FOOTER
-  ========================================== -->
 
   <footer id="site-footer"></footer>
 
 
-  <!-- =========================================
-       FLOATING CHAT
-  ========================================== -->
+  <!-- FLOATING CHAT -->
 
   <div class="floating-chat">
-
 
     <a
       href="https://line.me/R/ti/p/@carlismth"
@@ -511,34 +410,25 @@
       target="_blank"
       rel="noopener noreferrer"
     >
-      <span>
-        LINE
-      </span>
+      <span>LINE</span>
     </a>
-
 
     <a
       href="https://www.facebook.com/p/Carlism-TH-100092271006003/"
       class="floating-button"
-      aria-label="Facebook Messenger"
+      aria-label="Facebook"
       target="_blank"
       rel="noopener noreferrer"
     >
-      <i class="fa-brands fa-facebook-messenger"></i>
+      <i class="fa-brands fa-facebook-f"></i>
     </a>
-
 
   </div>
 
 
-  <!-- =========================================
-       JS
-  ========================================== -->
-
+  <script src="data/products.js"></script>
   <script src="js/components.js"></script>
-
   <script src="js/main.js"></script>
-
 
 </body>
 

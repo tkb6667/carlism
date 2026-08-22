@@ -1,8 +1,6 @@
 const fs = require("fs");
 const path = require("path");
-const vm = require("vm");
 const sharp = require("sharp");
-
 
 /* =========================================
    CONFIG
@@ -10,86 +8,94 @@ const sharp = require("sharp");
 
 const ROOT_DIR = path.resolve(__dirname, "..");
 
-const PRODUCTS_FILE = path.join(
-  ROOT_DIR,
-  "data",
-  "products.js"
-);
-
-const HERO_ROOT = path.join(
+const IMAGES_ROOT = path.join(
   ROOT_DIR,
   "assets",
-  "products"
+  "images"
 );
 
 const THUMB_WIDTH = 1200;
 const WEBP_QUALITY = 88;
 
+const IMAGE_EXTENSIONS = [
+  ".jpg",
+  ".jpeg",
+  ".png"
+];
+
 
 /* =========================================
-   LOAD PRODUCTS.JS
+   FIND ALL IMAGES
 ========================================= */
 
-function loadProducts() {
+function getAllImages(directory) {
+  const images = [];
 
-  if (!fs.existsSync(PRODUCTS_FILE)) {
-    throw new Error(
-      `ไม่พบไฟล์: ${PRODUCTS_FILE}`
-    );
+  if (!fs.existsSync(directory)) {
+    return images;
   }
 
-  const code = fs.readFileSync(
-    PRODUCTS_FILE,
-    "utf8"
-  );
+  const items = fs.readdirSync(directory, {
+    withFileTypes: true
+  });
 
-  const sandbox = {
-    window: {}
-  };
+  for (const item of items) {
+    const fullPath = path.join(
+      directory,
+      item.name
+    );
 
-  vm.createContext(sandbox);
+    if (item.isDirectory()) {
 
-  vm.runInContext(
-    code,
-    sandbox,
-    {
-      filename: PRODUCTS_FILE
+      // ไม่เข้าไปสร้าง thumbs ซ้อน thumbs
+      if (
+        item.name.toLowerCase() === "thumbs"
+      ) {
+        continue;
+      }
+
+      images.push(
+        ...getAllImages(fullPath)
+      );
+
+      continue;
     }
-  );
 
-  const products =
-    sandbox.window.products;
+    if (!item.isFile()) {
+      continue;
+    }
 
-  if (!Array.isArray(products)) {
-    throw new Error(
-      "ไม่พบ window.products ใน data/products.js"
-    );
+    const extension = path
+      .extname(item.name)
+      .toLowerCase();
+
+    if (
+      IMAGE_EXTENSIONS.includes(extension)
+    ) {
+      images.push(fullPath);
+    }
   }
 
-  return products;
+  return images;
 }
 
 
 /* =========================================
-   GET THUMBNAIL PATH
+   GET WEBP PATH
 ========================================= */
 
-function getThumbnailPath(imagePath) {
-
-  const normalized =
-    imagePath.replace(/\\/g, "/");
-
-  const directory =
-    path.posix.dirname(normalized);
+function getWebpPath(sourceFile) {
+  const sourceDirectory =
+    path.dirname(sourceFile);
 
   const filename =
-    path.posix.basename(
-      normalized,
-      path.posix.extname(normalized)
+    path.basename(
+      sourceFile,
+      path.extname(sourceFile)
     );
 
-  return path.posix.join(
-    directory,
+  return path.join(
+    sourceDirectory,
     "thumbs",
     `${filename}.webp`
   );
@@ -97,222 +103,57 @@ function getThumbnailPath(imagePath) {
 
 
 /* =========================================
-   GET HERO IMAGES
+   CREATE WEBP
 ========================================= */
 
-function getHeroImages() {
-
-  const heroImages = [];
-
-  if (!fs.existsSync(HERO_ROOT)) {
-    return heroImages;
-  }
-
-  const folders =
-    fs.readdirSync(
-      HERO_ROOT,
-      {
-        withFileTypes: true
-      }
-    );
-
-  folders.forEach((folder) => {
-
-    if (!folder.isDirectory()) {
-      return;
-    }
-
-    const heroFolder =
-      path.join(
-        HERO_ROOT,
-        folder.name,
-        "hero"
-      );
-
-    if (!fs.existsSync(heroFolder)) {
-      return;
-    }
-
-    const files =
-      fs.readdirSync(
-        heroFolder,
-        {
-          withFileTypes: true
-        }
-      );
-
-    files.forEach((file) => {
-
-      if (!file.isFile()) {
-        return;
-      }
-
-      const extension =
-        path.extname(
-          file.name
-        ).toLowerCase();
-
-      if (
-        extension !== ".jpg" &&
-        extension !== ".jpeg" &&
-        extension !== ".png"
-      ) {
-        return;
-      }
-
-      const absolutePath =
-        path.join(
-          heroFolder,
-          file.name
-        );
-
-      const relativePath =
-        path.relative(
-          ROOT_DIR,
-          absolutePath
-        );
-
-      heroImages.push(
-        relativePath.replace(/\\/g, "/")
-      );
-
-    });
-
-  });
-
-  return heroImages;
-}
-
-
-/* =========================================
-   GET PRODUCT + GALLERY IMAGES
-========================================= */
-
-function getProductImages(products) {
-
-  const images = [];
-
-  products.forEach((product) => {
-
-    /* MAIN IMAGE */
-
-    if (
-      typeof product.image === "string" &&
-      product.image.trim() !== ""
-    ) {
-      images.push(
-        product.image.replace(/\\/g, "/")
-      );
-    }
-
-
-    /* GALLERY */
-
-    if (Array.isArray(product.gallery)) {
-
-      product.gallery.forEach((image) => {
-
-        if (
-          typeof image === "string" &&
-          image.trim() !== ""
-        ) {
-
-          images.push(
-            image.replace(/\\/g, "/")
-          );
-
-        }
-
-      });
-
-    }
-
-  });
-
-
-  return images;
-}
-
-
-/* =========================================
-   CREATE ONE THUMBNAIL
-========================================= */
-
-async function createThumbnail(
-  imagePath,
+async function createWebp(
+  sourceFile,
   index,
   total
 ) {
-
-  const thumbnailPath =
-    getThumbnailPath(imagePath);
-
-  const sourceFile =
-    path.join(
-      ROOT_DIR,
-      ...imagePath.split("/")
-    );
-
   const outputFile =
-    path.join(
-      ROOT_DIR,
-      ...thumbnailPath.split("/")
-    );
+    getWebpPath(sourceFile);
 
   const outputDirectory =
     path.dirname(outputFile);
 
+  const relativeSource =
+    path.relative(
+      ROOT_DIR,
+      sourceFile
+    );
+
+  const relativeOutput =
+    path.relative(
+      ROOT_DIR,
+      outputFile
+    );
 
   console.log("");
-
   console.log(
-    `[${index}/${total}] ${imagePath}`
+    `[${index}/${total}] ${relativeSource}`
   );
 
-
-  /* =======================================
-     ORIGINAL NOT FOUND
-  ======================================== */
-
-  if (!fs.existsSync(sourceFile)) {
-
-    console.log(
-      "  ❌ ไม่พบ Original"
-    );
-
-    return {
-      status: "missing",
-      imagePath,
-      thumbnailPath
-    };
-  }
-
-
-  /* =======================================
-     DO NOT OVERWRITE EXISTING WEBP
-  ======================================== */
+  /* -----------------------------------------
+     SKIP EXISTING WEBP
+  ----------------------------------------- */
 
   if (fs.existsSync(outputFile)) {
-
     console.log(
-      "  ⏭️  มี WebP อยู่แล้ว ไม่สร้างซ้ำ"
+      "  ⏭️ มี WebP อยู่แล้ว"
     );
 
     console.log(
-      `  → ${thumbnailPath}`
+      `  → ${relativeOutput}`
     );
 
-    return {
-      status: "skipped",
-      imagePath,
-      thumbnailPath
-    };
+    return "skipped";
   }
 
 
-  /* =======================================
-     CREATE THUMBS DIRECTORY
-  ======================================== */
+  /* -----------------------------------------
+     CREATE thumbs FOLDER
+  ----------------------------------------- */
 
   fs.mkdirSync(
     outputDirectory,
@@ -322,12 +163,11 @@ async function createThumbnail(
   );
 
 
-  /* =======================================
-     GENERATE WEBP
-  ======================================== */
+  /* -----------------------------------------
+     CONVERT
+  ----------------------------------------- */
 
   try {
-
     await sharp(sourceFile)
       .rotate()
       .resize({
@@ -345,9 +185,8 @@ async function createThumbnail(
     const originalSize =
       fs.statSync(sourceFile).size;
 
-    const thumbnailSize =
+    const webpSize =
       fs.statSync(outputFile).size;
-
 
     const originalMB =
       (
@@ -356,21 +195,18 @@ async function createThumbnail(
         1024
       ).toFixed(2);
 
-
-    const thumbnailKB =
+    const webpKB =
       (
-        thumbnailSize /
+        webpSize /
         1024
       ).toFixed(0);
-
 
     const saving =
       originalSize > 0
         ? (
             (
               1 -
-              thumbnailSize /
-              originalSize
+              webpSize / originalSize
             ) *
             100
           ).toFixed(1)
@@ -378,7 +214,7 @@ async function createThumbnail(
 
 
     console.log(
-      `  ✅ ${originalMB} MB → ${thumbnailKB} KB`
+      `  ✅ ${originalMB} MB → ${webpKB} KB`
     );
 
     console.log(
@@ -386,31 +222,22 @@ async function createThumbnail(
     );
 
     console.log(
-      `  → ${thumbnailPath}`
+      `  → ${relativeOutput}`
     );
 
-
-    return {
-      status: "created",
-      imagePath,
-      thumbnailPath
-    };
+    return "created";
 
   } catch (error) {
 
     console.log(
-      "  ❌ สร้าง Thumbnail ไม่สำเร็จ"
+      "  ❌ แปลงไม่สำเร็จ"
     );
 
     console.log(
       `  ${error.message}`
     );
 
-    return {
-      status: "error",
-      imagePath,
-      thumbnailPath
-    };
+    return "error";
   }
 }
 
@@ -426,82 +253,24 @@ async function main() {
     "========================================="
   );
   console.log(
-    " CARLISM TH - THUMBNAIL GENERATOR"
+    " CARLISM TH - WEBP GENERATOR"
   );
   console.log(
     "========================================="
   );
 
 
-  const products =
-    loadProducts();
-
-
-  /* =======================================
-     PRODUCT + GALLERY
-  ======================================== */
-
-  const productImages =
-    getProductImages(
-      products
-    );
-
-
-  /* =======================================
-     HERO
-  ======================================== */
-
-  const heroImages =
-    getHeroImages();
-
-
-  /* =======================================
-     CONTACT
-  ======================================== */
-
-  const contactImages = [
-    "assets/images/hero/DSC00740.jpg"
-  ];
-
-
-  /* =======================================
-     REMOVE DUPLICATES
-  ======================================== */
-
-  const allImages =
-    [
-      ...new Set([
-        ...productImages,
-        ...heroImages,
-        ...contactImages
-      ])
-    ];
+  const images =
+    getAllImages(IMAGES_ROOT);
 
 
   console.log("");
-
   console.log(
-    `พบสินค้า: ${products.length} รายการ`
+    `พบรูปทั้งหมด: ${images.length} รูป`
   );
 
   console.log(
-    `Product + Gallery: ${productImages.length} path`
-  );
-
-  console.log(
-    `Hero: ${heroImages.length} รูป`
-  );
-
-  console.log(
-    `Contact: ${contactImages.length} รูป`
-  );
-
-  console.log(
-    `หลังตัด path ซ้ำ: ${allImages.length} รูป`
-  );
-
-  console.log(
-    `Thumbnail Width: ${THUMB_WIDTH}px`
+    `WebP Width: ${THUMB_WIDTH}px`
   );
 
   console.log(
@@ -509,54 +278,36 @@ async function main() {
   );
 
 
-  const results = [];
+  let created = 0;
+  let skipped = 0;
+  let errors = 0;
 
 
   for (
     let i = 0;
-    i < allImages.length;
+    i < images.length;
     i++
   ) {
 
     const result =
-      await createThumbnail(
-        allImages[i],
+      await createWebp(
+        images[i],
         i + 1,
-        allImages.length
+        images.length
       );
 
-    results.push(result);
+    if (result === "created") {
+      created++;
+    }
 
+    if (result === "skipped") {
+      skipped++;
+    }
+
+    if (result === "error") {
+      errors++;
+    }
   }
-
-
-  /* =======================================
-     SUMMARY
-  ======================================== */
-
-  const created =
-    results.filter(
-      item =>
-        item.status === "created"
-    ).length;
-
-  const skipped =
-    results.filter(
-      item =>
-        item.status === "skipped"
-    ).length;
-
-  const missing =
-    results.filter(
-      item =>
-        item.status === "missing"
-    ).length;
-
-  const errors =
-    results.filter(
-      item =>
-        item.status === "error"
-    ).length;
 
 
   console.log("");
@@ -575,15 +326,11 @@ async function main() {
   );
 
   console.log(
-    `⏭️  มีอยู่แล้ว / ไม่สร้างซ้ำ: ${skipped}`
+    `⏭️ มีอยู่แล้ว: ${skipped}`
   );
 
   console.log(
-    `❌ ไม่พบ Original: ${missing}`
-  );
-
-  console.log(
-    `⚠️  Error: ${errors}`
+    `⚠️ Error: ${errors}`
   );
 
   console.log("");
@@ -595,17 +342,11 @@ async function main() {
 ========================================= */
 
 main().catch((error) => {
-
   console.error("");
-
   console.error(
     "เกิดข้อผิดพลาด:"
   );
-
-  console.error(
-    error
-  );
+  console.error(error);
 
   process.exit(1);
-
 });

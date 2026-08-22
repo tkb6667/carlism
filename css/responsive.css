@@ -266,16 +266,32 @@
     pointer-events: auto;
   }
 
-  .nav-menu a {
-    width: 100%;
-    padding: 14px 0;
-    border-bottom: 1px solid #ededed;
-    font-size: 12px;
-  }
+.nav-menu > a {
+  width: 100%;
+  padding: 14px 0;
+  border: 0;
+  font-size: 12px;
+}
 
-  .nav-menu a::after {
-    display: none;
-  }
+.nav-menu a::after {
+  display: none;
+}
+
+.nav-menu-company {
+  width: 100%;
+  margin-top: 10px;
+  padding-top: 10px;
+  display: flex;
+  flex-direction: column;
+  border-top: 1px solid #d9d9d9;
+}
+
+.nav-menu-company a {
+  width: 100%;
+  padding: 14px 0;
+  border: 0;
+  font-size: 12px;
+}
 
   .hero-overlay {
     background: transparent !important;
@@ -283,7 +299,6 @@
 
   .hero-image {
     filter: none !important;
-    opacity: 1 !important;
   }
 
   .product-sticky-nav.is-compact {

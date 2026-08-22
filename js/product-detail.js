@@ -1,35 +1,19 @@
 document.addEventListener("DOMContentLoaded", () => {
+  const $ = s => document.querySelector(s);
+  const params = new URLSearchParams(location.search);
 
-  const products =
-    Array.isArray(window.products)
-      ? window.products
-      : [];
+  const id = Number(params.get("id"));
+  const selectedIndex = Number(params.get("image"));
 
-  const params =
-    new URLSearchParams(
-      window.location.search
-    );
+  const products = Array.isArray(window.products)
+    ? window.products
+    : [];
 
-  const id =
-    Number(params.get("id"));
+  const product = products.find(
+    p => Number(p.id) === id
+  );
 
-  const product =
-    products.find(
-      item => Number(item.id) === id
-    );
-
-  if (!product) {
-    console.error(
-      "Product not found:",
-      id
-    );
-    return;
-  }
-
-
-  /* =========================================
-     CATEGORY
-  ========================================== */
+  if (!product) return;
 
   const categoryNames = {
     "wheels-suspension": "WHEELS & SUSPENSION",
@@ -40,43 +24,25 @@ document.addEventListener("DOMContentLoaded", () => {
     accessories: "ACCESSORIES"
   };
 
-  const categoryName =
-    categoryNames[product.category] ||
-    "PRODUCTS";
-
-
-  /* =========================================
-     INFO
-  ========================================== */
-
   document.title =
     `${product.name} | CARLISM TH`;
 
   const categoryLink =
-    document.querySelector(
-      "#detailCategoryLink"
-    );
+    $("#detailCategoryLink");
 
   if (categoryLink) {
     categoryLink.textContent =
-      categoryName;
+      categoryNames[product.category] ||
+      "PRODUCTS";
 
     categoryLink.href =
       `products.html?category=${product.category}`;
   }
 
-
-  function setText(id, value) {
-
-    const element =
-      document.querySelector(id);
-
-    if (element) {
-      element.textContent =
-        value || "-";
-    }
-  }
-
+  const setText = (selector, value) => {
+    const el = $(selector);
+    if (el) el.textContent = value || "-";
+  };
 
   setText(
     "#detailCategory",
@@ -97,14 +63,12 @@ document.addEventListener("DOMContentLoaded", () => {
   setText(
     "#detailSubtitle",
     product.subtitle ||
-    product.variant ||
-    ""
+    product.variant
   );
 
   setText(
     "#detailPrice",
-    product.price ||
-    "CONTACT"
+    product.price || "CONTACT"
   );
 
   setText(
@@ -124,198 +88,166 @@ document.addEventListener("DOMContentLoaded", () => {
     product.variant
   );
 
+  /* GALLERY */
 
-  /* =========================================
-     GALLERY
-  ========================================== */
+  const images =
+    product.gallery?.filter(Boolean) ||
+    [product.image].filter(Boolean);
+
+  const selected =
+    Number.isInteger(selectedIndex) &&
+    selectedIndex >= 0 &&
+    selectedIndex < images.length
+      ? selectedIndex
+      : 0;
 
   const gallery =
-    Array.isArray(product.gallery) &&
-    product.gallery.length
-      ? product.gallery
-      : [product.image];
+    product.album
+      ? images
+      : images[selected]
+        ? [images[selected]]
+        : [];
 
-  let index = 0;
-
+  let index =
+    product.album
+      ? selected
+      : 0;
 
   const mainImage =
-    document.querySelector(
-      "#detailMainImage"
-    );
+    $("#detailMainImage");
 
   const mainButton =
-    document.querySelector(
-      "#detailMainButton"
-    );
+    $("#detailMainButton");
 
   const thumbs =
-    document.querySelector(
-      "#detailThumbnails"
-    );
+    $("#detailThumbnails");
 
   const lightbox =
-    document.querySelector(
-      "#detailLightbox"
-    );
+    $("#detailLightbox");
 
   const lightboxImage =
-    document.querySelector(
-      "#detailLightboxImage"
-    );
+    $("#detailLightboxImage");
 
   const counter =
-    document.querySelector(
-      "#detailLightboxCounter"
-    );
+    $("#detailLightboxCounter");
 
+  const prev =
+    $("#detailLightboxPrev");
 
-  /* =========================================
-     WEBP PATH
-  ========================================== */
+  const next =
+    $("#detailLightboxNext");
 
-  function getThumbnailPath(imagePath) {
+  const close =
+    $("#detailLightboxClose");
 
-    if (!imagePath) {
-      return "";
+  /* WEBP */
+
+  const getThumb = src => {
+    if (!src) return "";
+
+    const path =
+      src.replace(/\\/g, "/");
+
+    if (/\/thumbs\/.+\.webp$/i.test(path)) {
+      return path;
     }
 
-    const normalized =
-      imagePath.replace(/\\/g, "/");
-
-    const slash =
-      normalized.lastIndexOf("/");
-
-    if (slash === -1) {
-      return imagePath;
-    }
-
-    const directory =
-      normalized.substring(
-        0,
-        slash
-      );
-
-    const filename =
-      normalized.substring(
-        slash + 1
-      );
-
-    const name =
-      filename.replace(
-        /\.[^/.]+$/,
-        ""
-      );
-
-    return (
-      `${directory}/thumbs/` +
-      `${name}.webp`
+    return path.replace(
+      /\/([^/]+)\.[^/.]+$/,
+      "/thumbs/$1.webp"
     );
-  }
+  };
 
+  const setImage = (element, original) => {
+    if (!element || !original) return;
 
-  /* =========================================
-     THUMBNAILS
-  ========================================== */
+    delete element.dataset.fallbackUsed;
 
-  thumbs.innerHTML =
-    gallery
-      .map(
-        (image, i) => {
-
-          const webp =
-            getThumbnailPath(image);
-
-          return `
-            <button
-              type="button"
-              class="detail-thumb ${
-                i === 0 ? "active" : ""
-              }"
-              data-index="${i}"
-            >
-              <img
-                src="${webp}"
-                data-original="${image}"
-                alt="${product.name} ${i + 1}"
-                loading="lazy"
-                decoding="async"
-              >
-            </button>
-          `;
-        }
-      )
-      .join("");
-
-
-  /* =========================================
-     THUMB FALLBACK
-  ========================================== */
-
-  thumbs
-    .querySelectorAll("img")
-    .forEach((image) => {
-
-      image.addEventListener(
-        "error",
-        () => {
-
-          const original =
-            image.dataset.original;
-
-          if (
-            original &&
-            image.dataset.fallbackUsed !== "true"
-          ) {
-
-            image.dataset.fallbackUsed =
-              "true";
-
-            image.src =
-              original;
-          }
-
-        }
-      );
-
-    });
-
-
-  /* =========================================
-     LOAD ORIGINAL IN BACKGROUND
-  ========================================== */
-
-  function loadFullImage(
-    original,
-    targetImage
-  ) {
-
-    const fullImage =
-      new Image();
-
-    fullImage.src =
+    element.dataset.original =
       original;
 
-    fullImage.onload = () => {
+    element.src =
+      getThumb(original);
 
+    element.onerror = () => {
       if (
-        lightbox.classList.contains("active") &&
+        element.dataset.fallbackUsed ===
+        "true"
+      ) return;
+
+      element.dataset.fallbackUsed =
+        "true";
+
+      element.src =
+        original;
+    };
+  };
+
+  const loadFull = original => {
+    if (!lightboxImage || !original) return;
+
+    const full = new Image();
+
+    full.src = original;
+
+    full.onload = () => {
+      if (
+        lightbox?.classList.contains("active") &&
         gallery[index] === original
       ) {
-
-        targetImage.src =
-          original;
-
+        lightboxImage.src = original;
       }
-
     };
+  };
+
+  /* THUMBNAILS */
+
+  if (thumbs) {
+    thumbs.style.display = "";
+
+    thumbs.innerHTML =
+      gallery
+        .map((image, i) => `
+          <button
+            type="button"
+            class="detail-thumb ${
+              i === index ? "active" : ""
+            }"
+            data-index="${i}"
+          >
+            <img
+              src="${getThumb(image)}"
+              data-original="${image}"
+              alt="${product.name} ${i + 1}"
+              loading="lazy"
+              decoding="async"
+            >
+          </button>
+        `)
+        .join("");
+
+    thumbs
+      .querySelectorAll("img")
+      .forEach(img => {
+        img.onerror = () => {
+          if (
+            img.dataset.fallbackUsed ===
+            "true"
+          ) return;
+
+          img.dataset.fallbackUsed =
+            "true";
+
+          img.src =
+            img.dataset.original;
+        };
+      });
   }
 
+  /* SHOW IMAGE */
 
-  /* =========================================
-     SHOW IMAGE
-  ========================================== */
-
-  function showImage(newIndex) {
+  const showImage = newIndex => {
+    if (!gallery.length) return;
 
     index =
       (newIndex + gallery.length) %
@@ -324,139 +256,70 @@ document.addEventListener("DOMContentLoaded", () => {
     const original =
       gallery[index];
 
-    const webp =
-      getThumbnailPath(original);
+    setImage(
+      mainImage,
+      original
+    );
 
+    if (counter) {
+      counter.textContent =
+        `${index + 1} / ${gallery.length}`;
+    }
 
-    /* MAIN IMAGE → WEBP */
-
-    delete mainImage.dataset.fallbackUsed;
-
-    mainImage.dataset.original =
-      original;
-
-    mainImage.src =
-      webp;
-
-    mainImage.alt =
-      `${product.name} ${index + 1}`;
-
-    mainImage.loading =
-      "eager";
-
-    mainImage.decoding =
-      "async";
-
-
-    /* WEBP ไม่มี → ORIGINAL */
-
-    mainImage.onerror = () => {
-
-      if (
-        mainImage.dataset.fallbackUsed !== "true"
-      ) {
-
-        mainImage.dataset.fallbackUsed =
-          "true";
-
-        mainImage.src =
-          original;
-
-      }
-
-    };
-
-
-    /* LIGHTBOX เปิดอยู่ */
+    thumbs
+      ?.querySelectorAll(".detail-thumb")
+      .forEach((button, i) => {
+        button.classList.toggle(
+          "active",
+          i === index
+        );
+      });
 
     if (
-      lightbox.classList.contains(
+      lightbox?.classList.contains(
         "active"
       )
     ) {
-
-      lightboxImage.src =
-        webp;
-
-      lightboxImage.alt =
-        `${product.name} ${index + 1}`;
-
-      loadFullImage(
-        original,
-        lightboxImage
+      setImage(
+        lightboxImage,
+        original
       );
 
+      loadFull(original);
     }
+  };
 
-
-    counter.textContent =
-      `${index + 1} / ${gallery.length}`;
-
-
-    thumbs
-      .querySelectorAll(
-        ".detail-thumb"
-      )
-      .forEach(
-        (button, i) => {
-
-          button.classList.toggle(
-            "active",
-            i === index
-          );
-
-        }
-      );
-  }
-
-
-  /* =========================================
-     THUMB CLICK
-  ========================================== */
-
-  thumbs.addEventListener(
+  thumbs?.addEventListener(
     "click",
-    (event) => {
-
+    event => {
       const button =
         event.target.closest(
           ".detail-thumb"
         );
 
-      if (!button) {
-        return;
-      }
+      if (!button) return;
 
       showImage(
-        Number(
-          button.dataset.index
-        )
+        Number(button.dataset.index)
       );
     }
   );
 
+  /* LIGHTBOX */
 
-  /* =========================================
-     LIGHTBOX
-  ========================================== */
-
-  function openLightbox() {
+  const openLightbox = () => {
+    if (
+      !lightbox ||
+      !gallery.length
+    ) return;
 
     const original =
       gallery[index];
 
-    const webp =
-      getThumbnailPath(original);
-
-
-    /* WEBP ขึ้นก่อนทันที */
-
-    lightboxImage.src =
-      webp;
-
-    lightboxImage.alt =
-      `${product.name} ${index + 1}`;
-
+    setImage(
+      lightboxImage,
+      original
+    );
 
     lightbox.classList.add(
       "active"
@@ -471,24 +334,15 @@ document.addEventListener("DOMContentLoaded", () => {
       "lightbox-open"
     );
 
+    loadFull(original);
+  };
 
-    /* ORIGINAL โหลดเบื้องหลัง */
-
-    loadFullImage(
-      original,
-      lightboxImage
-    );
-
-  }
-
-
-  function closeLightbox() {
-
-    lightbox.classList.remove(
+  const closeLightbox = () => {
+    lightbox?.classList.remove(
       "active"
     );
 
-    lightbox.setAttribute(
+    lightbox?.setAttribute(
       "aria-hidden",
       "true"
     );
@@ -496,129 +350,99 @@ document.addEventListener("DOMContentLoaded", () => {
     document.body.classList.remove(
       "lightbox-open"
     );
+  };
 
-    lightboxImage.removeAttribute(
-      "src"
-    );
-
-  }
-
-
-  mainButton.addEventListener(
+  mainButton?.addEventListener(
     "click",
     openLightbox
   );
 
-
-  document
-    .querySelector(
-      "#detailLightboxClose"
-    )
-    .addEventListener(
-      "click",
-      closeLightbox
-    );
-
-
-  document
-    .querySelector(
-      "#detailLightboxPrev"
-    )
-    .addEventListener(
-      "click",
-      () =>
-        showImage(index - 1)
-    );
-
-
-  document
-    .querySelector(
-      "#detailLightboxNext"
-    )
-    .addEventListener(
-      "click",
-      () =>
-        showImage(index + 1)
-    );
-
-
-  lightbox.addEventListener(
+  close?.addEventListener(
     "click",
-    (event) => {
+    closeLightbox
+  );
 
-      if (
-        event.target === lightbox
-      ) {
+  prev?.addEventListener(
+    "click",
+    () => showImage(index - 1)
+  );
+
+  next?.addEventListener(
+    "click",
+    () => showImage(index + 1)
+  );
+
+  const multiple =
+    gallery.length > 1;
+
+  if (prev) {
+    prev.style.display =
+      multiple ? "" : "none";
+  }
+
+  if (next) {
+    next.style.display =
+      multiple ? "" : "none";
+  }
+
+  lightbox?.addEventListener(
+    "click",
+    event => {
+      if (event.target === lightbox) {
         closeLightbox();
       }
-
     }
   );
 
-
-  /* =========================================
-     KEYBOARD
-  ========================================== */
+  /* KEYBOARD */
 
   document.addEventListener(
     "keydown",
-    (event) => {
-
+    event => {
       if (
-        !lightbox.classList.contains(
+        !lightbox?.classList.contains(
           "active"
         )
-      ) {
-        return;
-      }
+      ) return;
 
-      if (
-        event.key === "Escape"
-      ) {
+      if (event.key === "Escape") {
         closeLightbox();
       }
 
       if (
+        multiple &&
         event.key === "ArrowLeft"
       ) {
         showImage(index - 1);
       }
 
       if (
+        multiple &&
         event.key === "ArrowRight"
       ) {
         showImage(index + 1);
       }
-
     }
   );
 
-
-  /* =========================================
-     SWIPE
-  ========================================== */
+  /* SWIPE */
 
   let startX = 0;
 
-
-  lightbox.addEventListener(
+  lightbox?.addEventListener(
     "touchstart",
-    (event) => {
-
+    event => {
       startX =
         event.changedTouches[0]
           .clientX;
-
     },
-    {
-      passive: true
-    }
+    { passive: true }
   );
 
-
-  lightbox.addEventListener(
+  lightbox?.addEventListener(
     "touchend",
-    (event) => {
+    event => {
+      if (!multiple) return;
 
       const distance =
         event.changedTouches[0]
@@ -627,27 +451,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
       if (
         Math.abs(distance) < 50
-      ) {
-        return;
-      }
+      ) return;
 
       showImage(
         distance > 0
           ? index - 1
           : index + 1
       );
-
     },
-    {
-      passive: true
-    }
+    { passive: true }
   );
 
-
-  /* =========================================
-     INIT
-  ========================================== */
-
-  showImage(0);
-
+  showImage(index);
 });

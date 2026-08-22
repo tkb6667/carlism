@@ -4,9 +4,7 @@
 ========================================= */
 
 
-/* =========================================
-   DATA
-========================================= */
+/* DATA */
 
 const navItems = [
   {
@@ -26,10 +24,6 @@ const navItems = [
     href: "products.html?category=interior",
   },
   {
-    label: "ACCESSORIES",
-    href: "products.html?category=accessories",
-  },
-  {
     label: "TUNING",
     href: "products.html?category=tuning",
   },
@@ -38,7 +32,6 @@ const navItems = [
     href: "products.html?category=accessories",
   },
 ];
-
 
 const shopItems = [
   {
@@ -71,7 +64,6 @@ const shopItems = [
   },
 ];
 
-
 const serviceItems = [
   "Engine Tuning",
   "Custom Builds",
@@ -81,9 +73,7 @@ const serviceItems = [
 ];
 
 
-/* =========================================
-   HELPERS
-========================================= */
+/* HELPERS */
 
 const createLinks = (items) =>
   items
@@ -95,7 +85,6 @@ const createLinks = (items) =>
       `
     )
     .join("");
-
 
 const createDisabledLinks = (items) =>
   items
@@ -112,9 +101,7 @@ const createDisabledLinks = (items) =>
     .join("");
 
 
-/* =========================================
-   HEADER
-========================================= */
+/* HEADER */
 
 const headerHTML = `
   <div class="topbar">
@@ -134,8 +121,13 @@ const headerHTML = `
 
       </div>
 
+      <div class="topbar-links">
 
-      <div class="topbar-right">
+        <a href="about.html">
+          About Us
+        </a>
+
+        <span>/</span>
 
         <a href="contact.html">
           Contact
@@ -176,7 +168,21 @@ const headerHTML = `
 
 
       <div class="nav-menu">
+
         ${createLinks(navItems)}
+
+        <div class="nav-menu-company">
+
+          <a href="about.html">
+            ABOUT US
+          </a>
+
+          <a href="contact.html">
+            CONTACT
+          </a>
+
+        </div>
+
       </div>
 
     </div>
@@ -184,9 +190,7 @@ const headerHTML = `
 `;
 
 
-/* =========================================
-   FOOTER
-========================================= */
+/* FOOTER */
 
 const footerHTML = `
   <div class="footer">
@@ -194,29 +198,20 @@ const footerHTML = `
 
       <div class="footer-grid">
 
-
-        <!-- BRAND -->
-
         <div class="footer-brand">
 
-          <a
-            href="index.html"
-            class="footer-logo"
-            aria-label="CARLISM Home"
-          >
-            <img
-              src="assets/images/hero/Carlism Logo 1_0.png"
-              alt="CARLISM"
-              class="footer-logo-image"
-            >
-          </a>
-
+<div class="footer-logo">
+  <img
+    src="assets/images/hero/Carlism Logo 1_0.png"
+    alt="CARLISM"
+    class="footer-logo-image"
+  >
+</div>
 
           <p>
             Premium automotive parts and expert tuning
             for performance driven enthusiasts.
           </p>
-
 
           <div class="footer-social">
 
@@ -229,7 +224,6 @@ const footerHTML = `
               <i class="fa-brands fa-instagram"></i>
             </a>
 
-
             <a
               href="https://www.facebook.com/p/Carlism-TH-100092271006003/"
               aria-label="Facebook"
@@ -239,7 +233,6 @@ const footerHTML = `
               <i class="fa-brands fa-facebook-f"></i>
             </a>
 
-
             <a
               href="https://www.tiktok.com/@carlism.th"
               aria-label="TikTok"
@@ -248,7 +241,6 @@ const footerHTML = `
             >
               <i class="fa-brands fa-tiktok"></i>
             </a>
-
 
             <a
               href="https://line.me/R/ti/p/@carlismth"
@@ -264,8 +256,6 @@ const footerHTML = `
         </div>
 
 
-        <!-- SHOP -->
-
         <div>
 
           <h3 class="footer-title">
@@ -278,8 +268,6 @@ const footerHTML = `
 
         </div>
 
-
-        <!-- SERVICES -->
 
         <div>
 
@@ -294,8 +282,6 @@ const footerHTML = `
         </div>
 
 
-        <!-- CONTACT -->
-
         <div>
 
           <h3 class="footer-title">
@@ -309,55 +295,30 @@ const footerHTML = `
               class="footer-contact-row"
             >
               <i class="fa-solid fa-phone"></i>
-
-              <span>
-                +66 64 224 0333
-              </span>
+              <span>+66 64 224 0333</span>
             </a>
-
 
             <a
               href="mailto:info@carlismth.com"
               class="footer-contact-row"
             >
               <i class="fa-regular fa-envelope"></i>
-
-              <span>
-                info@Carlismth.com
-              </span>
+              <span>info@Carlismth.com</span>
             </a>
 
-
             <p class="footer-contact-row">
-
               <i class="fa-solid fa-location-dot"></i>
-
-              <span>
-                Bangkok, Thailand
-              </span>
-
+              <span>Bangkok, Thailand</span>
             </p>
 
-
             <p class="footer-contact-row">
-
               <i class="fa-brands fa-line"></i>
-
-              <span>
-                LINE ID: @carlismth
-              </span>
-
+              <span>LINE ID: @carlismth</span>
             </p>
 
-
             <p class="footer-contact-row">
-
               <i class="fa-brands fa-facebook"></i>
-
-              <span>
-                Facebook: Carlismth
-              </span>
-
+              <span>Facebook: Carlismth</span>
             </p>
 
           </div>
@@ -376,18 +337,17 @@ const footerHTML = `
 `;
 
 
-/* =========================================
-   RENDER
-========================================= */
+/* RENDER */
 
-const siteHeader = document.querySelector("#site-header");
-const siteFooter = document.querySelector("#site-footer");
+const siteHeader =
+  document.querySelector("#site-header");
 
+const siteFooter =
+  document.querySelector("#site-footer");
 
 if (siteHeader) {
   siteHeader.innerHTML = headerHTML;
 }
-
 
 if (siteFooter) {
   siteFooter.innerHTML = footerHTML;

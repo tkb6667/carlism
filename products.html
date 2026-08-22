@@ -2,7 +2,6 @@
 <html lang="en">
 
 <head>
-
   <meta charset="UTF-8">
 
   <meta
@@ -10,12 +9,7 @@
     content="width=device-width, initial-scale=1.0, viewport-fit=cover"
   >
 
-
-  <!-- SEO -->
-
-  <title>
-    Products | CARLISM TH
-  </title>
+  <title>Products | CARLISM TH</title>
 
   <meta
     id="seoDescription"
@@ -23,10 +17,7 @@
     content="Explore automotive parts, wheels, suspension, performance, exterior, interior, tuning and accessories from CARLISM TH."
   >
 
-  <meta
-    name="robots"
-    content="index, follow"
-  >
+  <meta name="robots" content="index, follow">
 
   <link
     id="canonicalUrl"
@@ -34,18 +25,8 @@
     href="https://tkb6667.github.io/carlism/products.html"
   >
 
-
-  <!-- OPEN GRAPH -->
-
-  <meta
-    property="og:type"
-    content="website"
-  >
-
-  <meta
-    property="og:site_name"
-    content="CARLISM TH"
-  >
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="CARLISM TH">
 
   <meta
     id="ogTitle"
@@ -71,9 +52,6 @@
     content="https://tkb6667.github.io/carlism/assets/images/hero/hero-mercedes.jpg.jpg"
   >
 
-
-  <!-- CONNECTION -->
-
   <link
     rel="preconnect"
     href="https://fonts.googleapis.com"
@@ -85,60 +63,29 @@
     crossorigin
   >
 
-
-  <!-- FONT -->
-
   <link
     href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap"
     rel="stylesheet"
   >
-
-
-  <!-- ICON -->
 
   <link
     rel="stylesheet"
     href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
   >
 
-
-  <!-- CSS -->
-
-  <link
-    rel="stylesheet"
-    href="css/components.css"
-  >
-
-  <link
-    rel="stylesheet"
-    href="css/products.css"
-  >
-
-  <link
-    rel="stylesheet"
-    href="css/responsive.css"
-  >
-
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/products.css">
+  <link rel="stylesheet" href="css/responsive.css">
 </head>
-
 
 <body>
 
-
-  <!-- HEADER -->
-
   <header id="site-header"></header>
-
-
-  <!-- =========================================
-       SHARED PRODUCT NAV
-  ========================================== -->
 
   <div
     class="product-sticky-nav"
     id="productStickyNav"
   >
-
     <a
       href="javascript:history.back()"
       class="sticky-back-link"
@@ -147,11 +94,7 @@
       BACK
     </a>
 
-
-    <span class="sticky-divider">
-      |
-    </span>
-
+    <span class="sticky-divider">|</span>
 
     <a
       href="index.html"
@@ -160,11 +103,7 @@
       HOME
     </a>
 
-
-    <span class="sticky-slash">
-      /
-    </span>
-
+    <span class="sticky-slash">/</span>
 
     <span
       class="sticky-current"
@@ -172,7 +111,6 @@
     >
       PRODUCTS
     </span>
-
 
     <button
       class="sticky-mobile-menu-toggle"
@@ -184,30 +122,17 @@
       <i class="fa-solid fa-bars"></i>
     </button>
 
-
     <div
       class="sticky-mobile-menu-panel"
       id="stickyMobileMenu"
     ></div>
-
   </div>
 
-
-  <!-- =========================================
-       MAIN
-  ========================================== -->
-
   <main>
-
-
-    <!-- HERO -->
 
     <section class="product-page-hero">
 
       <div class="container">
-
-
-        <!-- PC BREADCRUMB -->
 
         <div class="product-page-breadcrumb">
 
@@ -219,30 +144,17 @@
             BACK
           </a>
 
+          <span class="breadcrumb-divider">|</span>
 
-          <span class="breadcrumb-divider">
-            |
-          </span>
+          <a href="index.html">HOME</a>
 
-
-          <a href="index.html">
-            HOME
-          </a>
-
-
-          <span>
-            /
-          </span>
-
+          <span>/</span>
 
           <span id="breadcrumbCategory">
             PRODUCTS
           </span>
 
         </div>
-
-
-        <!-- HERO CONTENT -->
 
         <div class="product-hero-grid">
 
@@ -252,11 +164,9 @@
               CARLISM TH
             </p>
 
-
             <h1 id="categoryTitle">
               PRODUCTS
             </h1>
-
 
             <p
               class="product-page-description"
@@ -266,7 +176,6 @@
             </p>
 
           </div>
-
 
           <div class="product-hero-image">
 
@@ -284,9 +193,7 @@
     </section>
 
 
-    <!-- =========================================
-         FILTER
-    ========================================== -->
+    <!-- FILTER -->
 
     <section class="product-filter-section">
 
@@ -294,23 +201,37 @@
 
         <div class="product-filter-bar">
 
+          <div class="product-filter-scroll">
 
-          <div
-            class="product-filter-buttons"
-            id="productFilterButtons"
-          ></div>
+            <button
+              class="product-filter-arrow"
+              id="productFilterPrev"
+              type="button"
+              aria-label="Previous categories"
+            >
+              <i class="fa-solid fa-chevron-left"></i>
+            </button>
 
+            <div
+              class="product-filter-buttons"
+              id="productFilterButtons"
+            ></div>
 
-          <div class="product-count">
-
-            <span id="productCount">
-              0
-            </span>
-
-            PRODUCTS
+            <button
+              class="product-filter-arrow"
+              id="productFilterNext"
+              type="button"
+              aria-label="Next categories"
+            >
+              <i class="fa-solid fa-chevron-right"></i>
+            </button>
 
           </div>
 
+          <div class="product-count">
+            <span id="productCount">0</span>
+            PRODUCTS
+          </div>
 
         </div>
 
@@ -319,9 +240,7 @@
     </section>
 
 
-    <!-- =========================================
-         PRODUCTS
-    ========================================== -->
+    <!-- PRODUCTS -->
 
     <section class="product-list-section">
 
@@ -336,66 +255,39 @@
 
     </section>
 
-
   </main>
 
-
-  <!-- =========================================
-       NO JAVASCRIPT FALLBACK
-  ========================================== -->
 
   <noscript>
 
     <section class="container">
 
-      <h2>
-        CARLISM TH Products
-      </h2>
+      <h2>CARLISM TH Products</h2>
 
-      <p>
-        Browse our automotive product categories:
-      </p>
-
-      <nav
-        aria-label="Product categories"
-      >
-
-        <a
-          href="products.html?category=wheels-suspension"
-        >
+      <nav aria-label="Product categories">
+        <a href="products.html?category=wheels-suspension">
           Wheels & Suspension
         </a>
 
-        <a
-          href="products.html?category=performance"
-        >
+        <a href="products.html?category=performance">
           Performance
         </a>
 
-        <a
-          href="products.html?category=exterior"
-        >
+        <a href="products.html?category=exterior">
           Exterior
         </a>
 
-        <a
-          href="products.html?category=interior"
-        >
+        <a href="products.html?category=interior">
           Interior
         </a>
 
-        <a
-          href="products.html?category=tuning"
-        >
+        <a href="products.html?category=tuning">
           Tuning
         </a>
 
-        <a
-          href="products.html?category=accessories"
-        >
+        <a href="products.html?category=accessories">
           Accessories
         </a>
-
       </nav>
 
     </section>
@@ -403,12 +295,8 @@
   </noscript>
 
 
-  <!-- FOOTER -->
-
   <footer id="site-footer"></footer>
 
-
-  <!-- FLOATING CHAT -->
 
   <div class="floating-chat">
 
@@ -421,7 +309,6 @@
     >
       <span>LINE</span>
     </a>
-
 
     <a
       href="https://www.facebook.com/p/Carlism-TH-100092271006003/"
@@ -436,18 +323,11 @@
   </div>
 
 
-  <!-- JS -->
-
   <script src="data/products.js"></script>
-
   <script src="js/components.js"></script>
-
   <script src="js/main.js"></script>
-
   <script src="js/product-nav.js"></script>
-
   <script src="js/products.js"></script>
-
 
 </body>
 
