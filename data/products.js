@@ -122,7 +122,7 @@ const products = [
     )
   ),
 
-    product(
+  product(
     34,
     "wheels-suspension",
     "suspension",
@@ -195,6 +195,174 @@ const products = [
     )
   ),
 
+  product(
+    53,
+    "performance",
+    "performance",
+    "PERFORMANCE",
+    "CARLISM",
+    "Performance Upgrade",
+    "Performance Parts & Upgrade",
+    files(
+      "performance",
+      "6.jpg"
+    )
+  ),
+
+  product(
+    54,
+    "performance",
+    "performance",
+    "PERFORMANCE",
+    "CARLISM",
+    "Performance Upgrade",
+    "Performance Parts & Upgrade",
+    files(
+      "performance",
+      "7.jpg"
+    )
+  ),
+
+  product(
+    55,
+    "performance",
+    "performance",
+    "PERFORMANCE",
+    "CARLISM",
+    "Performance Upgrade",
+    "Performance Parts & Upgrade",
+    files(
+      "performance",
+      "8.jpg"
+    )
+  ),
+
+  product(
+    56,
+    "performance",
+    "performance",
+    "PERFORMANCE",
+    "CARLISM",
+    "Performance Upgrade",
+    "Performance Parts & Upgrade",
+    files(
+      "performance",
+      "9.jpg"
+    )
+  ),
+
+  product(
+    57,
+    "performance",
+    "performance",
+    "PERFORMANCE",
+    "CARLISM",
+    "Performance Upgrade",
+    "Performance Parts & Upgrade",
+    files(
+      "performance",
+      "10.jpg"
+    )
+  ),
+
+  product(
+    58,
+    "performance",
+    "performance",
+    "PERFORMANCE",
+    "CARLISM",
+    "Performance Upgrade",
+    "Performance Parts & Upgrade",
+    files(
+      "performance",
+      "11.jpg"
+    )
+  ),
+
+  product(
+    59,
+    "performance",
+    "performance",
+    "PERFORMANCE",
+    "CARLISM",
+    "Performance Upgrade",
+    "Performance Parts & Upgrade",
+    files(
+      "performance",
+      "12.jpg"
+    )
+  ),
+
+  product(
+    60,
+    "performance",
+    "performance",
+    "PERFORMANCE",
+    "CARLISM",
+    "Performance Upgrade",
+    "Performance Parts & Upgrade",
+    files(
+      "performance",
+      "13.jpg"
+    )
+  ),
+
+  product(
+    61,
+    "performance",
+    "performance",
+    "PERFORMANCE",
+    "CARLISM",
+    "Performance Upgrade",
+    "Performance Parts & Upgrade",
+    files(
+      "performance",
+      "14.jpg"
+    )
+  ),
+
+  product(
+    62,
+    "performance",
+    "performance",
+    "PERFORMANCE",
+    "CARLISM",
+    "Performance Upgrade",
+    "Performance Parts & Upgrade",
+    files(
+      "performance",
+      "S__167165975_0.jpg"
+    )
+  ),
+
+  product(
+    63,
+    "performance",
+    "performance",
+    "PERFORMANCE",
+    "CARLISM",
+    "Performance Upgrade",
+    "Performance Parts & Upgrade",
+    files(
+      "performance",
+      "S__167165976_0.jpg"
+    )
+  ),
+
+  product(
+    64,
+    "performance",
+    "performance",
+    "PERFORMANCE",
+    "CARLISM",
+    "Performance Upgrade",
+    "Performance Parts & Upgrade",
+    files(
+      "performance",
+      "S__167166012_0.jpg"
+    )
+  ),
+
 
   /* ACCESSORIES */
 
@@ -209,6 +377,90 @@ const products = [
     files(
       "Accessories",
       "DSC09270.jpg"
+    )
+  ),
+
+  product(
+    35,
+    "accessories",
+    "accessories",
+    "ACCESSORIES",
+    "CARLISM",
+    "Automotive Accessories",
+    "Selected Vehicle Accessories",
+    files(
+      "Accessories",
+      "S__167165974_0.jpg"
+    )
+  ),
+
+  product(
+    36,
+    "accessories",
+    "accessories",
+    "ACCESSORIES",
+    "CARLISM",
+    "Automotive Accessories",
+    "Selected Vehicle Accessories",
+    files(
+      "Accessories",
+      "S__167165989_0.jpg"
+    )
+  ),
+
+  product(
+    37,
+    "accessories",
+    "accessories",
+    "ACCESSORIES",
+    "CARLISM",
+    "Automotive Accessories",
+    "Selected Vehicle Accessories",
+    files(
+      "Accessories",
+      "S__167166001_0.jpg"
+    )
+  ),
+
+  product(
+    38,
+    "accessories",
+    "accessories",
+    "ACCESSORIES",
+    "CARLISM",
+    "Automotive Accessories",
+    "Selected Vehicle Accessories",
+    files(
+      "Accessories",
+      "S__167166006_0.jpg"
+    )
+  ),
+
+  product(
+    39,
+    "accessories",
+    "accessories",
+    "ACCESSORIES",
+    "CARLISM",
+    "Automotive Accessories",
+    "Selected Vehicle Accessories",
+    files(
+      "Accessories",
+      "S__167166015_0.jpg"
+    )
+  ),
+
+  product(
+    40,
+    "accessories",
+    "accessories",
+    "ACCESSORIES",
+    "CARLISM",
+    "Automotive Accessories",
+    "Selected Vehicle Accessories",
+    files(
+      "Accessories",
+      "S__167166016_0.jpg"
     )
   ),
 
@@ -267,6 +519,34 @@ const products = [
   ),
 
   product(
+    41,
+    "exterior",
+    "diffuser",
+    "DIFFUSER",
+    "CARLISM",
+    "Rear Diffuser",
+    "Rear Aero Styling",
+    files(
+      "exterior/diffuser",
+      "S__167165971_0.jpg"
+    )
+  ),
+
+  product(
+    42,
+    "exterior",
+    "diffuser",
+    "DIFFUSER",
+    "CARLISM",
+    "Rear Diffuser",
+    "Rear Aero Styling",
+    files(
+      "exterior/diffuser",
+      "S__167166007_0.jpg"
+    )
+  ),
+
+  product(
     25,
     "exterior",
     "canards",
@@ -285,6 +565,8 @@ const products = [
     )
   ),
 
+  
+
   product(
     26,
     "exterior",
@@ -295,11 +577,26 @@ const products = [
     "Rear Aero Upgrade",
     files(
       "exterior/spoiler",
-      "DSC00151.jpg",
       "DSC00569.jpg",
       "DSC08819.jpg",
       "DSC08903.jpg",
-      "DSC09057.jpg"
+      "DSC09057.jpg",
+      "2.jpg",
+      "DSC00151.jpg"
+    )
+  ),
+
+  product(
+    48,
+    "exterior",
+    "spoiler",
+    "SPOILER & WING",
+    "CARLISM",
+    "Spoiler & Wing",
+    "Rear Aero Upgrade",
+    files(
+      "exterior/spoiler",
+      "1.jpg"
     )
   ),
 
@@ -318,6 +615,20 @@ const products = [
   ),
 
   product(
+    47,
+    "exterior",
+    "side-mirrors",
+    "SIDE MIRRORS",
+    "CARLISM",
+    "Side Mirror Upgrade",
+    "Exterior Styling",
+    files(
+      "exterior/side mirrors",
+      "S__167166013_0.jpg"
+    )
+  ),
+
+  product(
     28,
     "exterior",
     "front-grille",
@@ -327,11 +638,13 @@ const products = [
     "Front-End Styling Upgrade",
     files(
       "exterior/Front Grille",
+      "S__167166004_0.jpg",
+      "DSC08936.jpg",
       "DSC00495.jpg",
-      "DSC08720.jpg",
-      "DSC08936.jpg"
+      "DSC08720.jpg"
     )
   ),
+
 
   product(
     29,
@@ -343,9 +656,25 @@ const products = [
     "Exterior Body Upgrade",
     files(
       "exterior/Hood & Trunk Lid",
-      "DSC00638.jpg",
+      "S__167165972_0.jpg",
+      "S__167165970_0.jpg",
       "DSC09701.jpg",
+      "DSC00638.jpg",
       "DSC09948.jpg"
+    )
+  ),
+
+  product(
+    46,
+    "exterior",
+    "hood-trunk-lid",
+    "HOOD & TRUNK LID",
+    "CARLISM",
+    "Hood & Trunk Lid",
+    "Exterior Body Upgrade",
+    files(
+      "exterior/Hood & Trunk Lid",
+      "S__167165977_0.jpg"
     )
   ),
 
@@ -374,8 +703,8 @@ const products = [
     files(
       "exterior/light",
       "DSC00093.jpg",
-      "DSC00124 (1).jpg",
-      "DSC00144 (1).jpg"
+      "DSC00124.jpg",
+      "DSC00144.jpg"
     )
   ),
 
@@ -473,6 +802,48 @@ const products = [
     files(
       "interior",
       "DSC00042.jpg"
+    )
+  ),
+
+  product(
+    50,
+    "interior",
+    "accessories",
+    "ACCESSORIES",
+    "CARLISM",
+    "Interior Upgrade",
+    "Interior Styling Upgrade",
+    files(
+      "interior",
+      "S167165992_0.jpg"
+    )
+  ),
+
+  product(
+    51,
+    "interior",
+    "accessories",
+    "ACCESSORIES",
+    "CARLISM",
+    "Interior Upgrade",
+    "Interior Styling Upgrade",
+    files(
+      "interior",
+      "S__167166010_0.jpg"
+    )
+  ),
+
+  product(
+    52,
+    "interior",
+    "accessories",
+    "ACCESSORIES",
+    "CARLISM",
+    "Interior Upgrade",
+    "Interior Styling Upgrade",
+    files(
+      "interior",
+      "S__167166011_0.jpg"
     )
   ),
 
