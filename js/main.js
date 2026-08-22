@@ -125,14 +125,13 @@ document.addEventListener("DOMContentLoaded", () => {
   ];
 
 const showcases = [
-  ["Showcase 1", "assets/images/hero/showcase/thumbs/1.webp"],
+  ["Showcase 5", "assets/images/hero/showcase/thumbs/5.webp"],
   ["Showcase 2", "assets/images/hero/showcase/thumbs/2.webp"],
   ["Showcase 3", "assets/images/hero/showcase/thumbs/3.webp"],
   ["Showcase 4", "assets/images/hero/showcase/thumbs/4.webp"],
-  ["Showcase 5", "assets/images/hero/showcase/thumbs/5.webp"],
+  ["Showcase 1", "assets/images/hero/showcase/thumbs/1.webp"],
   ["Showcase 6", "assets/images/hero/showcase/thumbs/6.webp"]
 ];
-
 
   /* CATEGORIES */
 
